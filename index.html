@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#0C0B09;--off:#131210;--dark:#1A1815;--card:#201E18;
+  --black:#0C0B09;--off:#131210;--dark:#1A1815;--card:#1C1A14;
   --border:rgba(255,255,255,.07);--border-g:rgba(212,175,100,.28);
   --gold:#D4AF64;--gold-l:#F0DFA8;--gold-d:rgba(212,175,100,.14);
   --cream:#F4EFE6;--muted:rgba(244,239,230,.44);--faint:rgba(244,239,230,.16);
@@ -17,21 +17,18 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;cursor:none;}
 
-/* CURSOR */
 #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
 #cur-r{position:fixed;width:30px;height:30px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.35;}
-
-/* GRAIN */
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.032;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.025;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(12,11,9,.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(12,11,9,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;}
 .logo-mark{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
 .logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);}}
 .nav-tabs{display:flex;gap:0;list-style:none;overflow-x:auto;}
-.nav-tab{padding:0 .9rem;height:60px;display:flex;align-items:center;font-size:11px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s;text-decoration:none;}
+.nav-tab{padding:0 .85rem;height:60px;display:flex;align-items:center;font-size:11px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s;text-decoration:none;}
 .nav-tab:hover,.nav-tab.active{color:var(--cream);}
 .nav-tab.active{border-bottom-color:var(--gold);}
 .nav-right{display:flex;gap:10px;align-items:center;flex-shrink:0;}
@@ -40,13 +37,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .btn-s{font-size:13px;padding:7px 18px;border:none;border-radius:3px;background:var(--gold);color:var(--black);cursor:pointer;font-weight:600;transition:background .2s;white-space:nowrap;}
 .btn-s:hover{background:var(--gold-l);}
 
-/* TOAST */
+/* TOAST / MODAL */
 .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--dark);border:1px solid var(--border-g);padding:13px 18px;border-radius:6px;font-size:13px;color:var(--cream);display:flex;align-items:center;gap:9px;opacity:0;transform:translateY(14px);transition:all .3s;pointer-events:none;}
 .toast.show{opacity:1;transform:none;}
 .tdot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-
-/* MODAL */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);z-index:500;align-items:center;justify-content:center;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:500;align-items:center;justify-content:center;}
 .modal-bg.open{display:flex;}
 .modal{background:var(--dark);border:1px solid var(--border-g);border-radius:10px;padding:2.5rem;max-width:480px;width:90%;position:relative;animation:su .35s ease;}
 @keyframes su{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
@@ -68,30 +63,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .tick-i{display:inline-flex;align-items:center;gap:12px;padding:0 2rem;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.04em;color:var(--muted);}
 .tk{width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0;}
 
-/* MANIFESTO */
-.manifesto{min-height:100vh;padding-top:60px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:100px 2rem 5rem;}
-.manifesto-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(212,175,100,.06) 0%,transparent 65%),radial-gradient(ellipse at 20% 80%,rgba(123,175,192,.04) 0%,transparent 60%);pointer-events:none;}
-.manifesto-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;gap:10px;}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
-.manifesto h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,96px);font-weight:300;line-height:1.0;letter-spacing:-.025em;color:var(--cream);margin-bottom:2.5rem;max-width:900px;}
+/* MANIFESTO HERO — full bleed image */
+.manifesto{min-height:100vh;padding-top:60px;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:hidden;}
+.manifesto-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&q=80&fit=crop');background-size:cover;background-position:center top;filter:brightness(.35);}
+.manifesto-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,11,9,.3) 0%,rgba(12,11,9,.6) 60%,rgba(12,11,9,1) 100%);}
+.manifesto-content{position:relative;z-index:1;padding:4rem 2rem 6rem;max-width:900px;}
+.manifesto-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;justify-content:center;gap:10px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;flex-shrink:0;}
+.manifesto h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,104px);font-weight:300;line-height:.95;letter-spacing:-.03em;color:var(--cream);margin-bottom:2rem;}
 .manifesto h1 em{font-style:italic;color:var(--gold);}
-.manifesto-text{font-size:clamp(15px,2vw,19px);font-weight:300;line-height:1.85;color:var(--muted);max-width:680px;margin:0 auto 3rem;}
+.manifesto-text{font-size:clamp(15px,1.8vw,19px);font-weight:300;line-height:1.85;color:rgba(244,239,230,.75);max-width:660px;margin:0 auto 3rem;}
 .manifesto-text strong{color:var(--cream);font-weight:500;}
 .manifesto-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.manifesto-stats{display:flex;gap:0;margin-top:5rem;border-top:1px solid var(--border);padding-top:3rem;width:100%;max-width:700px;justify-content:center;}
-.ms{flex:1;text-align:center;border-right:1px solid var(--border);}
+.manifesto-stats{display:flex;gap:0;margin-top:5rem;border-top:1px solid rgba(255,255,255,.1);padding-top:3rem;width:100%;}
+.ms{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,.08);}
 .ms:last-child{border-right:none;}
 .ms-n{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;}
 .ms-l{font-size:11px;color:var(--muted);margin-top:5px;}
 
-/* SECTION */
+/* SECTIONS */
 .sec{padding:5rem 2rem;border-top:1px solid var(--border);}
-.sec:nth-child(odd){background:var(--off);}
+.sec.dark-bg{background:var(--off);}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap;}
 .sec-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1.05;letter-spacing:-.02em;color:var(--cream);}
 .sec-title em{font-style:italic;color:var(--gold);}
 .sec-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:300px;text-align:right;}
+
+/* SECTION HERO IMAGE BANNERS */
+.sec-hero-img{width:100%;height:320px;border-radius:6px;overflow:hidden;position:relative;margin-bottom:2rem;}
+.sec-hero-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.55);}
+.sec-hero-img-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 2.5rem;background:linear-gradient(to top,rgba(12,11,9,.95) 0%,transparent 60%);}
+.shi-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem;}
+.shi-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,38px);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:.5rem;}
+.shi-text{font-size:13px;color:rgba(244,239,230,.7);line-height:1.6;max-width:600px;}
 
 /* GRIDS */
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
@@ -99,61 +104,54 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
 .gmag{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1px;background:var(--border);}
 
-/* ARTICLE CARD */
-.ac{background:var(--card);padding:1.75rem;cursor:pointer;transition:background .22s;position:relative;overflow:hidden;}
+/* ARTICLE CARD — with image */
+.ac{background:var(--card);cursor:pointer;transition:background .22s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
 .ac:hover{background:#252217;}
 .ac::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s;}
 .ac:hover::after{opacity:1;}
-.ac-emoji{font-size:26px;margin-bottom:1rem;display:block;}
-.ac-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px;display:inline-block;}
+.ac-img{width:100%;height:200px;object-fit:cover;display:block;filter:brightness(.8);transition:filter .3s,transform .4s;}
+.ac.big .ac-img{height:280px;}
+.ac:hover .ac-img{filter:brightness(.9);transform:scale(1.02);}
+.ac-img-wrap{overflow:hidden;flex-shrink:0;}
+.ac-body{padding:1.4rem;display:flex;flex-direction:column;flex:1;}
+.ac-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:inline-block;}
 .ac-title{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.25;color:var(--cream);margin-bottom:8px;}
-.ac-title.sm{font-size:17px;}.ac-title.md{font-size:21px;}.ac-title.lg{font-size:27px;}
-.ac-text{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:1rem;}
-.ac-text.b{font-size:14px;}
-.ac-foot{display:flex;justify-content:space-between;align-items:center;}
+.ac-title.sm{font-size:16px;}.ac-title.md{font-size:20px;}.ac-title.lg{font-size:26px;}
+.ac-text{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:1rem;flex:1;}
+.ac-text.b{font-size:13px;}
+.ac-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
 .ac-meta{font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);letter-spacing:.04em;}
 .ac-read{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateX(-8px);transition:all .22s;}
 .ac:hover .ac-read{opacity:1;transform:none;}
 .c1{color:var(--c1);}.c2{color:var(--c2);}.c3{color:var(--c3);}.c4{color:var(--c4);}.c5{color:var(--c5);}.c6{color:var(--c6);}.c7{color:var(--c7);}
 .ac.a1::after{background:var(--c1);}.ac.a2::after{background:var(--c2);}.ac.a3::after{background:var(--c3);}.ac.a4::after{background:var(--c4);}.ac.a5::after{background:var(--c5);}.ac.a6::after{background:var(--c6);}.ac.a7::after{background:var(--c7);}
 
-/* HERO STACK */
-.hero-stack{display:flex;flex-direction:column;}
-.hc{padding:1.5rem 2rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .22s;background:var(--card);position:relative;overflow:hidden;}
-.hc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .3s;}
-.hc:hover{background:#252217;}.hc:hover::before{transform:scaleY(1);}
-.hc-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:block;}
-.hc-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;line-height:1.25;color:var(--cream);margin-bottom:6px;}
-.hc-src{font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);}
-
 /* STOIC */
-.stoic{padding:4.5rem 2rem;background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden;}
-.stoic-bg{position:absolute;font-family:'Cormorant Garamond',serif;font-size:320px;font-weight:700;color:rgba(212,175,100,.035);top:-80px;left:50%;transform:translateX(-50%);pointer-events:none;white-space:nowrap;}
+.stoic{padding:5rem 2rem;position:relative;overflow:hidden;}
+.stoic-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80&fit=crop');background-size:cover;background-position:center;filter:brightness(.2);}
+.stoic-overlay{position:absolute;inset:0;background:rgba(12,11,9,.7);}
+.stoic-inner{position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto;}
 .stoic-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block;}
-.stoic-q{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,38px);font-weight:300;font-style:italic;color:var(--cream);line-height:1.35;max-width:700px;margin:0 auto 1rem;position:relative;z-index:1;}
+.stoic-q{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,38px);font-weight:300;font-style:italic;color:var(--cream);line-height:1.35;margin-bottom:1rem;}
 .stoic-a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);}
 
-/* VIVACIDADE HERO */
-.viv-hero{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:1px;}
-.viv-manifesto{background:var(--c4);padding:3rem;display:flex;flex-direction:column;justify-content:space-between;min-height:380px;}
-.viv-m-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--black);line-height:1.1;}
-.viv-m-text{font-size:14px;color:rgba(0,0,0,.65);line-height:1.75;margin-top:1rem;}
-.viv-m-stat{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--black);line-height:1;margin-top:2rem;}
-.viv-m-stat span{font-size:13px;font-family:'Outfit',sans-serif;color:rgba(0,0,0,.6);display:block;margin-top:4px;}
-
-/* ICONS row */
+/* VIVACIDADE */
+.viv-manifesto-wrap{background:var(--gold);border-radius:8px;padding:3rem;margin-bottom:1rem;}
 .viv-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:1px;}
-.viv-pillar{background:var(--card);padding:1.5rem;text-align:center;}
-.viv-pillar-icon{font-size:36px;margin-bottom:1rem;display:block;}
-.viv-pillar-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
+.viv-pillar{background:var(--card);padding:1.5rem;}
+.viv-pillar-icon{font-size:32px;margin-bottom:1rem;display:block;}
+.viv-pillar-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:.5rem;}
 .viv-pillar-text{font-size:12px;color:var(--muted);line-height:1.6;}
 
-/* INFLUENCER CARDS */
-.inf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
-.inf-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;text-align:center;transition:border-color .2s;}
+/* INFLUENCERS — AGEIST style with real photos */
+.inf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+.inf-card{background:var(--card);border-radius:6px;overflow:hidden;border:1px solid var(--border);transition:border-color .2s;}
 .inf-card:hover{border-color:var(--border-g);}
-.inf-avatar{width:70px;height:70px;border-radius:50%;background:var(--gold-d);border:2px solid var(--border-g);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:28px;}
-.inf-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:3px;}
+.inf-photo{width:100%;height:260px;object-fit:cover;object-position:top;display:block;filter:brightness(.85);transition:filter .3s,transform .4s;}
+.inf-card:hover .inf-photo{filter:brightness(1);transform:scale(1.03);}
+.inf-photo-wrap{overflow:hidden;}
+.inf-body{padding:1.25rem;}
+.inf-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:2px;}
 .inf-handle{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.06em;margin-bottom:.75rem;}
 .inf-bio{font-size:12px;color:var(--muted);line-height:1.6;}
 .inf-badge{display:inline-block;margin-top:.75rem;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px;background:var(--gold-d);color:var(--gold);}
@@ -162,34 +160,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
 .vid-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s;}
 .vid-card:hover{border-color:var(--border-g);}
-.vid-thumb{position:relative;background:#111;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;}
+.vid-thumb{position:relative;background:#111;aspect-ratio:16/9;}
 .vid-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.vid-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);z-index:2;transition:background .2s;pointer-events:none;}
-.vid-play-btn{width:56px;height:56px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;}
-.vid-play-btn svg{width:22px;height:22px;fill:var(--black);margin-left:3px;}
 .vid-info{padding:1rem;}
 .vid-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
 .vid-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--cream);line-height:1.3;}
 
 /* BONDADE */
-.bond-act{background:var(--dark);border:1px solid var(--border-g);border-radius:8px;padding:2rem 2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-bottom:2rem;}
-.bond-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;display:flex;align-items:center;gap:8px;}
-.bond-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,34px);font-weight:700;color:var(--cream);line-height:1.2;}
-.bond-badge{background:var(--gold);color:var(--black);padding:1rem 1.5rem;border-radius:6px;text-align:center;min-width:90px;}
-.bond-badge-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1;}
-.bond-badge-l{font-size:11px;font-weight:600;margin-top:2px;}
 .bond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.bond-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;}
+.bond-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s;}
 .bond-card:hover{border-color:var(--border-g);}
-.bond-emoji{font-size:28px;margin-bottom:.75rem;}
+.bond-card-img{width:100%;height:180px;object-fit:cover;filter:brightness(.7);display:block;transition:filter .3s;}
+.bond-card:hover .bond-card-img{filter:brightness(.9);}
+.bond-card-body{padding:1.25rem;}
 .bond-card-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--cream);line-height:1.3;margin-bottom:.5rem;}
 .bond-card-text{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:.75rem;}
 .bond-impact{padding:.6rem .9rem;background:rgba(123,173,168,.1);border-left:3px solid var(--c6);border-radius:0 3px 3px 0;font-size:11px;color:var(--c6);line-height:1.5;}
 
 /* FAZ A DIFERENÇA */
 .fad-wrap{max-width:900px;margin:0 auto;}
-.fad-intro{text-align:center;margin-bottom:3rem;}
-.fad-intro p{font-size:15px;color:var(--muted);line-height:1.75;max-width:600px;margin:0 auto;}
 .fad-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2.5rem;}
 .fad-act{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.25rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px;}
 .fad-act:hover{border-color:var(--border-g);background:#252217;}
@@ -197,13 +186,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .fad-act-emoji{font-size:22px;flex-shrink:0;margin-top:1px;}
 .fad-act-name{font-weight:500;font-size:14px;color:var(--cream);margin-bottom:3px;}
 .fad-act-desc{font-size:12px;color:var(--muted);line-height:1.5;}
-.fad-commit{text-align:center;margin-bottom:3rem;}
-.fad-input-row{display:flex;gap:10px;max-width:440px;margin:1rem auto;}
-.fad-nick{flex:1;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:3px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--cream);outline:none;transition:border-color .2s;}
-.fad-nick:focus{border-color:var(--gold);}
-.fad-nick::placeholder{color:var(--faint);}
-.fad-btn{padding:11px 24px;background:var(--gold);color:var(--black);border:none;border-radius:3px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap;}
-.fad-btn:hover{background:var(--gold-l);}
 .fad-counter{background:var(--dark);border:1px solid var(--border-g);border-radius:8px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
 .fad-count-n{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--gold);line-height:1;}
 .fad-count-l{font-size:13px;color:var(--muted);}
@@ -211,15 +193,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .fad-mural{display:flex;flex-wrap:wrap;gap:8px;}
 .fad-mural-item{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;}
 .fad-mural-nick{color:var(--gold);font-weight:500;}
+.fad-input-row{display:flex;gap:10px;max-width:440px;margin:1rem auto;}
+.fad-nick{flex:1;padding:11px 15px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:3px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--cream);outline:none;transition:border-color .2s;}
+.fad-nick:focus{border-color:var(--gold);}
+.fad-nick::placeholder{color:var(--faint);}
+.fad-btn{padding:11px 24px;background:var(--gold);color:var(--black);border:none;border-radius:3px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.fad-btn:hover{background:var(--gold-l);}
 
 /* A RIR */
 .rir-intro{background:var(--dark);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;}
-.rir-intro-emoji{font-size:48px;}
-.rir-intro-text{font-size:14px;color:var(--muted);line-height:1.7;}
-.rir-intro-text strong{color:var(--cream);}
 
-/* NEWSLETTER */
-.nl{background:var(--dark);border-top:1px solid var(--border);padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+/* NEWSLETTER — full bleed */
+.nl-wrap{position:relative;overflow:hidden;}
+.nl-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600&q=80&fit=crop');background-size:cover;background-position:center;filter:brightness(.2);}
+.nl-overlay{position:absolute;inset:0;background:rgba(12,11,9,.8);}
+.nl{position:relative;z-index:1;padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
 .nl-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:1rem;}
 .nl-title em{font-style:italic;color:var(--gold);}
 .nl-desc{font-size:14px;color:var(--muted);line-height:1.75;}
@@ -331,7 +319,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </style>
 </head>
 <body>
-
 <div id="cur"></div><div id="cur-r"></div>
 <div class="toast" id="toast"><div class="tdot"></div><span id="tmsg"></span></div>
 
@@ -340,7 +327,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
   <button class="modal-x" onclick="closeModal()">✕</button>
   <div style="font-size:2.2rem;margin-bottom:.75rem">☀</div>
   <div class="modal-title">Começa o dia com Pulso</div>
-  <div class="modal-sub">Seis secções de bom. Sem drama, sem negatividade, sem ruído. Só o que merece o teu tempo e o teu sorriso.</div>
+  <div class="modal-sub">Seis secções de bom. Sem drama, sem negatividade. Só o que merece o teu tempo e o teu sorriso.</div>
   <input class="fi" type="text" placeholder="O teu nome">
   <input class="fi" type="email" placeholder="O teu email">
   <select class="fi"><option>Gratuito — 3 notícias por semana</option><option>Premium 3€/mês — Diário + exclusivos</option><option>Premium 25€/ano — Melhor valor</option></select>
@@ -367,29 +354,31 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
   </div>
 </nav>
 
-<!-- ═══════════════════ PUBLIC ═══════════════════ -->
+<!-- ═══════ PUBLIC ═══════ -->
 <div id="pub">
 
-<!-- MANIFESTO -->
+<!-- MANIFESTO HERO -->
 <section class="manifesto" id="topo">
-  <div class="manifesto-bg"></div>
-  <div class="manifesto-eyebrow fu"><div class="live-dot"></div><span id="today-d"></span> · Edição diária</div>
-  <h1 class="fu2">De más notícias,<br>já <em>chega.</em></h1>
-  <p class="manifesto-text fu3">
-    O mundo tem problemas — isso não é novidade, os jornais tratam disso.<br>
-    Mas tem também <strong>cientistas a curar doenças</strong>, pessoas a plantar florestas sozinhas,
-    crianças a receber flores de estranhos, avós a correr maratonas, e alguém algures
-    a pagar o café ao de trás na fila.<br><br>
-    <strong>Isso também é real. E é aqui que mora.</strong>
-  </p>
-  <div class="manifesto-cta fu3">
-    <button class="btn-s" style="padding:13px 32px;font-size:15px" onclick="openModal()">Subscrever grátis</button>
-    <a href="#actualidade" class="btn-g" style="padding:13px 24px;font-size:12px">Ler agora →</a>
-  </div>
-  <div class="manifesto-stats fu3">
-    <div class="ms"><div class="ms-n" id="s1">14.2k</div><div class="ms-l">Subscritores</div></div>
-    <div class="ms"><div class="ms-n">7</div><div class="ms-l">Secções temáticas</div></div>
-    <div class="ms"><div class="ms-n">∞</div><div class="ms-l">Razões para sorrir</div></div>
+  <div class="manifesto-img"></div>
+  <div class="manifesto-overlay"></div>
+  <div class="manifesto-content">
+    <div class="manifesto-eyebrow fu"><div class="live-dot"></div><span id="today-d"></span> · Edição diária</div>
+    <h1 class="fu2">De más notícias,<br>já <em>chega.</em></h1>
+    <p class="manifesto-text fu3">
+      O mundo tem problemas — isso não é novidade, os jornais tratam disso.<br>
+      Mas tem também <strong>cientistas a curar doenças</strong>, pessoas a plantar florestas sozinhas,
+      crianças a receber flores de estranhos, avós a correr maratonas.<br><br>
+      <strong>Isso também é real. E é aqui que mora.</strong>
+    </p>
+    <div class="manifesto-cta fu3">
+      <button class="btn-s" style="padding:13px 32px;font-size:15px" onclick="openModal()">Subscrever grátis</button>
+      <a href="#actualidade" class="btn-g" style="padding:13px 24px;font-size:12px">Ler agora →</a>
+    </div>
+    <div class="manifesto-stats fu3">
+      <div class="ms"><div class="ms-n">14.2k</div><div class="ms-l">Subscritores</div></div>
+      <div class="ms"><div class="ms-n">7</div><div class="ms-l">Secções temáticas</div></div>
+      <div class="ms"><div class="ms-n">∞</div><div class="ms-l">Razões para sorrir</div></div>
+    </div>
   </div>
 </section>
 
@@ -397,10 +386,20 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 <div class="ticker"><div class="tick-t" id="ticker"></div></div>
 
 <!-- ACTUALIDADE -->
-<section class="sec" id="actualidade">
+<section class="sec dark-bg" id="actualidade">
   <div class="sec-top rv">
     <div><div class="sec-eye c1">● Actualidade</div><div class="sec-title">O que mudou para<br><em>melhor</em> hoje</div></div>
     <div class="sec-desc">As notícias positivas que os grandes meios não destacam. Progresso real, todos os dias.</div>
+  </div>
+  <div class="rv">
+    <div class="sec-hero-img">
+      <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&q=80&fit=crop" alt="Energia renovável" style="width:100%;height:100%;object-fit:cover;">
+      <div class="sec-hero-img-overlay">
+        <div class="shi-eyebrow c1">● Destaque do dia</div>
+        <div class="shi-title">Portugal lidera Europa com 94% de energia renovável</div>
+        <div class="shi-text">Pela primeira vez na história, Portugal produziu mais energia do que consumiu durante 6 dias consecutivos usando apenas fontes renováveis.</div>
+      </div>
+    </div>
   </div>
   <div class="gmag rv" id="g-act"></div>
 </section>
@@ -411,139 +410,115 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <div><div class="sec-eye c2">● Ciência & Medicina</div><div class="sec-title">Descobertas que<br><em>curam e inspiram</em></div></div>
     <div class="sec-desc">Investigação, inovação e avanços médicos que mudam vidas reais.</div>
   </div>
-  <div class="g4 rv" id="g-cim" style="margin-bottom:1px"></div>
+  <div class="rv">
+    <div class="sec-hero-img">
+      <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=1400&q=80&fit=crop" alt="Ciência" style="width:100%;height:100%;object-fit:cover;">
+      <div class="sec-hero-img-overlay">
+        <div class="shi-eyebrow c2">● Avanço histórico</div>
+        <div class="shi-title">Nova terapia atrasa Alzheimer em 40%</div>
+        <div class="shi-text">Ensaio clínico europeu com 3.000 doentes regista eficácia sem precedentes na história desta doença devastadora.</div>
+      </div>
+    </div>
+  </div>
+  <div class="g4 rv" id="g-cim"></div>
 </section>
 
 <!-- STOIC -->
 <div class="stoic rv" id="stoic-block">
-  <div class="stoic-bg">"</div>
-  <span class="stoic-lbl">Sabedoria do Dia</span>
-  <div class="stoic-q" id="sq"></div>
-  <div class="stoic-a" id="sa"></div>
+  <div class="stoic-img"></div>
+  <div class="stoic-overlay"></div>
+  <div class="stoic-inner">
+    <span class="stoic-lbl">Sabedoria do Dia · Estoicismo</span>
+    <div class="stoic-q" id="sq"></div>
+    <div class="stoic-a" id="sa"></div>
+  </div>
 </div>
 
 <!-- VIVACIDADE -->
-<section class="sec" id="vivacidade">
+<section class="sec dark-bg" id="vivacidade">
   <div class="sec-top rv">
     <div><div class="sec-eye c4">● Vivacidade</div><div class="sec-title">Quem disse que<br>já não tens <em>idade?</em></div></div>
     <div class="sec-desc">Garra, estilo, gosto pela vida — com ou sem a aprovação de quem acha que já passou o prazo.</div>
   </div>
 
-  <!-- JUAN Y MEDIO QUOTE BLOCK -->
-  <div class="rv" style="margin-bottom:1px">
-    <div style="background:var(--dark);border:1px solid var(--border-g);border-radius:8px;padding:2.5rem 3rem;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;margin-bottom:2rem">
-      <div style="font-size:72px;line-height:1">🎙️</div>
-      <div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Juan y Medio · Canal Sur · Alegato viral</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,28px);font-style:italic;font-weight:300;color:var(--cream);line-height:1.4;margin-bottom:1rem">"A solidão dos mais velhos é um crime contra a humanidade. Tentamos consciencializar as pessoas em cada fórum e tribuna — porque eles têm vitalidade, têm ilusão, têm garra. A sociedade é que os amortizou antes do tempo."</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.7">O apresentador do programa <em>La Tarde, Aqui y Ahora</em> (Canal Sur), onde pessoas 60+ encontram amizade e amor em directo, lançou um alegato desgarrador: os mais velhos <strong style="color:var(--cream)">"falam absolutamente de tudo, com uma naturalidade que espanta"</strong> — e a sociedade continua a tratá-los como se já não contassem. Ele recusa-se a aceitar isso. Nós também.</div>
+  <!-- Hero image banner -->
+  <div class="rv">
+    <div class="sec-hero-img" style="height:420px">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=80&fit=crop" alt="Vivacidade" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;">
+      <div class="sec-hero-img-overlay">
+        <div class="shi-eyebrow c4">● Juan y Medio · Canal Sur · Alegato viral</div>
+        <div class="shi-title" style="max-width:700px">"A solidão dos mais velhos é um crime contra a humanidade."</div>
+        <div class="shi-text">O apresentador que luta diariamente contra o isolamento dos mais velhos — e que nos lembra que eles têm vitalidade, ilusão e garra. A sociedade é que os amortizou antes do tempo.</div>
       </div>
     </div>
   </div>
 
-  <!-- MANIFESTO IRREVERENTE -->
-  <div class="rv" style="margin-bottom:1px">
-    <div style="background:var(--c4);border-radius:8px;padding:3rem;margin-bottom:1rem">
+  <!-- Manifesto -->
+  <div class="rv" style="margin-bottom:1rem">
+    <div class="viv-manifesto-wrap">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center">
         <div>
           <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,52px);font-weight:700;color:var(--black);line-height:1.05;margin-bottom:1.5rem">Ser coqueta<br>não tem<br>data de validade.</div>
-          <div style="font-size:15px;color:rgba(0,0,0,.7);line-height:1.8;margin-bottom:1.5rem">Queres aprender a dançar salsa aos 68? <strong>Óptimo.</strong> Queres ser fashion, irreverente, sexy? <strong>Faz-te a vida.</strong> Queres sair à noite, beber um copo com amigos, viajar sozinha para o Japão? <strong>Vai já.</strong><br><br>Quem disse que já não tens idade para isso? Não ligues. Eles é que estão enganados — e provavelmente com inveja.</div>
-          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:rgba(0,0,0,.6);font-style:italic">"¿Quién siente la edad que tiene?" — Juan y Medio perguntou ao público. Quase ninguém levantou a mão. Exacto.</div>
+          <div style="font-size:15px;color:rgba(0,0,0,.7);line-height:1.8;margin-bottom:1.5rem">Queres aprender a dançar salsa aos 68? <strong>Óptimo.</strong> Queres ser fashion, irreverente, sexy? <strong>Faz-te a vida.</strong> Queres sair à noite, beber um copo, viajar sozinha? <strong>Vai já.</strong><br><br>Quem disse que já não tens idade para isso? Não ligues. Eles é que estão enganados.</div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;color:rgba(0,0,0,.55);font-style:italic">"¿Quién siente la edad que tiene?" — Juan y Medio perguntou ao público do Canal Sur. Quase ninguém levantou a mão. Exacto.</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:1rem">
-          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">+7 anos</div>
-            <div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">vivem mais as pessoas com amizades próximas — Harvard Study of Adult Development, 85 anos de estudo</div>
-          </div>
-          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">35%</div>
-            <div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">menos risco de Alzheimer com 30 min de movimento diário — e dançar é ainda mais eficaz</div>
-          </div>
-          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">≠ 0</div>
-            <div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">o número de coisas para as quais "já tens tarde demais" — desde que estejas vivo</div>
-          </div>
+          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">+7 anos</div><div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">vivem mais pessoas com amizades próximas — Harvard Study of Adult Development, 85 anos</div></div>
+          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">35%</div><div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">menos risco de Alzheimer com 30 min de movimento diário — dançar é ainda mais eficaz</div></div>
+          <div style="background:rgba(0,0,0,.1);border-radius:6px;padding:1.25rem"><div style="font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:var(--black);line-height:1">≠ 0</div><div style="font-size:12px;color:rgba(0,0,0,.65);margin-top:4px;line-height:1.5">o número de coisas para as quais "já tens tarde demais" — desde que estejas vivo</div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PILLARS -->
+  <!-- Pillars -->
   <div class="viv-pillars rv" style="margin-bottom:1px">
-    <div class="viv-pillar">
-      <span class="viv-pillar-icon">💪</span>
-      <div class="viv-pillar-title">Desporto & Longevidade</div>
-      <div class="viv-pillar-text">Fauja Singh correu maratonas até aos 101. Joan MacDonald começou musculação aos 70. O teu corpo não sabe a tua idade — só sabe o que lhe pedes. A ciência confirma: exercício é o medicamento mais eficaz para o cérebro, humor e longevidade.</div>
-    </div>
-    <div class="viv-pillar">
-      <span class="viv-pillar-icon">💃</span>
-      <div class="viv-pillar-title">Dança — a melhor medicina</div>
-      <div class="viv-pillar-text">Harvard confirmou: dançar é a única actividade que <em>reverte</em> o envelhecimento cerebral, em vez de apenas atrasá-lo. Memória, coordenação, alegria, socialização — tudo de uma vez. E ainda é a coisa mais divertida que existe.</div>
-    </div>
-    <div class="viv-pillar">
-      <span class="viv-pillar-icon">🥂</span>
-      <div class="viv-pillar-title">Amigos, copos & gargalhadas</div>
-      <div class="viv-pillar-text">Não estamos a falar de clubes de leitura. Estamos a falar de sair à sexta, beber um copo, gargalhar até tarde, planear uma viagem de improviso com os amigos. A solidão mata — a amizade salva. Não há medicamento mais poderoso.</div>
-    </div>
-    <div class="viv-pillar">
-      <span class="viv-pillar-icon">✨</span>
-      <div class="viv-pillar-title">Estilo, garra & zero desculpas</div>
-      <div class="viv-pillar-text">Ser fashion não é privilégio de jovens. Ser irreverente, coqueta, bem disposta — isso não tem prazo. Iris Apfel tornou-se ícone de moda aos 90. A única pessoa que pode decidir como te apresentas ao mundo és tu.</div>
-    </div>
+    <div class="viv-pillar"><span class="viv-pillar-icon">💪</span><div class="viv-pillar-title">Desporto & Longevidade</div><div class="viv-pillar-text">Fauja Singh correu maratonas até aos 101. Joan MacDonald começou musculação aos 70. O teu corpo não sabe a tua idade — só sabe o que lhe pedes.</div></div>
+    <div class="viv-pillar"><span class="viv-pillar-icon">💃</span><div class="viv-pillar-title">Dança — a melhor medicina</div><div class="viv-pillar-text">Harvard confirmou: dançar é a única actividade que reverte o envelhecimento cerebral. Memória, coordenação, alegria, socialização — tudo de uma vez.</div></div>
+    <div class="viv-pillar"><span class="viv-pillar-icon">🥂</span><div class="viv-pillar-title">Amigos, copos & gargalhadas</div><div class="viv-pillar-text">Não estamos a falar de clubes de leitura. Estamos a falar de sair à sexta, beber um copo, gargalhar até tarde. A solidão mata — a amizade salva.</div></div>
+    <div class="viv-pillar"><span class="viv-pillar-icon">✨</span><div class="viv-pillar-title">Estilo, garra & zero desculpas</div><div class="viv-pillar-text">Iris Apfel tornou-se ícone de moda aos 90. Ser fashion, irreverente, coqueta — isso não tem prazo. A única pessoa que decide como te apresentas és tu.</div></div>
   </div>
 
-  <!-- SOLIDÃO / DEPRESSÃO BLOCK -->
+  <!-- Solidão block -->
   <div class="rv" style="margin-bottom:2rem;margin-top:1px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)">
-      <div style="background:#1a0a0a;border-left:4px solid #C07878;padding:2rem 2.5rem">
+      <div style="background:#150808;border-left:4px solid #C07878;padding:2rem 2.5rem">
         <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#C07878;margin-bottom:1rem">O problema real</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,30px);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:1rem">"A solidão dos mais velhos é um crime contra a humanidade."</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.75">O cirurgião-geral dos EUA declarou a solidão emergência de saúde pública. Juan y Medio luta contra ela todos os dias no Canal Sur. Em Portugal, 800.000 pessoas com mais de 65 anos vivem sozinhas — e muitas não falam com ninguém durante dias.<br><br><strong style="color:var(--cream)">Isto não é inevitável. É uma escolha colectiva que podemos mudar.</strong></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,28px);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:1rem">"A solidão dos mais velhos é um crime contra a humanidade."</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.75">O cirurgião-geral dos EUA declarou a solidão emergência de saúde pública. Em Portugal, 800.000 pessoas com mais de 65 anos vivem sozinhas — muitas não falam com ninguém durante dias.<br><br><strong style="color:var(--cream)">Isto não é inevitável. É uma escolha colectiva que podemos mudar.</strong></div>
       </div>
       <div style="background:var(--card);padding:2rem 2.5rem">
         <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">O antídoto — sem receita médica</div>
         <div style="display:flex;flex-direction:column;gap:1rem">
-          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">💃</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Dança uma vez por semana</div><div style="font-size:12px;color:var(--muted)">Grupos de dança sénior existem em quase todas as cidades. Não precisas de par. Só de aparecer.</div></div></div>
-          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">☕</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Marca um café esta semana</div><div style="font-size:12px;color:var(--muted)">Uma pessoa real, uma conversa real. Sem telemóvel entre vocês. 45 minutos.</div></div></div>
-          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">✈️</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Planeia uma viagem — já</div><div style="font-size:12px;color:var(--muted)">Não "um dia". Abre o computador hoje. Ter uma viagem planeada muda o humor imediatamente.</div></div></div>
-          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">🌸</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Veste o que te apetece</div><div style="font-size:12px;color:var(--muted)">Cores, padrões, saltos, o batom vermelho. O teu estilo é a tua declaração de presença no mundo.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">💃</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Dança uma vez por semana</div><div style="font-size:12px;color:var(--muted)">Grupos de dança existem em quase todas as cidades. Não precisas de par. Só de aparecer.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">☕</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Marca um café esta semana</div><div style="font-size:12px;color:var(--muted)">Uma pessoa real, uma conversa real. Sem telemóvel. 45 minutos.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">✈️</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Planeia uma viagem — já</div><div style="font-size:12px;color:var(--muted)">Não "um dia". Abre o computador hoje. Ter uma viagem marcada muda o humor imediatamente.</div></div></div>
+          <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">🌸</span><div><div style="font-weight:500;color:var(--cream);font-size:14px;margin-bottom:3px">Veste o que te apetece</div><div style="font-size:12px;color:var(--muted)">Cores, padrões, saltos, o batom vermelho. O teu estilo é a tua declaração de presença.</div></div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ARTICLES -->
+  <!-- Articles -->
   <div class="g3 rv" id="g-viv" style="margin-bottom:2rem"></div>
 
-  <!-- SUPERAÇÃO QUOTES -->
+  <!-- Quotes -->
   <div class="rv" style="margin-bottom:2rem">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)">
-        <div style="font-size:28px;margin-bottom:1rem">🔥</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"Nunca me sinto velha. Sinto-me Joan — com mais experiência, mais força e muito menos paciência para o que não vale a pena."</div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Joan MacDonald · 77 anos · Fisiculturista</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)">
-        <div style="font-size:28px;margin-bottom:1rem">💫</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"A moda é a armadura que me permite enfrentar o mundo todos os dias. Às 90 anos, a vida ainda merece um bom casaco."</div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Iris Apfel · 103 anos · Ícone de moda</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)">
-        <div style="font-size:28px;margin-bottom:1rem">✨</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"Quando me dizem que já não tenho idade para isto ou aquilo, sorrio. Eles é que não têm idade — para me dizer o que fazer."</div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Jacqueline Hooton · 68 anos · Viajante & escritora</div>
-      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)"><div style="font-size:28px;margin-bottom:1rem">🔥</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"Nunca me sinto velha. Sinto-me Joan — com mais experiência, mais força e muito menos paciência para o que não vale a pena."</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Joan MacDonald · 77 anos · Fisiculturista</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)"><div style="font-size:28px;margin-bottom:1rem">💫</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"A moda é a armadura que me permite enfrentar o mundo todos os dias. Às 90 anos, a vida ainda merece um bom casaco."</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Iris Apfel · 103 anos · Ícone de moda</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:1.5rem;border-top:3px solid var(--c4)"><div style="font-size:28px;margin-bottom:1rem">✨</div><div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--cream);line-height:1.45;margin-bottom:.75rem">"Quando me dizem que já não tenho idade para isto ou aquilo, sorrio. Eles é que não têm idade — para me dizer o que fazer."</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--gold)">Jacqueline Hooton · 68 anos · Viajante</div></div>
     </div>
   </div>
 
-  <!-- INFLUENCERS -->
+  <!-- Influencers with real photos -->
   <div class="rv">
     <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--cream);margin-bottom:.4rem">Quem nos inspira</div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Pessoas reais. Vidas a sério. Sem filtros nem desculpas.</div>
     <div class="inf-grid" id="inf-grid"></div>
   </div>
 
-  <!-- VIV VIDEOS -->
+  <!-- Viv videos -->
   <div class="rv" style="margin-top:2.5rem">
     <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--cream);margin-bottom:.4rem">Ver para acreditar</div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Porque às vezes é preciso ver para deixar de ter desculpas.</div>
@@ -557,26 +532,43 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <div><div class="sec-eye c5">● Florescer</div><div class="sec-title">Melhor por <em>dentro</em><br>e por fora</div></div>
     <div class="sec-desc">Estoicismo, leveza, moda atemporal e bem-estar. Crescer não tem limite de idade.</div>
   </div>
-  <div class="g4 rv" id="g-flo" style="margin-bottom:2rem"></div>
-  <!-- florescer videos -->
   <div class="rv">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:.5rem">Vozes que florescem</div>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Do estoicismo sério à leveza do Le French Husband — perspectivas que fazem bem.</div>
+    <div class="sec-hero-img">
+      <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1400&q=80&fit=crop" alt="Florescer" style="width:100%;height:100%;object-fit:cover;">
+      <div class="sec-hero-img-overlay">
+        <div class="shi-eyebrow c5">● Florescer</div>
+        <div class="shi-title">O bem-estar que nasce de dentro</div>
+        <div class="shi-text">Estoicismo prático, moda com intenção, saúde mental e física — tudo o que te faz crescer a qualquer idade.</div>
+      </div>
+    </div>
+  </div>
+  <div class="g4 rv" id="g-flo" style="margin-bottom:2rem"></div>
+  <div class="rv">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--cream);margin-bottom:.4rem">Vozes que florescem</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Do estoicismo sério à leveza do Le French Husband.</div>
     <div class="vid-grid" id="flo-vids"></div>
   </div>
 </section>
 
 <!-- BONDADE -->
-<section class="sec" id="bondade">
+<section class="sec dark-bg" id="bondade">
   <div class="sec-top rv">
     <div><div class="sec-eye c6">● Bondade</div><div class="sec-title">Actos que<br><em>transformam</em></div></div>
     <div class="sec-desc">Flores oferecidas a estranhos, ajuda sem interesse, histórias que restauram a fé nas pessoas.</div>
   </div>
-  <div class="bond-act rv" id="bond-act"></div>
-  <div class="bond-grid rv" id="g-bond" style="margin-bottom:2.5rem"></div>
-  <!-- bondade videos -->
   <div class="rv">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:.5rem">Bondade em acção</div>
+    <div class="sec-hero-img">
+      <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1400&q=80&fit=crop" alt="Bondade" style="width:100%;height:100%;object-fit:cover;">
+      <div class="sec-hero-img-overlay">
+        <div class="shi-eyebrow c6">● Acto de Bondade do Dia</div>
+        <div class="shi-title">Médico português trata 500 crianças de graça — pelo 12.º ano</div>
+        <div class="shi-text">O Dr. Paulo Saraiva passa todas as férias a operar em Moçambique, sem cobrar nada a ninguém. 2.400 crianças operadas em 12 anos.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bond-grid rv" id="g-bond" style="margin-bottom:2.5rem"></div>
+  <div class="rv">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--cream);margin-bottom:.4rem">Bondade em acção</div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Vídeos reais de flores oferecidas, ajuda espontânea e momentos que fazem chorar de bem.</div>
     <div class="vid-grid" id="bond-vids"></div>
   </div>
@@ -589,31 +581,28 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <div class="sec-desc">Humor que não magoa ninguém. Só para gargalhar.</div>
   </div>
   <div class="rir-intro rv">
-    <div class="rir-intro-emoji">😂</div>
-    <div class="rir-intro-text"><strong>A ciência confirma:</strong> rir 15 minutos por dia reduz o cortisol em 40%, fortalece o sistema imunitário e aumenta a esperança de vida. Esta secção não tem outra agenda — é só para ires embora mais leve do que chegaste.</div>
+    <div style="font-size:48px">😂</div>
+    <div style="font-size:14px;color:var(--muted);line-height:1.7"><strong style="color:var(--cream)">A ciência confirma:</strong> rir 15 minutos por dia reduz o cortisol em 40%, fortalece o sistema imunitário e aumenta a esperança de vida. Esta secção não tem outra agenda — é só para ires embora mais leve do que chegaste.</div>
   </div>
   <div class="vid-grid rv" id="rir-vids"></div>
 </section>
 
 <!-- FAZ A DIFERENÇA -->
-<section class="sec" id="fad">
+<section class="sec dark-bg" id="fad">
   <div class="sec-top rv">
     <div><div class="sec-eye" style="color:var(--gold)">● Faz a Diferença</div><div class="sec-title">O teu acto<br>de <em>bondade hoje</em></div></div>
     <div class="sec-desc">Não precisas de salvar o mundo. Um gesto pequeno muda o dia de alguém — e o teu.</div>
   </div>
   <div class="fad-wrap">
-    <div class="fad-intro rv">
-      <p>"Um acto de bondade, por mais pequeno que seja, nunca se perde. Quem semeia cortesia colhe amizade; quem semeia bondade colhe amor." — São Basílio<br><br>Escolhe o teu acto de hoje. Compromete-te. Volta para nos dizer que fizeste.</p>
+    <div class="rv" style="text-align:center;margin-bottom:2rem">
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;max-width:600px;margin:0 auto">"Um acto de bondade, por mais pequeno que seja, nunca se perde. Quem semeia cortesia colhe amizade; quem semeia bondade colhe amor." — São Basílio<br><br>Escolhe o teu acto de hoje. Compromete-te. Volta para nos dizer que fizeste.</p>
     </div>
-    <!-- counter -->
     <div class="fad-counter rv">
       <div><div class="fad-count-n" id="fad-n">247</div><div class="fad-count-l">actos de bondade feitos esta semana pela comunidade Pulso</div></div>
       <div style="text-align:right"><div style="font-size:12px;color:var(--muted);margin-bottom:4px">Meta semanal</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold)">500 actos</div><div style="height:4px;background:var(--border);border-radius:2px;width:180px;margin-top:6px"><div style="height:4px;background:var(--gold);border-radius:2px;width:49%"></div></div></div>
     </div>
-    <!-- acts -->
     <div class="fad-acts rv" id="fad-acts"></div>
-    <!-- commit -->
-    <div class="fad-commit rv">
+    <div class="rv" style="text-align:center;margin-bottom:2rem">
       <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:.5rem">Compromete-te publicamente</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:1rem">O teu nickname aparece no mural. Volta depois e diz-nos que fizeste ✓</div>
       <div class="fad-input-row">
@@ -621,7 +610,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
         <button class="fad-btn" onclick="commitAct()">Vou fazer isto! →</button>
       </div>
     </div>
-    <!-- mural -->
     <div class="rv">
       <div class="fad-mural-title">Mural de bondade desta semana</div>
       <div class="fad-mural" id="fad-mural"></div>
@@ -630,34 +618,38 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- NEWSLETTER -->
-<div class="nl">
-  <div class="rv">
-    <div class="nl-title">O dia começa<br>com um <em>Pulso</em></div>
-    <div class="nl-desc">A newsletter que te lembra que o mundo está em movimento positivo. Curadoria humana, todos os dias úteis às 7h30.</div>
-    <div class="nl-perks">
-      <div class="nl-perk"><div class="nl-dot"></div>7 secções seleccionadas diariamente pela IA + curador humano</div>
-      <div class="nl-perk"><div class="nl-dot"></div>Uma frase de sabedoria para começar o dia</div>
-      <div class="nl-perk"><div class="nl-dot"></div>Acto de bondade do dia para te inspirar</div>
-      <div class="nl-perk"><div class="nl-dot"></div>Um vídeo só para rir — sempre</div>
-      <div class="nl-perk"><div class="nl-dot"></div>Premium: arquivo completo + sem publicidade</div>
+<div class="nl-wrap">
+  <div class="nl-bg"></div>
+  <div class="nl-overlay"></div>
+  <div class="nl">
+    <div class="rv">
+      <div class="nl-title">O dia começa<br>com um <em>Pulso</em></div>
+      <div class="nl-desc">A newsletter que te lembra que o mundo está em movimento positivo. Curadoria humana, todos os dias úteis às 7h30.</div>
+      <div class="nl-perks">
+        <div class="nl-perk"><div class="nl-dot"></div>7 secções seleccionadas diariamente</div>
+        <div class="nl-perk"><div class="nl-dot"></div>Uma frase de sabedoria para começar o dia</div>
+        <div class="nl-perk"><div class="nl-dot"></div>Acto de bondade do dia</div>
+        <div class="nl-perk"><div class="nl-dot"></div>Um vídeo só para rir</div>
+        <div class="nl-perk"><div class="nl-dot"></div>Premium: arquivo completo + sem publicidade</div>
+      </div>
     </div>
-  </div>
-  <div class="rv nl-form">
-    <input class="fi" type="text" placeholder="O teu nome">
-    <input class="fi" type="email" placeholder="O teu email">
-    <select class="fi"><option>Gratuito — 3 por semana</option><option>Premium 3€/mês — Diário</option><option>Premium 25€/ano — Melhor valor</option></select>
-    <button class="fsub" onclick="handleSub()">Subscrever Pulso →</button>
+    <div class="rv nl-form">
+      <input class="fi" type="text" placeholder="O teu nome">
+      <input class="fi" type="email" placeholder="O teu email">
+      <select class="fi"><option>Gratuito — 3 por semana</option><option>Premium 3€/mês — Diário</option><option>Premium 25€/ano — Melhor valor</option></select>
+      <button class="fsub" onclick="handleSub()">Subscrever Pulso →</button>
+    </div>
   </div>
 </div>
 
 <footer>
   <div class="f-logo">Pulso</div>
   <div class="f-links"><a href="#">Sobre</a><a href="#">Privacidade</a><a href="#">Parceiros</a><a href="#" onclick="showAdmin();return false;">Admin</a></div>
-  <div class="f-copy">© 2026 Pulso · Portugal 🇵🇹 · Só boas notícias</div>
+  <div class="f-copy">© 2026 Pulso · Portugal 🇵🇹</div>
 </footer>
 </div><!-- /pub -->
 
-<!-- ═══════════════════ ADMIN ═══════════════════ -->
+<!-- ═══════ ADMIN ═══════ -->
 <div id="adm">
 <div class="adm-wrap">
   <div class="adm-sb">
@@ -687,7 +679,6 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     </div>
   </div>
   <div class="adm-main">
-    <!-- QUEUE -->
     <div class="adm-panel active" id="adm-queue">
       <div class="adm-title">Fila de aprovação</div>
       <div class="adm-sub">A IA recolheu estas notícias. Tu decides o que vai para o Pulso.</div>
@@ -699,69 +690,49 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
       </div>
       <div id="q-list"></div>
     </div>
-    <!-- PUB -->
     <div class="adm-panel" id="adm-pub">
       <div class="adm-title">Publicadas</div>
       <div class="adm-sub">O que está no Pulso agora.</div>
       <div id="p-list"></div>
     </div>
-    <!-- SOURCES -->
     <div class="adm-panel" id="adm-sources">
       <div class="adm-title">Fontes & Automação</div>
-      <div class="adm-sub">RSS e APIs activos. Recolha automática segundo o intervalo configurado.</div>
+      <div class="adm-sub">RSS e APIs activos.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem" id="sources-list"></div>
-      <div style="background:var(--gold-d);border:1px solid var(--border-g);border-radius:6px;padding:1.2rem 1.5rem">
-        <div style="font-weight:500;color:var(--gold);margin-bottom:4px">Automação</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.65">A cada intervalo, a IA lê os RSS, analisa o sentimento, descarta o negativo e envia o resto para a tua fila. Tu clicas publicar — o Pulso actualiza em segundos.</div>
-      </div>
+      <div style="background:var(--gold-d);border:1px solid var(--border-g);border-radius:6px;padding:1.2rem 1.5rem"><div style="font-weight:500;color:var(--gold);margin-bottom:4px">Automação</div><div style="font-size:13px;color:var(--muted);line-height:1.65">A cada intervalo, a IA lê os RSS, analisa o sentimento, descarta o negativo e envia o resto para a tua fila. Tu clicas publicar — o Pulso actualiza em segundos.</div></div>
     </div>
-    <!-- SETTINGS -->
     <div class="adm-panel" id="adm-settings">
       <div class="adm-title">Filtros & IA</div>
       <div class="adm-sub">Controla o que a IA deixa passar para a tua fila.</div>
       <div class="sc-grid">
-        <div class="sc">
-          <div class="sc-title">Score de positividade</div>
-          <div class="fl"><span class="fl-l">Threshold mínimo</span><div class="rr"><input type="range" min="50" max="95" value="75" oninput="document.getElementById('sd').textContent=this.value+'%'"><div class="rd" id="sd">75%</div></div></div>
-          <div class="fl"><span class="fl-l">Frequência</span><select class="fi"><option>A cada hora</option><option selected>A cada 3 horas</option><option>4x por dia</option></select></div>
-          <div class="fl"><span class="fl-l">Secções activas</span><div style="margin-top:6px"><span class="tp on" onclick="this.classList.toggle('on')">Actualidade</span><span class="tp on" onclick="this.classList.toggle('on')">Ciência</span><span class="tp on" onclick="this.classList.toggle('on')">Medicina</span><span class="tp on" onclick="this.classList.toggle('on')">Vivacidade</span><span class="tp on" onclick="this.classList.toggle('on')">Florescer</span><span class="tp on" onclick="this.classList.toggle('on')">Bondade</span><span class="tp on" onclick="this.classList.toggle('on')">A Rir</span></div></div>
-          <button class="sv" onclick="showToast('Configurações guardadas!')">Guardar</button>
-        </div>
-        <div class="sc">
-          <div class="sc-title">Palavras bloqueadas</div>
-          <div class="fl"><span class="fl-l">Bloquear se contiver</span><textarea class="fi" style="height:100px;resize:none;line-height:1.6">guerra, crise, colapso, ataque, catástrofe, escândalo, crime, recessão, morte, desastre</textarea></div>
-          <div class="fl"><span class="fl-l">Idiomas</span><div style="margin-top:6px"><span class="tp on" onclick="this.classList.toggle('on')">Português</span><span class="tp on" onclick="this.classList.toggle('on')">Inglês</span><span class="tp" onclick="this.classList.toggle('on')">Espanhol</span></div></div>
-          <div class="fl"><span class="fl-l">Notificações</span><select class="fi"><option selected>Resumo diário às 7h</option><option>Email imediato</option><option>Só no painel</option></select></div>
-          <button class="sv" onclick="showToast('Filtros actualizados!')">Guardar filtros</button>
-        </div>
+        <div class="sc"><div class="sc-title">Score de positividade</div><div class="fl"><span class="fl-l">Threshold mínimo</span><div class="rr"><input type="range" min="50" max="95" value="75" oninput="document.getElementById('sd').textContent=this.value+'%'"><div class="rd" id="sd">75%</div></div></div><div class="fl"><span class="fl-l">Frequência</span><select class="fi"><option>A cada hora</option><option selected>A cada 3 horas</option><option>4x por dia</option></select></div><div class="fl"><span class="fl-l">Secções activas</span><div style="margin-top:6px"><span class="tp on" onclick="this.classList.toggle('on')">Actualidade</span><span class="tp on" onclick="this.classList.toggle('on')">Ciência</span><span class="tp on" onclick="this.classList.toggle('on')">Medicina</span><span class="tp on" onclick="this.classList.toggle('on')">Vivacidade</span><span class="tp on" onclick="this.classList.toggle('on')">Florescer</span><span class="tp on" onclick="this.classList.toggle('on')">Bondade</span><span class="tp on" onclick="this.classList.toggle('on')">A Rir</span></div></div><button class="sv" onclick="showToast('Configurações guardadas!')">Guardar</button></div>
+        <div class="sc"><div class="sc-title">Palavras bloqueadas</div><div class="fl"><span class="fl-l">Bloquear se contiver</span><textarea class="fi" style="height:100px;resize:none;line-height:1.6">guerra, crise, colapso, ataque, catástrofe, escândalo, crime, recessão, morte, desastre</textarea></div><div class="fl"><span class="fl-l">Idiomas</span><div style="margin-top:6px"><span class="tp on" onclick="this.classList.toggle('on')">Português</span><span class="tp on" onclick="this.classList.toggle('on')">Inglês</span><span class="tp" onclick="this.classList.toggle('on')">Espanhol</span></div></div><div class="fl"><span class="fl-l">Notificações</span><select class="fi"><option selected>Resumo diário às 7h</option><option>Email imediato</option><option>Só no painel</option></select></div><button class="sv" onclick="showToast('Filtros actualizados!')">Guardar filtros</button></div>
       </div>
     </div>
-    <!-- MONO -->
     <div class="adm-panel" id="adm-mono">
       <div class="adm-title">Monetização</div>
       <div class="adm-sub">Quatro fontes de receita. Meta: 3.000€/mês em 12 meses.</div>
       <div class="mbar" style="margin-bottom:2rem">
         <div class="mb"><div class="mb-l">Receita este mês</div><div class="mb-v gold">€ 1.620</div><div class="mb-c">+26% vs anterior</div></div>
         <div class="mb"><div class="mb-l">Subscritores pagos</div><div class="mb-v">341</div></div>
-        <div class="mb"><div class="mb-l">Conversão</div><div class="mb-v">2.4%</div><div class="mb-c">meta: 5%</div></div>
+        <div class="mb"><div class="mb-l">Conversão</div><div class="mb-v">2.4%</div></div>
         <div class="mb"><div class="mb-l">Projecção anual</div><div class="mb-v gold">€ 24k</div></div>
       </div>
       <div class="mono-g">
-        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(212,175,100,.1)">💌</div><div><div class="mc-n">Newsletter Premium</div><div class="mc-t">3€/mês · 25€/ano</div></div></div><div class="mc-b">341 subscritores pagos. Ghost ou Substack. Diário exclusivo com profundidade extra em cada secção.</div><div class="mc-f"><div><div class="mc-r">€ 780</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('A abrir Ghost...')">Configurar</button></div><div class="bt"><div class="bf" style="width:48%"></div></div></div>
-        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(123,175,192,.1)">🤝</div><div><div class="mc-n">Patrocínios Éticos</div><div class="mc-t">Marcas com valores</div></div></div><div class="mc-b">Parceiros de saúde, longevidade e bem-estar. Conteúdo integrado — nunca banners.</div><div class="mc-f"><div><div class="mc-r">€ 480</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Ficha de patrocinadores!')">Gerir</button></div><div class="bt"><div class="bf" style="width:30%"></div></div></div>
-        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(176,123,170,.1)">🧡</div><div><div class="mc-n">Memberships Ko-fi</div><div class="mc-t">Contribuição voluntária</div></div></div><div class="mc-b">Leitores que amam o Pulso contribuem. Badge de membro + acesso antecipado.</div><div class="mc-f"><div><div class="mc-r">€ 260</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Ko-fi!')">Ver</button></div><div class="bt"><div class="bf" style="width:16%"></div></div></div>
-        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(143,173,120,.1)">🔗</div><div><div class="mc-n">Afiliados</div><div class="mc-t">Amazon · Awin</div></div></div><div class="mc-b">Comissão em livros, suplementos e produtos de bem-estar mencionados nos artigos.</div><div class="mc-f"><div><div class="mc-r">€ 100</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Links!')">Ver</button></div><div class="bt"><div class="bf" style="width:6%"></div></div></div>
+        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(212,175,100,.1)">💌</div><div><div class="mc-n">Newsletter Premium</div><div class="mc-t">3€/mês · 25€/ano</div></div></div><div class="mc-b">341 subscritores pagos. Substack ou Ghost. Diário exclusivo com profundidade extra.</div><div class="mc-f"><div><div class="mc-r">€ 780</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('A configurar...')">Configurar</button></div><div class="bt"><div class="bf" style="width:48%"></div></div></div>
+        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(123,175,192,.1)">🤝</div><div><div class="mc-n">Patrocínios Éticos</div><div class="mc-t">Marcas com valores</div></div></div><div class="mc-b">Parceiros de saúde, longevidade e bem-estar. Conteúdo integrado — nunca banners.</div><div class="mc-f"><div><div class="mc-r">€ 480</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Ficha!')">Gerir</button></div><div class="bt"><div class="bf" style="width:30%"></div></div></div>
+        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(176,123,170,.1)">🧡</div><div><div class="mc-n">Memberships Ko-fi</div><div class="mc-t">Contribuição voluntária</div></div></div><div class="mc-b">Leitores que amam o Pulso contribuem. Badge + acesso antecipado.</div><div class="mc-f"><div><div class="mc-r">€ 260</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Ko-fi!')">Ver</button></div><div class="bt"><div class="bf" style="width:16%"></div></div></div>
+        <div class="mc"><div class="mc-h"><div class="mc-icon" style="background:rgba(143,173,120,.1)">🔗</div><div><div class="mc-n">Afiliados</div><div class="mc-t">Amazon · Awin</div></div></div><div class="mc-b">Comissão em livros, suplementos e produtos de bem-estar.</div><div class="mc-f"><div><div class="mc-r">€ 100</div><div class="mc-rl">este mês</div></div><button class="mb-btn" onclick="showToast('Links!')">Ver</button></div><div class="bt"><div class="bf" style="width:6%"></div></div></div>
       </div>
     </div>
-    <!-- ANALYTICS -->
     <div class="adm-panel" id="adm-analytics">
       <div class="adm-title">Analytics</div>
       <div class="adm-sub">Últimos 7 dias.</div>
       <div class="mbar" style="margin-bottom:2rem">
         <div class="mb"><div class="mb-l">Visitantes únicos</div><div class="mb-v">3.841</div><div class="mb-c">+16% hoje</div></div>
         <div class="mb"><div class="mb-l">Artigos lidos</div><div class="mb-v gold">21.4k</div></div>
-        <div class="mb"><div class="mb-l">Taxa abertura email</div><div class="mb-v">53%</div><div class="mb-c">benchmark 20%</div></div>
-        <div class="mb"><div class="mb-l">Novos subscritores</div><div class="mb-v" style="color:var(--c2)">+118</div><div class="mb-c">esta semana</div></div>
+        <div class="mb"><div class="mb-l">Taxa abertura email</div><div class="mb-v">53%</div></div>
+        <div class="mb"><div class="mb-l">Novos subscritores</div><div class="mb-v" style="color:var(--c2)">+118</div></div>
       </div>
       <div class="an-g">
         <div class="cb"><div class="cb-title">Visitantes esta semana</div><div class="bc" id="bc"></div></div>
@@ -778,7 +749,7 @@ const cur=document.getElementById('cur'),cr=document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 (function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a);})();
-document.querySelectorAll('button,a,.ac,.hc,.qi,.sb-i,.mc,.fad-act,.vid-card,.inf-card,.bond-card').forEach(el=>{
+document.querySelectorAll('button,a,.ac,.qi,.sb-i,.mc,.fad-act,.vid-card,.inf-card,.bond-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';cr.style.opacity='.15';});
   el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cr.style.opacity='.35';});
 });
@@ -808,140 +779,134 @@ document.getElementById('sq').textContent=`"${sq.q}"`;
 document.getElementById('sa').textContent=sq.a;
 
 /* TICKER */
-const ticks=['⚡ Portugal: 94% de energia renovável em Abril','🧬 Bactéria degrada microplásticos oceânicos','💊 Alzheimer: nova terapia atrasa progressão 40%','🏃 Corredora de 82 anos bate recorde mundial','🌳 Avó planta 7.000 árvores sozinha em 30 anos','💃 Dançar reverte envelhecimento cerebral — Harvard','🤝 Médico trata 500 crianças de graça pelo 12.º ano','🧠 Implante: paralítico escreve 90 palavras por minuto','🌱 IA prevê secas com 6 meses de antecedência','😊 Sorrir 3x por dia reduz cortisol em 27%'];
+const ticks=['⚡ Portugal: 94% de energia renovável em Abril','🧬 Bactéria degrada microplásticos oceânicos','💊 Alzheimer: nova terapia atrasa 40%','🏃 Corredora de 82 anos bate recorde mundial','🌳 Avó planta 7.000 árvores sozinha em 30 anos','💃 Dançar reverte envelhecimento cerebral — Harvard','🤝 Médico trata 500 crianças de graça pelo 12.º ano','🧠 Implante cerebral: escreve 90 palavras por minuto','🌱 IA prevê secas com 6 meses de antecedência','😊 Sorrir 3x por dia reduz cortisol em 27%'];
 document.getElementById('ticker').innerHTML=[...ticks,...ticks].map(x=>`<span class="tick-i"><span class="tk"></span>${x}</span>`).join('');
+
+/* UNSPLASH image helper — curated IDs per topic */
+const imgs={
+  act:['photo-1473341304170-971dccb5ac1e','photo-1518398046578-8cca57782e17','photo-1504711434969-e33886168f5c'],
+  cim:['photo-1576086213369-97a306d36557','photo-1559757175-0eb30cd8c063','photo-1530026405904-3050a7f3a9eb','photo-1532187863486-abf9dbad1b69'],
+  viv:['photo-1571019613454-1cb2f99b2d8b','photo-1518611012118-696072aa579a','photo-1598300042247-d088f8ab3a91'],
+  flo:['photo-1545205597-3d9d02c29597','photo-1498837167922-ddd27525d352','photo-1484627147104-f5197bcd6651','photo-1506905925346-21bda4d32df4'],
+  bond:['photo-1469571486292-0ba58a3f068b','photo-1488521787991-ed7bbaae773c','photo-1559027615-cd4628902d4a'],
+  inf:['photo-1616587226960-4a03badbe8bf','photo-1618835962148-cf177563c6c0','photo-1573496359142-b8d87734a5a2','photo-1560250097-0b93528c311a','photo-1571019614242-c5c5dee9f50b','photo-1580489944761-15a19d654956']
+};
+function uImg(id,w=800,h=600){return `https://images.unsplash.com/${id}?w=${w}&h=${h}&q=80&fit=crop`;}
 
 /* ARTICLES DATA */
 const arts={
   act:[
-    {e:'⚡',cat:'Actualidade',cl:'c1',ac:'a1',title:'Portugal lidera Europa com 94% de energia renovável',text:'Pela primeira vez, Portugal produziu mais energia do que consumiu durante 6 dias consecutivos usando só renováveis — solar, eólica e hídrica.',src:'RTP',t:'há 1h',sc:96,big:true},
-    {e:'🌊',cat:'Actualidade',cl:'c1',ac:'a1',title:'ONU celebra restauro de 50 milhões de hectares de oceano',text:'Esforços globais de conservação marinha dão resultados históricos nunca vistos.',src:'Público',t:'há 3h',sc:88},
-    {e:'🏗️',cat:'Actualidade',cl:'c1',ac:'a1',title:'Lisboa constrói bairro 100% carbono neutro',text:'Projecto pioneiro combina arquitectura bioclimática e energia solar integral.',src:'DN',t:'há 5h',sc:85}
+    {img:imgs.act[0],cat:'Actualidade',cl:'c1',ac:'a1',title:'Portugal lidera Europa com 94% de energia renovável',text:'Pela primeira vez, Portugal produziu mais energia do que consumiu durante 6 dias consecutivos usando só renováveis.',src:'RTP',t:'há 1h',sc:96,big:true},
+    {img:imgs.act[1],cat:'Actualidade',cl:'c1',ac:'a1',title:'ONU celebra restauro de 50 milhões de hectares de oceano',text:'Esforços globais de conservação marinha dão resultados históricos.',src:'Público',t:'há 3h',sc:88},
+    {img:imgs.act[2],cat:'Actualidade',cl:'c1',ac:'a1',title:'Lisboa constrói bairro 100% carbono neutro',text:'Projecto pioneiro combina arquitectura bioclimática e energia solar.',src:'DN',t:'há 5h',sc:85}
   ],
   cim:[
-    {e:'🧬',cat:'Ciência',cl:'c2',ac:'a2',title:'Bactéria portuguesa degrada microplásticos oceânicos',text:'ITQB NOVA isola estirpe que dissolve plástico em condições marinhas naturais — potencial industrial enorme.',src:'Público',t:'há 2h',sc:94},
-    {e:'🧠',cat:'Medicina',cl:'c3',ac:'a3',title:'Nova terapia atrasa Alzheimer em 40%',text:'Ensaio clínico europeu com 3.000 doentes regista eficácia sem precedentes na história da doença.',src:'Expresso',t:'há 3h',sc:95},
-    {e:'❤️',cat:'Medicina',cl:'c3',ac:'a3',title:'Vacina contra ataque cardíaco em fase final de testes',text:'BioNTech avança com primeira vacina mRNA para doenças cardiovasculares — pode mudar tudo.',src:'DN',t:'há 5h',sc:92},
-    {e:'🦠',cat:'Medicina',cl:'c3',ac:'a3',title:'OMS anuncia erradicação de doença tropical que afectava 100 milhões',text:'Dracunculíase quase eliminada globalmente após 40 anos de campanha coordenada.',src:'JN',t:'há 7h',sc:97}
+    {img:imgs.cim[0],cat:'Ciência',cl:'c2',ac:'a2',title:'Bactéria portuguesa degrada microplásticos oceânicos',text:'ITQB NOVA isola estirpe que dissolve plástico em condições marinhas naturais.',src:'Público',t:'há 2h',sc:94},
+    {img:imgs.cim[1],cat:'Medicina',cl:'c3',ac:'a3',title:'Nova terapia atrasa Alzheimer em 40%',text:'Ensaio clínico com 3.000 doentes regista eficácia sem precedentes.',src:'Expresso',t:'há 3h',sc:95},
+    {img:imgs.cim[2],cat:'Medicina',cl:'c3',ac:'a3',title:'Vacina contra ataque cardíaco em fase final de testes',text:'BioNTech avança com primeira vacina mRNA para doenças cardiovasculares.',src:'DN',t:'há 5h',sc:92},
+    {img:imgs.cim[3],cat:'Medicina',cl:'c3',ac:'a3',title:'OMS anuncia erradicação de doença tropical',text:'Dracunculíase quase eliminada globalmente após 40 anos de campanha.',src:'JN',t:'há 7h',sc:97}
   ],
   viv:[
-    {e:'💪',cat:'Vivacidade',cl:'c4',ac:'a4',title:'Joan MacDonald começou aos 70 e é fisiculturista aos 77 — com 2 milhões de seguidores',text:'"Ninguém me disse que podia. Por isso decidi que podia." A canadiana que transformou o corpo, a saúde e a vida por inteiro — e agora inspira milhões a não terem desculpas.',src:'Pulso',t:'há 1h',sc:98},
-    {e:'💃',cat:'Vivacidade',cl:'c4',ac:'a4',title:'Harvard confirma: dançar é a única coisa que reverte o envelhecimento cerebral',text:'Não atrasa — reverte. Estudo com 300 pessoas mostrou que dançar regularmente reduz atrofia cerebral e melhora memória, humor e socialização em simultâneo. É o segredo que já toda a gente devia saber.',src:'Harvard Medical School',t:'há 3h',sc:96},
-    {e:'🥂',cat:'Vivacidade',cl:'c4',ac:'a4',title:'A solidão é o novo tabagismo — e sair com amigos é a cura',text:'85 anos de investigação de Harvard: ter amigos próximos é mais importante para a longevidade do que não fumar. A epidemia silenciosa do isolamento mata — e o antídoto chama-se sexta-feira à noite com as pessoas certas.',src:'Observador',t:'há 5h',sc:95}
+    {img:imgs.viv[0],cat:'Vivacidade',cl:'c4',ac:'a4',title:'Joan MacDonald: de sedentária aos 70 a fisiculturista aos 77',text:'"Ninguém me disse que podia. Por isso decidi que podia." A canadiana que inspira 2 milhões de seguidores.',src:'Pulso',t:'há 1h',sc:98},
+    {img:imgs.viv[1],cat:'Vivacidade',cl:'c4',ac:'a4',title:'Harvard: dançar é a única coisa que reverte o envelhecimento cerebral',text:'Não atrasa — reverte. Memória, humor e socialização melhoram em simultâneo. O segredo que toda a gente devia saber.',src:'Harvard Medical',t:'há 3h',sc:96},
+    {img:imgs.viv[2],cat:'Vivacidade',cl:'c4',ac:'a4',title:'A solidão é o novo tabagismo — e sair com amigos é a cura',text:'85 anos de Harvard: ter amigos próximos é mais importante para a longevidade do que não fumar.',src:'Observador',t:'há 5h',sc:95}
   ],
   flo:[
-    {e:'🌸',cat:'Florescer',cl:'c5',ac:'a5',title:'Moda atemporal: como vestir com intenção a qualquer idade',text:'Qualidade antes de quantidade, peças que duram décadas e o estilo que nasce de dentro para fora.',src:'Vogue PT',t:'há 2h',sc:91},
-    {e:'📚',cat:'Florescer',cl:'c5',ac:'a5',title:'5 princípios estóicos para uma vida mais leve e serena',text:'Marco Aurélio, Epicteto e Séneca num guia prático — sem filosofia difícil, só o que funciona no quotidiano.',src:'Ler+',t:'há 4h',sc:88},
-    {e:'🧘',cat:'Florescer',cl:'c5',ac:'a5',title:'10 minutos de meditação alteram a estrutura do cérebro em 8 semanas',text:'Harvard MRI confirma: prática regular reduz a amígdala (stress) e aumenta o córtex pré-frontal (calma e foco).',src:'SaúdeViva',t:'há 6h',sc:90},
-    {e:'🌿',cat:'Florescer',cl:'c5',ac:'a5',title:'Sorrir — mesmo sem querer — engana o cérebro para a felicidade',text:'A teoria da retroacção facial: a posição dos músculos da face sinaliza emoções ao cérebro. Sorri e sentes menos stress.',src:'Psychology Today',t:'há 8h',sc:86}
+    {img:imgs.flo[0],cat:'Florescer',cl:'c5',ac:'a5',title:'Moda atemporal: como vestir com intenção a qualquer idade',text:'Qualidade antes de quantidade — o estilo que nasce de dentro para fora.',src:'Vogue PT',t:'há 2h',sc:91},
+    {img:imgs.flo[1],cat:'Florescer',cl:'c5',ac:'a5',title:'5 princípios estóicos para uma vida mais leve',text:'Marco Aurélio, Epicteto e Séneca num guia prático para o quotidiano moderno.',src:'Ler+',t:'há 4h',sc:88},
+    {img:imgs.flo[2],cat:'Florescer',cl:'c5',ac:'a5',title:'10 minutos de meditação alteram o cérebro em 8 semanas',text:'Harvard MRI confirma: reduz a amígdala (stress) e aumenta o córtex pré-frontal.',src:'SaúdeViva',t:'há 6h',sc:90},
+    {img:imgs.flo[3],cat:'Florescer',cl:'c5',ac:'a5',title:'Sorrir — mesmo sem querer — engana o cérebro para a felicidade',text:'A retroacção facial: a posição dos músculos da face sinaliza emoções ao cérebro.',src:'Psychology Today',t:'há 8h',sc:86}
   ],
   bond:[
-    {e:'🏥',cat:'Bondade',cl:'c6',title:'Médico português trata 500 crianças de graça em Moçambique — pelo 12.º ano',text:'O Dr. Paulo Saraiva passa todas as férias a operar no Hospital Central de Maputo, sem cobrar nada a ninguém.',impact:'Mais de 2.400 crianças operadas em 12 anos de missão voluntária.',src:'JN',t:'há 1h',sc:99},
-    {e:'🌳',cat:'Bondade',cl:'c6',title:'Avó de 78 anos planta 7.000 árvores sozinha ao longo de 30 anos',text:'Constância Pinto começou para combater a erosão na sua aldeia. Criou uma floresta inteira.',impact:'A floresta sequestra 120 toneladas de CO2 por ano e é hoje habitat protegido.',src:'Público',t:'há 3h',sc:97},
-    {e:'📚',cat:'Bondade',cl:'c6',title:'Estudante cria biblioteca gratuita em bairro carenciado do Porto com 3.000 livros',text:'João, 19 anos, angariou livros em três países. A taxa de leitura das crianças do bairro triplicou.',impact:'800 crianças já passaram pela biblioteca desde que abriu há 18 meses.',src:'CM',t:'há 5h',sc:96}
+    {img:imgs.bond[0],cat:'Bondade',cl:'c6',title:'Médico trata 500 crianças de graça em Moçambique — pelo 12.º ano',text:'O Dr. Paulo Saraiva passa todas as férias a operar sem cobrar nada.',impact:'Mais de 2.400 crianças operadas em 12 anos de missão.',src:'JN',t:'há 1h',sc:99},
+    {img:imgs.bond[1],cat:'Bondade',cl:'c6',title:'Avó planta 7.000 árvores sozinha ao longo de 30 anos',text:'Constância Pinto começou para combater a erosão. Criou uma floresta inteira.',impact:'Sequestra 120 toneladas de CO2 por ano — hoje é habitat protegido.',src:'Público',t:'há 3h',sc:97},
+    {img:imgs.bond[2],cat:'Bondade',cl:'c6',title:'Estudante cria biblioteca com 3.000 livros em bairro carenciado',text:'João, 19 anos, angariou livros em três países. A taxa de leitura triplicou.',impact:'800 crianças já passaram pela biblioteca nos primeiros 18 meses.',src:'CM',t:'há 5h',sc:96}
   ]
 };
 
 /* BUILD GRIDS */
 function card(a,size){
   size=size||'sm';
-  return `<div class="ac ${a.ac||''}" onclick="showToast('A carregar artigo...')">
-    <span class="ac-emoji">${a.e}</span>
-    <div class="ac-cat ${a.cl}">${a.cat}</div>
-    <div class="ac-title ${size}">${a.title}</div>
-    <div class="ac-text${size==='lg'?' b':''}">${a.text}</div>
-    <div class="ac-foot"><span class="ac-meta">${a.src} · ${a.t} · IA ${a.sc}%</span><span class="ac-read">Ler →</span></div>
+  return `<div class="ac ${a.ac||''} ${size==='lg'?'big':''}" onclick="showToast('A carregar artigo...')">
+    <div class="ac-img-wrap"><img class="ac-img" src="${uImg(a.img,800,size==='lg'?400:250)}" alt="${a.title}" loading="lazy"></div>
+    <div class="ac-body">
+      <div class="ac-cat ${a.cl}">${a.cat}</div>
+      <div class="ac-title ${size}">${a.title}</div>
+      <div class="ac-text${size==='lg'?' b':''}">${a.text}</div>
+      <div class="ac-foot"><span class="ac-meta">${a.src} · ${a.t} · IA ${a.sc}%</span><span class="ac-read">Ler →</span></div>
+    </div>
   </div>`;
 }
 
-// Actualidade — magazine (2fr 1fr 1fr)
 const ga=document.getElementById('g-act');
 ga.innerHTML=arts.act.map((a,i)=>card(a,i===0?'lg':'sm')).join('');
 ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';
-
-// Ciência & Medicina
 document.getElementById('g-cim').innerHTML=arts.cim.map(a=>card(a,'md')).join('');
-
-// Vivacidade
 document.getElementById('g-viv').innerHTML=arts.viv.map(a=>card(a,'md')).join('');
-
-// Florescer
 document.getElementById('g-flo').innerHTML=arts.flo.map(a=>card(a,'md')).join('');
 
-// Bondade act of day
-const ba=arts.bond[0];
-document.getElementById('bond-act').innerHTML=`
-  <div>
-    <div class="bond-lbl"><div class="live-dot"></div>Acto de Bondade do Dia</div>
-    <div class="bond-title">${ba.e} ${ba.title}</div>
-    <div style="font-size:14px;color:var(--muted);line-height:1.65;margin-top:1rem;max-width:560px">${ba.text}</div>
-  </div>
-  <div class="bond-badge"><div class="bond-badge-n">#1</div><div class="bond-badge-l">Hoje</div></div>`;
-
-// Bondade grid
-document.getElementById('g-bond').innerHTML=arts.bond.map(b=>`
+/* BONDADE GRID */
+document.getElementById('g-bond').innerHTML=arts.bond.map((b,i)=>`
   <div class="bond-card" onclick="showToast('A carregar...')">
-    <div class="bond-emoji">${b.e}</div>
-    <div class="ac-cat ${b.cl}">${b.cat}</div>
-    <div class="bond-card-title">${b.title}</div>
-    <div class="bond-card-text">${b.text}</div>
-    <div class="bond-impact">${b.impact}</div>
-    <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);margin-top:.75rem">${b.src} · ${b.t}</div>
+    <div style="overflow:hidden"><img class="bond-card-img" src="${uImg(b.img,600,300)}" alt="${b.title}" loading="lazy"></div>
+    <div class="bond-card-body">
+      <div class="ac-cat ${b.cl}" style="margin-bottom:8px">${b.cat}</div>
+      <div class="bond-card-title">${b.title}</div>
+      <div class="bond-card-text">${b.text}</div>
+      <div class="bond-impact">${b.impact}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);margin-top:.75rem">${b.src} · ${b.t}</div>
+    </div>
   </div>`).join('');
 
-/* INFLUENCERS */
+/* INFLUENCERS with real Unsplash photos */
 const infs=[
-  {emoji:'💪',name:'Joan MacDonald',handle:'@trainwithjoan',bio:'Sedentária, com saúde a deteriorar-se, aos 70 anos decidiu mudar tudo. Hoje, aos 77, é fisiculturista com 2 milhões de seguidores. A sua frase favorita: "Ninguém me disse que podia — por isso decidi que podia."',badge:'77 anos · Fisiculturista'},
-  {emoji:'✈️',name:'Jacqueline Hooton',handle:'@jacquelinehooton',bio:'Viajante, escritora, dançarina. Recusa a invisibilidade com humor afiado e elegância genuína. "A única pessoa que pode dizer-me que já não tenho idade para algo, sou eu — e essa pessoa ainda não falou."',badge:'68 anos · Viajante & escritora'},
-  {emoji:'👗',name:'Christine',handle:'@agelessstyle',bio:'Prova todos os dias que o estilo fica melhor com o tempo. Cores, padrões, ousadia — sem pedir desculpa a ninguém. Fashion não é privilégio de jovens. É um estado de espírito.',badge:'65 anos · Estilista'},
-  {emoji:'🎨',name:'Iris Apfel',handle:'@iris.apfel',bio:'Tornou-se ícone de moda aos 90 anos. "Mais é mais. Menos é uma seca." Provou que a excentricidade, o humor e a auto-expressão não têm prazo — e o mundo finalmente ouviu.',badge:'103 anos · Ícone de moda'},
-  {emoji:'🏃',name:'Fauja Singh',handle:'Maratonista centenário',bio:'Correu a primeira maratona aos 89 anos — depois de uma depressão profunda. Terminou a última aos 101. Vegetariano, devoto, incansável. A depressão não teve a última palavra.',badge:'101 anos · Maratonista'},
-  {emoji:'📸',name:'Lyn Slater',handle:'@iconaccidental',bio:'Professora universitária. Tornou-se modelo de moda por acidente aos 63, quando foi confundida com uma modelo numa semana de moda. Prova que a beleza é presença, não idade.',badge:'67 anos · A Professora Modelo'}
+  {img:imgs.inf[0],name:'Joan MacDonald',handle:'@trainwithjoan',bio:'Sedentária até aos 70. Fisiculturista aos 77. 2 milhões de seguidores. "Ninguém me disse que podia — por isso decidi que podia."',badge:'77 anos · Fisiculturista'},
+  {img:imgs.inf[1],name:'Jacqueline Hooton',handle:'@jacquelinehooton',bio:'Viajante, escritora, dançarina. "A única pessoa que pode dizer-me que já não tenho idade para algo, sou eu — e essa pessoa ainda não falou."',badge:'68 anos · Viajante'},
+  {img:imgs.inf[2],name:'Christine',handle:'@agelessstyle',bio:'Prova que o estilo fica melhor com o tempo. Cores, padrões, ousadia — sem pedir desculpa a ninguém.',badge:'65 anos · Estilista'},
+  {img:imgs.inf[3],name:'Iris Apfel',handle:'@iris.apfel',bio:'Ícone de moda aos 90. "Mais é mais. Menos é uma seca." A excentricidade e o humor não têm prazo.',badge:'103 anos · Ícone de moda'},
+  {img:imgs.inf[4],name:'Fauja Singh',handle:'Maratonista centenário',bio:'Correu a primeira maratona aos 89 — depois de uma depressão profunda. A depressão não teve a última palavra.',badge:'101 anos · Maratonista'},
+  {img:imgs.inf[5],name:'Lyn Slater',handle:'@iconaccidental',bio:'Professora que se tornou modelo de moda aos 63 por acidente. A beleza é presença, não idade.',badge:'67 anos · A Professora Modelo'}
 ];
 document.getElementById('inf-grid').innerHTML=infs.map(i=>`
   <div class="inf-card">
-    <div class="inf-avatar">${i.emoji}</div>
-    <div class="inf-name">${i.name}</div>
-    <div class="inf-handle">${i.handle}</div>
-    <div class="inf-bio">${i.bio}</div>
-    <span class="inf-badge">${i.badge}</span>
+    <div class="inf-photo-wrap"><img class="inf-photo" src="${uImg(i.img,500,400)}" alt="${i.name}" loading="lazy"></div>
+    <div class="inf-body">
+      <div class="inf-name">${i.name}</div>
+      <div class="inf-handle">${i.handle}</div>
+      <div class="inf-bio">${i.bio}</div>
+      <span class="inf-badge">${i.badge}</span>
+    </div>
   </div>`).join('');
 
-/* VIDEOS — YouTube embeds */
+/* VIDEOS */
 const vids={
   viv:[
-    {id:'rN6_5HloPoQ',cat:'Vivacidade',title:'Joan MacDonald: de sedentária aos 70 a fisiculturista'},
+    {id:'rN6_5HloPoQ',cat:'Vivacidade',title:'Joan MacDonald: de sedentária a fisiculturista'},
     {id:'5BDTBqJOCzc',cat:'Vivacidade',title:'Idosos dançando: a alegria que o tempo não apaga'},
-    {id:'1FjZoRHWfGk',cat:'Vivacidade',title:'A ciência da amizade: porque os amigos prolongam a vida'}
+    {id:'1FjZoRHWfGk',cat:'Vivacidade',title:'A ciência da amizade e da longevidade'}
   ],
   flo:[
-    {id:'8jPQjjsBbIc',cat:'Florescer',title:'Estoicismo prático: Marco Aurélio para o quotidiano'},
-    {id:'x2YSAy9gUKE',cat:'Florescer',title:'Le French Husband: amabilidade e leveza no dia a dia'},
-    {id:'LO1mTELoj6o',cat:'Florescer',title:'Moda atemporal: como criar estilo com intenção'}
+    {id:'8jPQjjsBbIc',cat:'Florescer',title:'Estoicismo prático para o quotidiano'},
+    {id:'x2YSAy9gUKE',cat:'Florescer',title:'Le French Husband: amabilidade e leveza'},
+    {id:'LO1mTELoj6o',cat:'Florescer',title:'Moda atemporal: estilo com intenção'}
   ],
   bond:[
-    {id:'4lMGoP2Bqe0',cat:'Bondade',title:'Giving flowers to strangers — reacções que partem o coração'},
-    {id:'S9PFfFBtC0g',cat:'Bondade',title:'Random acts of kindness that will restore your faith in humanity'},
-    {id:'vr3x_RRJdd4',cat:'Bondade',title:'Juan y Medio: o discurso sobre bondade que toda a gente devia ouvir'}
+    {id:'4lMGoP2Bqe0',cat:'Bondade',title:'Offering flowers to strangers — reacções reais'},
+    {id:'S9PFfFBtC0g',cat:'Bondade',title:'Random acts of kindness — fé na humanidade'},
+    {id:'vr3x_RRJdd4',cat:'Bondade',title:'Juan y Medio: alegato pela bondade'}
   ],
   rir:[
-    {id:'DUQp615gc_U',cat:'A Rir',title:'Animais a fazer o que animais fazem — compilation'},
-    {id:'hFZFjoX2cGg',cat:'A Rir',title:'Crianças com comebacks impossíveis — os mais engraçados'},
-    {id:'0b52pWuYZZ8',cat:'A Rir',title:'Momentos hilariantes que vais querer ver duas vezes'}
+    {id:'DUQp615gc_U',cat:'A Rir',title:'Animais impossíveis — compilation'},
+    {id:'hFZFjoX2cGg',cat:'A Rir',title:'Crianças com respostas épicas'},
+    {id:'0b52pWuYZZ8',cat:'A Rir',title:'Momentos hilariantes para ver duas vezes'}
   ]
 };
-
 function buildVids(data,elId){
   const el=document.getElementById(elId);if(!el)return;
   el.innerHTML=data.map(v=>`
     <div class="vid-card">
-      <div class="vid-thumb">
-        <iframe src="https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="vid-info">
-        <div class="vid-cat">${v.cat}</div>
-        <div class="vid-title">${v.title}</div>
-      </div>
+      <div class="vid-thumb"><iframe src="https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="vid-info"><div class="vid-cat">${v.cat}</div><div class="vid-title">${v.title}</div></div>
     </div>`).join('');
 }
 buildVids(vids.viv,'viv-vids');
@@ -951,16 +916,16 @@ buildVids(vids.rir,'rir-vids');
 
 /* FAZ A DIFERENÇA */
 const fadActs=[
-  {e:'🌸',name:'Oferecer flores',desc:'Leva um ramo a um lar de idosos perto de ti, ou a um vizinho que está sozinho.'},
-  {e:'☕',name:'Pagar o café ao de trás',desc:'Na próxima fila do café, paga o da pessoa que está atrás. Sem explicar.'},
+  {e:'🌸',name:'Oferecer flores',desc:'Leva um ramo a um lar de idosos perto de ti, ou a um vizinho sozinho.'},
+  {e:'☕',name:'Pagar o café ao de trás',desc:'Na próxima fila, paga o da pessoa atrás. Sem explicar.'},
   {e:'📞',name:'Ligar a alguém sozinho',desc:'Aquela pessoa que há muito não ouves. Liga hoje. Não amanhã.'},
-  {e:'🍱',name:'Levar comida a um vizinho',desc:'Um prato feito, um bolo — o gesto que diz "lembrei-me de ti".'},
-  {e:'💌',name:'Escrever uma mensagem real',desc:'Uma mensagem de agradecimento genuíno a alguém que fez diferença na tua vida.'},
-  {e:'🎵',name:'Convidar alguém para sair',desc:'Um copo, uma dança, uma conversa. Convida quem está isolado para uma noite fora.'},
-  {e:'👂',name:'Ouvir de verdade',desc:'Senta com alguém e pergunta como está — sem telemóvel, sem pressa, sem interromper.'},
-  {e:'😊',name:'Sorrir a três estranhos',desc:'Só sorrir. Olhos nos olhos. Sem razão aparente. Vê o que acontece.'},
-  {e:'🛒',name:'Ajudar nas compras',desc:'Oferece-te para ajudar um vizinho mais velho com as compras esta semana.'},
-  {e:'🌳',name:'Plantar algo',desc:'Uma semente, uma erva aromática, uma árvore. Deixar algo vivo onde não havia nada.'}
+  {e:'🍱',name:'Levar comida a um vizinho',desc:'Um prato, um bolo — o gesto que diz "lembrei-me de ti".'},
+  {e:'💌',name:'Escrever uma mensagem real',desc:'Agradecimento genuíno a alguém que fez diferença.'},
+  {e:'🎵',name:'Convidar alguém para sair',desc:'Um copo, uma dança. Convida quem está isolado.'},
+  {e:'👂',name:'Ouvir de verdade',desc:'Senta com alguém — sem telemóvel, sem pressa, sem interromper.'},
+  {e:'😊',name:'Sorrir a três estranhos',desc:'Olhos nos olhos. Sem razão aparente. Vê o que acontece.'},
+  {e:'🛒',name:'Ajudar nas compras',desc:'Oferece-te para ajudar um vizinho mais velho esta semana.'},
+  {e:'🌳',name:'Plantar algo',desc:'Uma semente, uma erva. Deixar algo vivo onde não havia nada.'}
 ];
 let selAct=null;
 document.getElementById('fad-acts').innerHTML=fadActs.map((a,i)=>`
@@ -969,11 +934,7 @@ document.getElementById('fad-acts').innerHTML=fadActs.map((a,i)=>`
     <div><div class="fad-act-name">${a.name}</div><div class="fad-act-desc">${a.desc}</div></div>
   </div>`).join('');
 
-function selFad(i){
-  document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
-  document.getElementById('fa-'+i).classList.add('selected');
-  selAct=fadActs[i];
-}
+function selFad(i){document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));document.getElementById('fa-'+i).classList.add('selected');selAct=fadActs[i];}
 
 let fadCount=247;
 const muralSeed=[
@@ -987,69 +948,46 @@ const muralSeed=[
   {nick:'Sofia_Lx',act:'💌',txt:'Escrevi ao meu professor favorito'}
 ];
 let mural=[...muralSeed];
-
-function renderMural(){
-  document.getElementById('fad-mural').innerHTML=mural.map(m=>`
-    <div class="fad-mural-item">${m.act}<span class="fad-mural-nick">${m.nick}</span>${m.txt}</div>`).join('');
-}
+function renderMural(){document.getElementById('fad-mural').innerHTML=mural.map(m=>`<div class="fad-mural-item">${m.act}<span class="fad-mural-nick">${m.nick}</span>${m.txt}</div>`).join('');}
 renderMural();
-
 function commitAct(){
   const nick=document.getElementById('fad-nick').value.trim();
   if(!selAct){showToast('Escolhe primeiro o teu acto de bondade ↑');return;}
   if(!nick){showToast('Coloca o teu nickname 😊');return;}
-  fadCount++;
-  document.getElementById('fad-n').textContent=fadCount;
-  mural.unshift({nick,act:selAct.e,txt:selAct.name.toLowerCase()});
-  renderMural();
-  document.getElementById('fad-nick').value='';
-  selAct=null;
+  fadCount++;document.getElementById('fad-n').textContent=fadCount;
+  mural.unshift({nick,act:selAct.e,txt:selAct.name.toLowerCase()});renderMural();
+  document.getElementById('fad-nick').value='';selAct=null;
   document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
-  showToast(`${nick}, és incrível! Que o teu acto inspire mais pessoas. 🌟`);
+  showToast(`${nick}, és incrível! 🌟`);
 }
 
 /* ADMIN QUEUE */
 const qData=[
   {id:1,cat:'Ciência',cl:'c2',title:'Nova bateria de sódio carrega 10x mais rápido que lítio',exc:'Investigadores de Stanford desenvolvem tecnologia que pode transformar a mobilidade eléctrica.',src:'Expresso',t:'há 20 min',sc:93},
-  {id:2,cat:'Medicina',cl:'c3',title:'Implante cerebral permite paralítico escrever a 90 palavras por minuto',exc:'BrainComputer Interface em ensaios clínicos com resultados acima das expectativas.',src:'Público',t:'há 45 min',sc:91},
-  {id:3,cat:'Vivacidade',cl:'c4',title:'Aos 70 anos, professor cria empresa de IA que vale 20 milhões',exc:'António Melo prova que experiência combinada com curiosidade é imbatível.',src:'Observador',t:'há 1h',sc:94},
+  {id:2,cat:'Medicina',cl:'c3',title:'Implante cerebral permite paralítico escrever a 90 palavras por minuto',exc:'BrainComputer Interface em ensaios com resultados acima das expectativas.',src:'Público',t:'há 45 min',sc:91},
+  {id:3,cat:'Vivacidade',cl:'c4',title:'Aos 70 anos, professor cria empresa de IA que vale 20 milhões',exc:'António Melo prova que experiência + curiosidade é imbatível.',src:'Observador',t:'há 1h',sc:94},
   {id:4,cat:'Bondade',cl:'c6',title:'Cozinheiro distribui 500 refeições por dia aos sem-abrigo — há 8 anos',exc:'Ali Hassan, emigrante sírio, começou logo que chegou a Lisboa.',src:'JN',t:'há 2h',sc:98},
-  {id:5,cat:'Actualidade',cl:'c1',title:'Portugal lidera ranking europeu de qualidade de vida em cidades pequenas',exc:'Évora, Viseu e Viana do Castelo no top 10 europeu de bem-estar urbano sustentável.',src:'Público',t:'há 3h',sc:87},
+  {id:5,cat:'Actualidade',cl:'c1',title:'Portugal lidera ranking europeu de qualidade de vida em cidades pequenas',exc:'Évora, Viseu e Viana do Castelo no top 10 europeu.',src:'Público',t:'há 3h',sc:87},
   {id:6,cat:'Florescer',cl:'c5',title:'Técnica de respiração japonesa reduz cortisol em 40% em 5 minutos',exc:'Universidade de Tóquio valida prática ancestral de regulação do sistema nervoso.',src:'SaúdeViva',t:'há 4h',sc:88},
   {id:7,cat:'A Rir',cl:'c7',title:'Gatinho tenta roubar peixe ao pescador e acaba dentro da rede',exc:'Vídeo viral de adorável felino em missão impossível visto 40 milhões de vezes.',src:'YouTube Trends',t:'há 5h',sc:99},
-  {id:8,cat:'Medicina',cl:'c3',title:'Transplante de rim geneticamente modificado funciona 2 anos — recorde mundial',exc:'Avanço histórico na xenotransplantação abre porta à solução para escassez de órgãos.',src:'Expresso',t:'há 6h',sc:92}
+  {id:8,cat:'Medicina',cl:'c3',title:'Transplante de rim geneticamente modificado funciona 2 anos — recorde',exc:'Avanço histórico na xenotransplantação abre porta à solução para falta de órgãos.',src:'Expresso',t:'há 6h',sc:92}
 ];
 let queue=[...qData],pubList=[];
-
 function rQueue(){
   const el=document.getElementById('q-list');if(!el)return;
-  if(!queue.length){el.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted)"><div style="font-size:3rem;margin-bottom:1rem">✨</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--cream);margin-bottom:.5rem">Fila vazia!</div><div>A IA está a recolher novas notícias...</div></div>';return;}
+  if(!queue.length){el.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted)"><div style="font-size:3rem;margin-bottom:1rem">✨</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--cream)">Fila vazia!</div></div>';return;}
   el.innerHTML=queue.map(n=>`
     <div class="qi" id="qi-${n.id}">
-      <div class="qi-top">
-        <div style="flex:1"><span class="qi-cat ${n.cl}">${n.cat}</span><div class="qi-meta">${n.src} · ${n.t}</div><div class="qi-title">${n.title}</div></div>
-        <div class="qi-score"><div class="qi-sn">${n.sc}%</div><div class="qi-sl">IA Score</div></div>
-      </div>
+      <div class="qi-top"><div style="flex:1"><span class="qi-cat ${n.cl}">${n.cat}</span><div class="qi-meta">${n.src} · ${n.t}</div><div class="qi-title">${n.title}</div></div><div class="qi-score"><div class="qi-sn">${n.sc}%</div><div class="qi-sl">IA Score</div></div></div>
       <div class="qi-exc">${n.exc}</div>
-      <div class="qi-acts">
-        <button class="btn-app" onclick="appQ(${n.id})">✓ Publicar</button>
-        <button class="btn-rej" onclick="rejQ(${n.id})">✕ Rejeitar</button>
-        <button class="btn-ed" onclick="showToast('Editor em breve!')">✏ Editar</button>
-      </div>
+      <div class="qi-acts"><button class="btn-app" onclick="appQ(${n.id})">✓ Publicar</button><button class="btn-rej" onclick="rejQ(${n.id})">✕ Rejeitar</button><button class="btn-ed" onclick="showToast('Editor em breve!')">✏ Editar</button></div>
     </div>`).join('');
   updB();
 }
 function rPub(){
   const el=document.getElementById('p-list');if(!el)return;
-  if(!pubList.length){el.innerHTML='<div style="color:var(--muted);padding:2rem;text-align:center;font-size:14px">Aprova artigos na fila para os ver aqui.</div>';return;}
-  el.innerHTML=pubList.map(n=>`
-    <div class="qi" style="cursor:default">
-      <div class="qi-top">
-        <div style="flex:1"><span class="qi-cat ${n.cl}">${n.cat}</span><div class="qi-meta">${n.src} · Publicado <span style="background:rgba(143,173,120,.15);color:var(--c2);padding:2px 7px;border-radius:2px;font-size:9px;margin-left:6px">✓ Live</span></div><div class="qi-title">${n.title}</div></div>
-        <div class="qi-score"><div class="qi-sn">${n.sc}%</div><div class="qi-sl">IA Score</div></div>
-      </div>
-      <div class="qi-acts"><button class="btn-rej" onclick="showToast('Removido.')">Remover</button><button class="btn-ed" onclick="showToast('Editor em breve!')">✏ Editar</button></div>
-    </div>`).join('');
+  if(!pubList.length){el.innerHTML='<div style="color:var(--muted);padding:2rem;text-align:center">Aprova artigos na fila para os ver aqui.</div>';return;}
+  el.innerHTML=pubList.map(n=>`<div class="qi"><div class="qi-top"><div style="flex:1"><span class="qi-cat ${n.cl}">${n.cat}</span><div class="qi-meta">${n.src} <span style="background:rgba(143,173,120,.15);color:var(--c2);padding:2px 7px;border-radius:2px;font-size:9px;margin-left:6px">✓ Live</span></div><div class="qi-title">${n.title}</div></div><div class="qi-score"><div class="qi-sn">${n.sc}%</div><div class="qi-sl">IA Score</div></div></div><div class="qi-acts"><button class="btn-rej" onclick="showToast('Removido.')">Remover</button></div></div>`).join('');
 }
 function appQ(id){
   const el=document.getElementById('qi-'+id);
@@ -1061,12 +999,9 @@ function rejQ(id){
   el.style.transition='all .4s';el.style.opacity='0';el.style.transform='translateX(-28px)';
   setTimeout(()=>{queue=queue.filter(n=>n.id!==id);rQueue();showToast('Notícia rejeitada.');},400);
 }
-function updB(){
-  const n=queue.length;
-  ['qb','qn'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});
-}
+function updB(){const n=queue.length;['qb','qn'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});}
 
-/* SOURCES ADMIN */
+/* SOURCES */
 const sources=[
   {e:'🌍',name:'Positive News',url:'positivenews.org.uk · a cada 2h',ok:true},
   {e:'📰',name:'Good News Network',url:'goodnewsnetwork.org · a cada 3h',ok:true},
@@ -1088,42 +1023,29 @@ function bChart(){
   el.innerHTML=days.map((d,i)=>`<div class="bc-col"><div class="bc-v">${(vals[i]/1000).toFixed(1)}k</div><div class="bc-bar" style="height:${Math.round(vals[i]/mx*120)}px"></div><div class="bc-l">${d}</div></div>`).join('');
 }
 const tops=[{t:'Portugal: 94% renováveis',v:'4.8k'},{t:'Alzheimer: terapia atrasa 40%',v:'4.2k'},{t:'Joan MacDonald — fisiculturista aos 77',v:'3.9k'},{t:'Avó planta 7.000 árvores',v:'3.1k'},{t:'Implante: 90 palavras/min',v:'2.7k'}];
-function bTop(){
-  const el=document.getElementById('tl');if(!el)return;
-  el.innerHTML=tops.map((a,i)=>`<div class="ti"><div class="tn">${i+1}</div><div><div class="tt">${a.t}</div><div class="tv">${a.v} leituras</div></div></div>`).join('');
-}
+function bTop(){const el=document.getElementById('tl');if(!el)return;el.innerHTML=tops.map((a,i)=>`<div class="ti"><div class="tn">${i+1}</div><div><div class="tt">${a.t}</div><div class="tv">${a.v} leituras</div></div></div>`).join('');}
 
 /* COUNTDOWN */
 let secs=167;
-setInterval(()=>{
-  secs--;if(secs<0)secs=179;
-  const s=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');
-  ['cd','nf'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});
-},1000);
+setInterval(()=>{secs--;if(secs<0)secs=179;const s=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');['cd','nf'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});},1000);
 
-/* NAV/VIEW */
+/* NAV */
 function showAdmin(){document.getElementById('pub').style.display='none';document.getElementById('adm').style.display='block';rQueue();rPub();bChart();bTop();}
 function showPublic(){document.getElementById('pub').style.display='block';document.getElementById('adm').style.display='none';}
 function sAdm(name,el){
   document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sb-i').forEach(i=>i.classList.remove('active'));
-  document.getElementById('adm-'+name).classList.add('active');
-  el.classList.add('active');
+  document.getElementById('adm-'+name).classList.add('active');el.classList.add('active');
   if(name==='analytics'){bChart();bTop();}
 }
 function setA(el){document.querySelectorAll('.nav-tab').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
 
-/* MODAL/TOAST */
+/* MODAL / TOAST */
 function openModal(){document.getElementById('modal').classList.add('open');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 function handleSub(){closeModal();showToast('🌟 Bem-vindo ao Pulso! Verifica o teu email.');}
-function showToast(msg){
-  const t=document.getElementById('toast');
-  document.getElementById('tmsg').textContent=msg;
-  t.classList.add('show');
-  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);
-}
+function showToast(msg){const t=document.getElementById('toast');document.getElementById('tmsg').textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);}
 
 /* SCROLL REVEAL */
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});
