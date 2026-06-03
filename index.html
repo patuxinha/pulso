@@ -316,6 +316,174 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 .fu{animation:fadeUp .6s ease forwards;}
 .fu2{animation:fadeUp .6s ease .15s both;}
 .fu3{animation:fadeUp .6s ease .3s both;}
+
+/* PÁGINAS SOBRE & PRIVACIDADE */
+.page-modal{display:none;position:fixed;inset:0;background:rgba(12,11,9,.97);z-index:300;overflow-y:auto;padding:80px 2rem 4rem;}
+.page-modal.open{display:block;}
+.page-inner{max-width:800px;margin:0 auto;}
+.page-close{position:fixed;top:1.25rem;right:1.5rem;background:var(--dark);border:1px solid var(--border-g);color:var(--gold);font-size:13px;padding:8px 18px;border-radius:3px;cursor:pointer;font-family:"DM Mono",monospace;letter-spacing:.06em;text-transform:uppercase;z-index:301;}
+.page-close:hover{background:var(--gold-d);}
+.page-eyebrow{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:block;}
+.page-title{font-family:"Cormorant Garamond",serif;font-size:clamp(36px,5vw,64px);font-weight:300;color:var(--cream);line-height:1.05;margin-bottom:2rem;}
+.page-title em{font-style:italic;color:var(--gold);}
+.page-body{font-size:15px;color:rgba(244,239,230,.75);line-height:1.85;}
+.page-body h3{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:700;color:var(--cream);margin:2rem 0 .75rem;}
+.page-body p{margin-bottom:1.25rem;}
+.page-body ul{margin:0 0 1.25rem 1.5rem;}
+.page-body ul li{margin-bottom:.5rem;}
+.page-body strong{color:var(--cream);}
+.page-divider{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+
+/* ═══════════════════════════════════
+   RESPONSIVO — MOBILE FIRST
+═══════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* CURSOR — esconde no mobile */
+  #cur, #cur-r { display: none; }
+  body { cursor: auto; }
+
+  /* NAV */
+  nav { padding: 0 1rem; }
+  .nav-tabs { display: none; }
+  .nav-right { gap: 8px; }
+  .btn-g { display: none; }
+  .btn-s { font-size: 12px; padding: 7px 14px; }
+
+  /* MANIFESTO */
+  .manifesto { padding: 80px 1.25rem 3rem; }
+  .manifesto h1 { font-size: clamp(40px,12vw,64px); }
+  .manifesto-text { font-size: 15px; }
+  .manifesto-cta { flex-direction: column; align-items: center; }
+  .manifesto-stats { flex-direction: column; gap: 1.5rem; padding-top: 2rem; }
+  .ms { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: 1.5rem; }
+  .ms:last-child { border-bottom: none; }
+
+  /* SECTIONS */
+  .sec { padding: 3rem 1.25rem; }
+  .sec-top { flex-direction: column; gap: .75rem; }
+  .sec-desc { text-align: left; max-width: 100%; }
+  .sec-title { font-size: clamp(28px,8vw,40px); }
+  .sec-hero-img { height: 220px; }
+  .shi-title { font-size: clamp(18px,5vw,28px); }
+
+  /* GRIDS — tudo em coluna única no mobile */
+  .gmag, .g3, .g4, .g2 {
+    grid-template-columns: 1fr !important;
+    gap: 1px;
+  }
+
+  /* Article cards — sem grid span */
+  .ac { grid-column: span 1 !important; grid-row: span 1 !important; }
+  .ac-img { height: 180px; }
+  .ac.big .ac-img { height: 200px; }
+
+  /* STOIC */
+  .stoic { padding: 3rem 1.25rem; }
+  .stoic-q { font-size: clamp(18px,5vw,26px); }
+
+  /* VIVACIDADE */
+  .viv-manifesto-wrap > div { grid-template-columns: 1fr !important; }
+  .viv-pillars { grid-template-columns: 1fr 1fr !important; }
+
+  /* Vivacidade solidão block */
+  .sec [style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* INFLUENCERS */
+  .inf-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem; }
+
+  /* VIDEOS */
+  .vid-grid { grid-template-columns: 1fr !important; }
+
+  /* BONDADE */
+  .bond-grid { grid-template-columns: 1fr !important; }
+
+  /* FAZ A DIFERENÇA */
+  .fad-acts { grid-template-columns: 1fr !important; }
+  .fad-counter { flex-direction: column; gap: 1rem; text-align: center; }
+  .fad-input-row { flex-direction: column; max-width: 100%; }
+  .fad-nick { width: 100%; }
+  .fad-btn { width: 100%; }
+
+  /* NEWSLETTER */
+  .nl { grid-template-columns: 1fr !important; gap: 2.5rem; padding: 3rem 1.25rem; }
+
+  /* FOOTER */
+  footer { grid-template-columns: 1fr !important; text-align: center; gap: 1rem; }
+  .f-links { flex-wrap: wrap; justify-content: center; }
+  .f-copy { text-align: center; }
+
+  /* ADMIN */
+  .adm-wrap { grid-template-columns: 1fr !important; }
+  .adm-sb { display: none; }
+  .adm-main { padding: 1.25rem; }
+  .mbar { grid-template-columns: 1fr 1fr !important; }
+  .sc-grid, .mono-g, .an-g { grid-template-columns: 1fr !important; }
+
+  /* PÁGINAS SOBRE/PRIV */
+  .page-modal { padding: 70px 1.25rem 3rem; }
+
+  /* Arte & Beleza */
+  .sec [style*="grid-template-columns:repeat(4"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .sec [style*="grid-template-columns:repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Quotes 3 col */
+  .sec [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Florescer comunicar block */
+  .sec [style*="grid-template-columns:1fr 1fr;gap:1px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .viv-pillars { grid-template-columns: 1fr !important; }
+  .inf-grid { grid-template-columns: 1fr !important; }
+  .mbar { grid-template-columns: 1fr !important; }
+  .manifesto h1 { font-size: clamp(36px,11vw,52px); }
+  .sec-hero-img { height: 180px; }
+}
+
+
+  /* HAMBURGER MENU */
+  .hamburger { display: none; }
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 8px;
+    }
+    .hamburger span {
+      width: 22px; height: 2px; background: var(--gold);
+      border-radius: 2px; transition: all .3s;
+      display: block;
+    }
+    .mobile-menu {
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: rgba(12,11,9,.98); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0; z-index: 199;
+      display: none; flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 12px 1.5rem; font-size: 13px; font-weight: 400;
+      letter-spacing: .04em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color .2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu a:last-child { border-bottom: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -352,8 +520,23 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
   <div class="nav-right">
     <button class="btn-g" onclick="showAdmin()">⚙ Admin</button>
     <button class="btn-s" onclick="openModal()">Subscrever</button>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#topo" onclick="closeMenu()">Início</a>
+  <a href="#actualidade" onclick="closeMenu()">Actualidade</a>
+  <a href="#ciencia" onclick="closeMenu()">Ciência & Medicina</a>
+  <a href="#vivacidade" onclick="closeMenu()">Vivacidade</a>
+  <a href="#florescer" onclick="closeMenu()">Florescer</a>
+  <a href="#bondade" onclick="closeMenu()">Bondade</a>
+  <a href="#arte" onclick="closeMenu()">Arte & Beleza</a>
+  <a href="#arir" onclick="closeMenu()">A Rir 😄</a>
+  <a href="#fad" onclick="closeMenu()">Faz a Diferença</a>
+  <a href="#" onclick="openModal();closeMenu()">Subscrever</a>
+</div>
 
 <!-- ═══════ PUBLIC ═══════ -->
 <div id="pub">
@@ -987,12 +1170,22 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
       <div style="text-align:right"><div style="font-size:12px;color:var(--muted);margin-bottom:4px">Meta semanal</div><div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold)">500 actos</div><div style="height:4px;background:var(--border);border-radius:2px;width:180px;margin-top:6px"><div style="height:4px;background:var(--gold);border-radius:2px;width:49%"></div></div></div>
     </div>
     <div class="fad-acts rv" id="fad-acts"></div>
-    <div class="rv" style="text-align:center;margin-bottom:2rem">
+    <div class="rv" style="text-align:center;margin-bottom:1.5rem">
       <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--cream);margin-bottom:.5rem">Compromete-te publicamente</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:1rem">O teu nickname aparece no mural. Volta depois e diz-nos que fizeste ✓</div>
       <div class="fad-input-row">
         <input class="fad-nick" type="text" id="fad-nick" placeholder="O teu nickname...">
         <button class="fad-btn" onclick="commitAct()">Vou fazer isto! →</button>
+      </div>
+    </div>
+    <div class="rv" style="text-align:center;margin-bottom:2rem">
+      <div style="background:var(--dark);border:1px solid var(--border-g);border-radius:8px;padding:1.5rem 2rem;max-width:500px;margin:0 auto">
+        <div style="font-size:14px;font-weight:500;color:var(--cream);margin-bottom:.4rem">Já fizeste o teu acto de bondade?</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:1rem">Volta aqui e diz-nos — o mural actualiza-se!</div>
+        <div class="fad-input-row" style="max-width:100%">
+          <input class="fad-nick" type="text" id="fad-nick-done" placeholder="O teu nickname...">
+          <button class="fad-btn" style="background:#7BADA8;white-space:nowrap" onclick="markDone()">✓ Fiz!</button>
+        </div>
       </div>
     </div>
     <div class="rv">
@@ -1029,9 +1222,95 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 
 <footer>
   <div class="f-logo">Pulso</div>
-  <div class="f-links"><a href="#">Sobre</a><a href="#">Privacidade</a><a href="#">Parceiros</a><a href="#" onclick="showAdmin();return false;">Admin</a></div>
+  <div class="f-links"><a href="#" onclick="document.getElementById('modal-sobre').classList.add('open');return false;">Sobre</a><a href="#" onclick="document.getElementById('modal-priv').classList.add('open');return false;">Privacidade</a><a href="mailto:alegrate.motivate@gmail.com">Contacto</a><a href="#" onclick="showAdmin();return false;">Admin</a></div>
   <div class="f-copy">© 2026 Pulso · Portugal 🇵🇹</div>
 </footer>
+
+<!-- MODAL SOBRE -->
+<div id="modal-sobre" class="page-modal">
+  <button class="page-close" onclick="document.getElementById('modal-sobre').classList.remove('open')">✕ Fechar</button>
+  <div class="page-inner">
+    <span class="page-eyebrow">✦ Quem somos</span>
+    <h1 class="page-title">Sobre o <em>Pulso</em></h1>
+    <div class="page-body">
+      <p><strong>O Pulso nasceu de uma convicção simples:</strong> o mundo tem muito mais coisas boas do que as que chegam às primeiras páginas dos jornais. Cientistas a curar doenças, pessoas a plantar florestas sozinhas, avós a correr maratonas, crianças a receber flores de estranhos — isto acontece todos os dias. Só não é notícia.</p>
+      <p>O Pulso é um site de curadoria de boas notícias, actualizado diariamente, que reúne o melhor do que acontece no mundo em sete secções temáticas: <strong>Actualidade, Ciência & Medicina, Vivacidade, Florescer, Bondade, Arte & Beleza</strong> e <strong>A Rir</strong>.</p>
+      <hr class="page-divider">
+      <h3>Como funciona</h3>
+      <p>Todos os dias, uma combinação de inteligência artificial e curadoria humana selecciona as melhores histórias positivas de fontes nacionais e internacionais. Cada artigo é avaliado por um score de positividade antes de chegar ao site — só passa o que genuinamente merece o teu tempo.</p>
+      <p>O resultado é uma publicação que podes abrir de manhã sem o risco de ficares pior do que estavas antes de a ler.</p>
+      <hr class="page-divider">
+      <h3>A nossa missão</h3>
+      <p>Acreditamos que <strong>a informação que consumimos molda a forma como vemos o mundo</strong> — e que um mundo visto através de boas notícias não é um mundo ingénuo. É um mundo mais preciso. O progresso é real. A bondade é real. A beleza é real.</p>
+      <p>O Pulso não ignora os problemas do mundo. Escolhe, conscientemente, não acrescentar mais ruído ao ruído que já existe.</p>
+      <hr class="page-divider">
+      <h3>Faz a Diferença</h3>
+      <p>O Pulso não é só para ler — é para agir. A secção <strong>Faz a Diferença</strong> convida cada visitante a comprometer-se com um pequeno acto de bondade por semana. Flores a um vizinho. Um café pago ao de trás na fila. Uma chamada a alguém que está sozinho. O mural regista os compromissos e as confirmações — e cresce todos os dias.</p>
+      <hr class="page-divider">
+      <h3>Contacto</h3>
+      <p>Para parcerias, patrocínios éticos ou simplesmente para partilhar uma boa notícia que merece estar aqui:<br>
+      <strong style="color:var(--gold)">alegrate.motivate@gmail.com</strong></p>
+      <p style="font-size:13px;color:var(--muted);margin-top:3rem;font-family:'DM Mono',monospace;letter-spacing:.04em">Pulso · Portugal 🇵🇹 · Feito com propósito · © 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRIVACIDADE -->
+<div id="modal-priv" class="page-modal">
+  <button class="page-close" onclick="document.getElementById('modal-priv').classList.remove('open')">✕ Fechar</button>
+  <div class="page-inner">
+    <span class="page-eyebrow">✦ Transparência</span>
+    <h1 class="page-title">Política de <em>Privacidade</em></h1>
+    <div class="page-body">
+      <p><strong>Última actualização:</strong> Junho de 2026</p>
+      <p>O Pulso (<strong>pulso</strong>, acessível em patuxinha.github.io/pulso) respeita a sua privacidade. Esta política explica que dados recolhemos, como os usamos e quais são os seus direitos.</p>
+      <hr class="page-divider">
+      <h3>1. Dados que recolhemos</h3>
+      <p>O Pulso recolhe apenas os dados que fornece voluntariamente:</p>
+      <ul>
+        <li><strong>Subscrição da newsletter</strong> — email e nome, através do Substack. Estes dados são geridos pelo Substack (substack.com) e regidos pela sua política de privacidade.</li>
+        <li><strong>Faz a Diferença</strong> — nickname e acto de bondade escolhido, guardados no Google Sheets. Não recolhemos emails, moradas ou qualquer dado pessoal identificável nesta funcionalidade.</li>
+        <li><strong>Dados de navegação</strong> — se utilizar publicidade Google AdSense, o Google poderá recolher dados de navegação anónimos para personalizar anúncios, de acordo com a política do Google.</li>
+      </ul>
+      <hr class="page-divider">
+      <h3>2. Como usamos os dados</h3>
+      <ul>
+        <li>O email de subscrição é usado exclusivamente para enviar a newsletter do Pulso.</li>
+        <li>O nickname do Faz a Diferença é exibido publicamente no mural do site.</li>
+        <li>Não vendemos, partilhamos nem cedemos dados a terceiros para fins comerciais.</li>
+      </ul>
+      <hr class="page-divider">
+      <h3>3. Cookies e publicidade</h3>
+      <p>O Pulso pode utilizar o serviço <strong>Google AdSense</strong> para exibir publicidade. O Google AdSense utiliza cookies para personalizar anúncios com base nas visitas anteriores a este e outros sites. Pode desactivar a publicidade personalizada em <strong>adssettings.google.com</strong>.</p>
+      <p>Pode recusar o uso de cookies alterando as definições do seu browser. No entanto, isso pode afectar a funcionalidade do site.</p>
+      <hr class="page-divider">
+      <h3>4. Serviços de terceiros</h3>
+      <p>O Pulso utiliza os seguintes serviços externos:</p>
+      <ul>
+        <li><strong>Substack</strong> — gestão de newsletter e subscrições</li>
+        <li><strong>Google Sheets & Apps Script</strong> — armazenamento do mural Faz a Diferença</li>
+        <li><strong>YouTube</strong> — embeds de vídeo (os vídeos são carregados do YouTube)</li>
+        <li><strong>Unsplash</strong> — imagens fotográficas (carregadas directamente do Unsplash)</li>
+        <li><strong>Google AdSense</strong> — publicidade (quando aplicável)</li>
+      </ul>
+      <hr class="page-divider">
+      <h3>5. Os seus direitos (RGPD)</h3>
+      <p>Se reside na União Europeia, tem direito a:</p>
+      <ul>
+        <li>Aceder aos dados que guardámos sobre si</li>
+        <li>Solicitar a correcção ou eliminação dos seus dados</li>
+        <li>Cancelar a subscrição da newsletter a qualquer momento (link no rodapé de cada email)</li>
+        <li>Solicitar a remoção do seu nickname do mural Faz a Diferença</li>
+      </ul>
+      <p>Para exercer qualquer um destes direitos, contacte-nos em <strong style="color:var(--gold)">alegrate.motivate@gmail.com</strong>.</p>
+      <hr class="page-divider">
+      <h3>6. Alterações a esta política</h3>
+      <p>Podemos actualizar esta política de privacidade ocasionalmente. Quando o fizermos, actualizamos a data no topo deste documento. Recomendamos que a reveja periodicamente.</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:3rem;font-family:'DM Mono',monospace;letter-spacing:.04em">Pulso · Portugal 🇵🇹 · © 2026</p>
+    </div>
+  </div>
+</div>
+
 </div><!-- /pub -->
 
 <!-- ═══════ ADMIN ═══════ -->
@@ -1290,6 +1569,7 @@ const vids={
     {id:'_Nt4a3RXzF0',cat:'Arte & Beleza',title:'A Sagrada Família de Gaudí — arquitectura como oração em pedra'},
     {id:'_9V4pNAEoSQ',cat:'Arte & Beleza',title:'Maria Callas — a voz humana no limite do que o corpo aguenta'}
   ],
+  rir:[
     {id:'DUQp615gc_U',cat:'A Rir',title:'Animais impossíveis — compilation'},
     {id:'hFZFjoX2cGg',cat:'A Rir',title:'Crianças com respostas épicas'},
     {id:'0b52pWuYZZ8',cat:'A Rir',title:'Momentos hilariantes para ver duas vezes'}
@@ -1331,43 +1611,143 @@ document.getElementById('fad-acts').innerHTML=fadActs.map((a,i)=>`
 
 function selFad(i){document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));document.getElementById('fa-'+i).classList.add('selected');selAct=fadActs[i];}
 
-let fadCount=247;
-const muralSeed=[
-  {nick:'MariaL',act:'☕',txt:'Paguei o café ao de trás'},
-  {nick:'Tiago87',act:'🌸',txt:'Levei flores ao lar da Nazaré'},
-  {nick:'Cris_Porto',act:'📞',txt:'Liguei à minha avó'},
-  {nick:'JoanaF',act:'😊',txt:'Sorri a três estranhos hoje'},
-  {nick:'PedroSilva',act:'🍱',txt:'Deixei comida na porta da vizinha'},
-  {nick:'Ana_Maravilha',act:'🌳',txt:'Plantei um limoeiro'},
-  {nick:'RuiM',act:'👂',txt:'Ouvi o meu pai durante 1 hora'},
-  {nick:'Sofia_Lx',act:'💌',txt:'Escrevi ao meu professor favorito'}
-];
-let mural=[...muralSeed];
-function renderMural(){document.getElementById('fad-mural').innerHTML=mural.map(m=>`<div class="fad-mural-item">${m.act}<span class="fad-mural-nick">${m.nick}</span>${m.txt}</div>`).join('');}
-renderMural();
-function commitAct(){
+/* FAZ A DIFERENÇA — Google Apps Script */
+const FAD_API='https://script.google.com/macros/s/AKfycbw24mYtRc0p3fFXjwhgZDESl9TC2jM9PmDJOD01w_nRsg2P0CjPbg3LuPDOXJuLu08Jkw/exec';
+let fadCount=0;
+let mural=[];
+
+async function loadMural(){
+  try{
+    const res=await fetch(FAD_API);
+    const data=await res.json();
+    mural=data.reverse();
+    fadCount=data.filter(r=>r.feito==='sim ✓').length;
+    const total=data.length;
+    const el=document.getElementById('fad-n');
+    if(el) el.textContent=total;
+    renderMural();
+  }catch(e){
+    console.log('Mural offline — a usar dados locais');
+    mural=[
+      {nick:'MariaL',acto:'☕',feito:'sim ✓'},
+      {nick:'Tiago87',acto:'🌸',feito:'sim ✓'},
+      {nick:'Cris_Porto',acto:'📞',feito:'não'},
+      {nick:'JoanaF',acto:'😊',feito:'sim ✓'}
+    ];
+    renderMural();
+  }
+}
+
+function renderMural(){
+  const el=document.getElementById('fad-mural');
+  if(!el)return;
+  if(!mural.length){el.innerHTML='<div style="color:var(--muted);font-size:13px">Ainda não há actos esta semana — sê o primeiro!</div>';return;}
+  el.innerHTML=mural.slice(0,20).map(m=>`
+    <div class="fad-mural-item">
+      ${m.acto||'💛'}
+      <span class="fad-mural-nick">${m.nick||'Anónimo'}</span>
+      ${m.descricao||m.acto||''}
+      ${m.feito==='sim ✓'?'<span style="color:var(--c2);font-size:10px;margin-left:4px">✓ feito</span>':''}
+    </div>`).join('');
+}
+
+async function commitAct(){
   const nick=document.getElementById('fad-nick').value.trim();
   if(!selAct){showToast('Escolhe primeiro o teu acto de bondade ↑');return;}
   if(!nick){showToast('Coloca o teu nickname 😊');return;}
-  fadCount++;document.getElementById('fad-n').textContent=fadCount;
-  mural.unshift({nick,act:selAct.e,txt:selAct.name.toLowerCase()});renderMural();
-  document.getElementById('fad-nick').value='';selAct=null;
+
+  const btn=document.querySelector('.fad-btn');
+  if(btn){btn.textContent='A guardar...';btn.disabled=true;}
+
+  try{
+    await fetch(FAD_API,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({
+        action:'commit',
+        nickname:nick,
+        acto:selAct.e,
+        descricao:selAct.name
+      })
+    });
+    await loadMural();
+    showToast(`${nick}, és incrível! O teu compromisso está no mural. 🌟`);
+  }catch(e){
+    // Offline fallback
+    mural.unshift({nick,acto:selAct.e,descricao:selAct.name,feito:'não'});
+    const el=document.getElementById('fad-n');
+    if(el) el.textContent=parseInt(el.textContent||0)+1;
+    renderMural();
+    showToast(`${nick}, és incrível! 🌟`);
+  }
+
+  document.getElementById('fad-nick').value='';
+  selAct=null;
   document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
-  showToast(`${nick}, és incrível! 🌟`);
+  if(btn){btn.textContent='Vou fazer isto! →';btn.disabled=false;}
 }
 
-/* ADMIN QUEUE */
-const qData=[
-  {id:1,cat:'Ciência',cl:'c2',title:'Nova bateria de sódio carrega 10x mais rápido que lítio',exc:'Investigadores de Stanford desenvolvem tecnologia que pode transformar a mobilidade eléctrica.',src:'Expresso',t:'há 20 min',sc:93},
-  {id:2,cat:'Medicina',cl:'c3',title:'Implante cerebral permite paralítico escrever a 90 palavras por minuto',exc:'BrainComputer Interface em ensaios com resultados acima das expectativas.',src:'Público',t:'há 45 min',sc:91},
-  {id:3,cat:'Vivacidade',cl:'c4',title:'Aos 70 anos, professor cria empresa de IA que vale 20 milhões',exc:'António Melo prova que experiência + curiosidade é imbatível.',src:'Observador',t:'há 1h',sc:94},
-  {id:4,cat:'Bondade',cl:'c6',title:'Cozinheiro distribui 500 refeições por dia aos sem-abrigo — há 8 anos',exc:'Ali Hassan, emigrante sírio, começou logo que chegou a Lisboa.',src:'JN',t:'há 2h',sc:98},
-  {id:5,cat:'Actualidade',cl:'c1',title:'Portugal lidera ranking europeu de qualidade de vida em cidades pequenas',exc:'Évora, Viseu e Viana do Castelo no top 10 europeu.',src:'Público',t:'há 3h',sc:87},
-  {id:6,cat:'Florescer',cl:'c5',title:'Técnica de respiração japonesa reduz cortisol em 40% em 5 minutos',exc:'Universidade de Tóquio valida prática ancestral de regulação do sistema nervoso.',src:'SaúdeViva',t:'há 4h',sc:88},
-  {id:7,cat:'A Rir',cl:'c7',title:'Gatinho tenta roubar peixe ao pescador e acaba dentro da rede',exc:'Vídeo viral de adorável felino em missão impossível visto 40 milhões de vezes.',src:'YouTube Trends',t:'há 5h',sc:99},
-  {id:8,cat:'Medicina',cl:'c3',title:'Transplante de rim geneticamente modificado funciona 2 anos — recorde',exc:'Avanço histórico na xenotransplantação abre porta à solução para falta de órgãos.',src:'Expresso',t:'há 6h',sc:92}
-];
-let queue=[...qData],pubList=[];
+// Carregar mural ao iniciar
+loadMural();
+
+async function markDone(){
+  const nick=document.getElementById('fad-nick-done').value.trim();
+  if(!nick){showToast('Coloca o teu nickname para confirmar 😊');return;}
+  if(!selAct){showToast('Escolhe o acto que fizeste ↑');return;}
+  const btn=event.target;
+  btn.textContent='A guardar...';btn.disabled=true;
+  try{
+    await fetch(FAD_API,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({action:'done',nickname:nick,acto:selAct.e})
+    });
+    await loadMural();
+    showToast(`${nick}, obrigado por seres incrível! ✓ Registado! 🌟`);
+  }catch(e){
+    showToast(`${nick}, registado localmente! 🌟`);
+  }
+  document.getElementById('fad-nick-done').value='';
+  btn.textContent='✓ Fiz!';btn.disabled=false;
+}
+
+
+/* ADMIN QUEUE — Google Sheets live */
+const SHEET_ID='1r0jqCIcMDpCOez9XFQgM-519lR-jNCC-F-cWOVm0GLM';
+const SHEET_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Pulso%20%E2%80%94%20Fila%20de%20Aprova%C3%A7%C3%A3o`;
+const catCl={'Actualidade':'c1','Ciência':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
+let queue=[],pubList=[];
+
+async function loadFromSheets(){
+  const el=document.getElementById('q-list');
+  if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⏳</div>A carregar notícias do Google Sheets...</div>';
+  try{
+    const res=await fetch(SHEET_URL);
+    const text=await res.text();
+    const json=JSON.parse(text.replace(/.*google\.visualization\.Query\.setResponse\(/,'').replace(/\);?\s*$/,''));
+    const rows=json.table.rows||[];
+    queue=rows
+      .filter(r=>r.c&&r.c[0]&&r.c[6]&&!r.c[6].v) // aprovado vazio = ainda não aprovado
+      .map((r,i)=>({
+        id:i+1,
+        title:r.c[0]?r.c[0].v||'':'',
+        exc:r.c[1]?r.c[1].v||'':'',
+        cat:r.c[2]?r.c[2].v||'Actualidade':'Actualidade',
+        cl:catCl[r.c[2]?r.c[2].v:'Actualidade']||'c1',
+        sc:r.c[3]?Math.round(Number(r.c[3].v)||0):0,
+        src:'Google Sheets',
+        t:'recente'
+      }))
+      .filter(n=>n.title&&n.sc>0);
+    rQueue();
+    if(queue.length===0&&el){
+      el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">✨</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:24px;color:var(--cream);margin-bottom:.5rem">Fila vazia!</div><div>A IA recolhe notícias todos os dias às 7h00.</div></div>';
+    }
+  }catch(err){
+    console.error('Erro ao carregar Sheets:',err);
+    if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⚠️</div><div style="font-size:14px">Não foi possível carregar o Google Sheets.<br>Verifica se a folha está partilhada publicamente.</div></div>';
+  }
+}
 function rQueue(){
   const el=document.getElementById('q-list');if(!el)return;
   if(!queue.length){el.innerHTML='<div style="text-align:center;padding:4rem;color:var(--muted)"><div style="font-size:3rem;margin-bottom:1rem">✨</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:28px;color:var(--cream)">Fila vazia!</div></div>';return;}
@@ -1425,7 +1805,7 @@ let secs=167;
 setInterval(()=>{secs--;if(secs<0)secs=179;const s=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');['cd','nf'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});},1000);
 
 /* NAV */
-function showAdmin(){document.getElementById('pub').style.display='none';document.getElementById('adm').style.display='block';rQueue();rPub();bChart();bTop();}
+function showAdmin(){document.getElementById('pub').style.display='none';document.getElementById('adm').style.display='block';loadFromSheets();rPub();bChart();bTop();}
 function showPublic(){document.getElementById('pub').style.display='block';document.getElementById('adm').style.display='none';}
 function sAdm(name,el){
   document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
@@ -1434,12 +1814,14 @@ function sAdm(name,el){
   if(name==='analytics'){bChart();bTop();}
 }
 function setA(el){document.querySelectorAll('.nav-tab').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
+function toggleMenu(){const m=document.getElementById('mobile-menu');m.classList.toggle('open');}
+function closeMenu(){document.getElementById('mobile-menu').classList.remove('open');}
 
 /* MODAL / TOAST */
-function openModal(){document.getElementById('modal').classList.add('open');}
+function openModal(){window.open('https://pulso1.substack.com/subscribe','_blank');}
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
-function handleSub(){closeModal();showToast('🌟 Bem-vindo ao Pulso! Verifica o teu email.');}
+function handleSub(){window.open('https://pulso1.substack.com/subscribe','_blank');}
 function showToast(msg){const t=document.getElementById('toast');document.getElementById('tmsg').textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);}
 
 /* SCROLL REVEAL */
