@@ -1836,31 +1836,27 @@ let queue=[],pubList=[];
 
 async function loadFromSheets(){
   const el=document.getElementById('q-list');
-  if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⏳</div>A carregar notícias do Google Sheets...</div>';
+  if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⏳</div>A carregar notícias...</div>';
   try{
-    const res=await fetch(SHEET_URL);
-    const text=await res.text();
-    const json=JSON.parse(text.replace(/^[\s\S]*?({[\s\S]*})\);?\s*$/, '$1'));
-    const rows=json.table.rows||[];
-    queue=rows
-      .filter(r=>r.c&&r.c[0]&&r.c[0].v&&(!r.c[6]||!r.c[6].v||r.c[6].v==='pendente')) // pendente = ainda não aprovado
-      .map((r,i)=>({
-        id:i+1,
-        title:r.c[0]?r.c[0].v||'':'',
-        exc:r.c[1]?r.c[1].v||'':'',
-        cat:r.c[2]?r.c[2].v||'Actualidade':'Actualidade',
-        cl:catCl[r.c[2]?r.c[2].v:'Actualidade']||'c1',
-        sc:r.c[3]?Math.round(Number(r.c[3].v)||0):0,
-        src:'Google Sheets',
-        t:'recente'
-      }))
-      .filter(n=>n.title&&n.sc>0);
+    const res=await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec');
+    const data=await res.json();
+    const catCl2={'Actualidade':'c1','Ciencia':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
+    queue=data.map((r,i)=>({
+      id:i+1,
+      title:r.titulo_pt||'',
+      exc:r.resumo_pt||'',
+      cat:r.categoria||'Actualidade',
+      cl:catCl2[r.categoria]||'c1',
+      sc:Math.round(Number(r.score)||0),
+      src:'Google Sheets',
+      t:'recente'
+    })).filter(n=>n.title&&n.sc>0);
     rQueue();
     if(queue.length===0&&el){
       el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">✨</div><div style="font-family:\'Cormorant Garamond\',serif;font-size:24px;color:var(--cream);margin-bottom:.5rem">Fila vazia!</div><div>A IA recolhe notícias todos os dias às 7h00.</div></div>';
     }
   }catch(err){
-    console.error('Erro ao carregar Sheets:',err);
+    console.error('Erro ao carregar:',err);
     if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⚠️</div><div style="font-size:14px">Não foi possível carregar o Google Sheets.<br>Verifica se a folha está partilhada publicamente.</div></div>';
   }
 }
