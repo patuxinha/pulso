@@ -1840,7 +1840,7 @@ async function loadFromSheets(){
   try{
     const res=await fetch(SHEET_URL);
     const text=await res.text();
-    const json=JSON.parse(text.replace(/.*google\.visualization\.Query\.setResponse\(/,'').replace(/\);?\s*$/,''));
+    const json=JSON.parse(text.replace(/^[\s\S]*?({[\s\S]*})\);?\s*$/, '$1'));
     const rows=json.table.rows||[];
     queue=rows
       .filter(r=>r.c&&r.c[0]&&r.c[0].v&&(!r.c[6]||!r.c[6].v||r.c[6].v==='pendente')) // pendente = ainda não aprovado
