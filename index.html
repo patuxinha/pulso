@@ -505,7 +505,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPublic()"><div class="logo-mark"></div>Pulso</div>
+  <div class="nav-logo" onclick="showPublic()" id="nav-logo-pulso"><div class="logo-mark"></div>Pulso</div>
   <ul class="nav-tabs">
     <li><a class="nav-tab active" href="#topo" onclick="setA(this)">Início</a></li>
     <li><a class="nav-tab" href="#actualidade" onclick="setA(this)">Actualidade</a></li>
@@ -518,7 +518,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <li><a class="nav-tab" href="#fad" onclick="setA(this)">Faz a Diferença</a></li>
   </ul>
   <div class="nav-right">
-    <button class="btn-g" onclick="showAdmin()">⚙ Admin</button>
+    
     <button class="btn-s" onclick="openModal()">Subscrever</button>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1308,7 +1308,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <a href="#" onclick="document.getElementById('modal-sobre').classList.add('open');return false;">Sobre</a>
     <a href="#" onclick="document.getElementById('modal-priv').classList.add('open');return false;">Privacidade</a>
     <a href="mailto:alegrate.motivate@gmail.com">Contacto</a>
-    <a href="#" onclick="showAdmin();return false;">Admin</a>
+    
   </div>
   <div style="display:flex;gap:1rem;justify-content:center;margin-top:.75rem">
     <a href="https://pulso1.substack.com" target="_blank" title="Newsletter" style="width:36px;height:36px;border-radius:50%;background:var(--dark);border:1px solid var(--border-g);display:flex;align-items:center;justify-content:center;color:var(--gold);text-decoration:none;font-size:16px;transition:background .2s" onmouseover="this.style.background='var(--gold-d)'" onmouseout="this.style.background='var(--dark)'">✉</a>
@@ -1917,7 +1917,23 @@ let secs=167;
 setInterval(()=>{secs--;if(secs<0)secs=179;const s=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');['cd','nf'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});},1000);
 
 /* NAV */
-function showAdmin(){document.getElementById('pub').style.display='none';document.getElementById('adm').style.display='block';loadFromSheets();rPub();bChart();bTop();}
+function showAdmin(){
+  if(sessionStorage.getItem('pulso_admin')==='ok'){
+    document.getElementById('pub').style.display='none';
+    document.getElementById('adm').style.display='block';
+    loadFromSheets();rPub();bChart();bTop();
+    return;
+  }
+  const pass=prompt('Password do Admin:');
+  if(pass==='pulso2026'){
+    sessionStorage.setItem('pulso_admin','ok');
+    document.getElementById('pub').style.display='none';
+    document.getElementById('adm').style.display='block';
+    loadFromSheets();rPub();bChart();bTop();
+  } else if(pass!==null){
+    alert('Password incorrecta.');
+  }
+}
 function showPublic(){document.getElementById('pub').style.display='block';document.getElementById('adm').style.display='none';}
 function sAdm(name,el){
   document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('active'));
@@ -1939,6 +1955,21 @@ function showToast(msg){const t=document.getElementById('toast');document.getEle
 /* SCROLL REVEAL */
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+// Triple-click secret admin access
+(function(){
+  let clicks=0,timer=null;
+  document.addEventListener('DOMContentLoaded',function(){
+    const logo=document.getElementById('nav-logo-pulso');
+    if(!logo)return;
+    logo.addEventListener('click',function(e){
+      clicks++;
+      if(timer)clearTimeout(timer);
+      timer=setTimeout(()=>{clicks=0;},600);
+      if(clicks>=3){clicks=0;clearTimeout(timer);showAdmin();}
+    });
+  });
+})();
 </script>
 </body>
 </html>
