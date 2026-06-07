@@ -1843,7 +1843,7 @@ async function loadFromSheets(){
     const json=JSON.parse(text.replace(/.*google\.visualization\.Query\.setResponse\(/,'').replace(/\);?\s*$/,''));
     const rows=json.table.rows||[];
     queue=rows
-      .filter(r=>r.c&&r.c[0]&&r.c[6]&&!r.c[6].v) // aprovado vazio = ainda não aprovado
+      .filter(r=>r.c&&r.c[0]&&r.c[0].v&&(!r.c[6]||!r.c[6].v||r.c[6].v==='pendente')) // pendente = ainda não aprovado
       .map((r,i)=>({
         id:i+1,
         title:r.c[0]?r.c[0].v||'':'',
