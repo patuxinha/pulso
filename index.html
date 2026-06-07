@@ -11,7 +11,7 @@
   --border:rgba(255,255,255,.07);--border-g:rgba(212,175,100,.28);
   --gold:#D4AF64;--gold-l:#F0DFA8;--gold-d:rgba(212,175,100,.14);
   --cream:#F4EFE6;--muted:rgba(244,239,230,.44);--faint:rgba(244,239,230,.16);
-  --c1:#7BAFC0;--c2:#8FAD78;--c3:#B07BAA;--c4:#D4AF64;--c5:#C08870;--c6:#7BADA8;--c7:#C07878;
+  --c1:#5BBFCF;--c2:#7DC86A;--c3:#C07BAA;--c4:#E8A020;--c5:#D4845A;--c6:#4BBFB0;--c7:#E06060;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -23,6 +23,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(12,11,9,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E8A020 0%,#4BBFB0 20%,#D4845A 40%,#7DC86A 60%,#5BBFCF 80%,#E06060 100%);}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;}
 .logo-mark{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
 .logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
@@ -31,6 +32,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .nav-tab{padding:0 .85rem;height:60px;display:flex;align-items:center;font-size:11px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s;text-decoration:none;}
 .nav-tab:hover,.nav-tab.active{color:var(--cream);}
 .nav-tab.active{border-bottom-color:var(--gold);}
+.nav-tab[data-sec='act'].active{border-bottom-color:var(--c1);color:var(--c1);}
+.nav-tab[data-sec='viv'].active{border-bottom-color:var(--c4);color:var(--c4);}
+.nav-tab[data-sec='flo'].active{border-bottom-color:var(--c5);color:var(--c5);}
+.nav-tab[data-sec='bon'].active{border-bottom-color:var(--c6);color:var(--c6);}
+.nav-tab[data-sec='art'].active{border-bottom-color:var(--c2);color:var(--c2);}
+.nav-tab[data-sec='rir'].active{border-bottom-color:var(--c7);color:var(--c7);}
 .nav-right{display:flex;gap:10px;align-items:center;flex-shrink:0;}
 .btn-g{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border-g);border-radius:3px;background:transparent;color:var(--gold);cursor:pointer;transition:background .2s;white-space:nowrap;}
 .btn-g:hover{background:var(--gold-d);}
@@ -85,7 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;d
 .sec{padding:5rem 2rem;border-top:1px solid var(--border);}
 .sec.dark-bg{background:var(--off);}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap;}
-.sec-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;}
+.sec-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;font-weight:600;}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1.05;letter-spacing:-.02em;color:var(--cream);}
 .sec-title em{font-style:italic;color:var(--gold);}
 .sec-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:300px;text-align:right;}
@@ -570,7 +577,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 <div class="ticker"><div class="tick-t" id="ticker"></div></div>
 
 <!-- ACTUALIDADE -->
-<section class="sec dark-bg" id="actualidade">
+<section class="sec dark-bg" style="border-top:3px solid #5BBFCF;" id="actualidade">
   <div class="sec-top rv">
     <div><div class="sec-eye c1">● Actualidade</div><div class="sec-title">O que mudou para<br><em>melhor</em> hoje</div></div>
     <div class="sec-desc">As notícias positivas que os grandes meios não destacam. Progresso real, todos os dias.</div>
@@ -589,7 +596,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- CIÊNCIA & MEDICINA -->
-<section class="sec" id="ciencia">
+<section class="sec" style="border-top:3px solid #5BBFCF;" id="ciencia">
   <div class="sec-top rv">
     <div><div class="sec-eye c2">● Ciência & Medicina</div><div class="sec-title">Descobertas que<br><em>curam e inspiram</em></div></div>
     <div class="sec-desc">Investigação, inovação e avanços médicos que mudam vidas reais.</div>
@@ -619,7 +626,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </div>
 
 <!-- VIVACIDADE -->
-<section class="sec dark-bg" id="vivacidade">
+<section class="sec dark-bg" style="border-top:3px solid #E8A020;" id="vivacidade">
   <div class="sec-top rv">
     <div><div class="sec-eye c4">● Vivacidade</div><div class="sec-title">Quem disse que<br>já não tens <em>idade?</em></div></div>
     <div class="sec-desc">Garra, estilo, gosto pela vida — com ou sem a aprovação de quem acha que já passou o prazo.</div>
@@ -725,7 +732,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- FLORESCER -->
-<section class="sec" id="florescer">
+<section class="sec" style="border-top:3px solid #D4845A;" id="florescer">
   <div class="sec-top rv">
     <div><div class="sec-eye c5">● Florescer</div><div class="sec-title">Melhor por <em>dentro</em><br>e por fora</div></div>
     <div class="sec-desc">Nunca é tarde para aprender. Estilo, comunicação, saber estar — crescer não tem limite de idade.</div>
@@ -954,7 +961,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- BONDADE -->
-<section class="sec dark-bg" id="bondade">
+<section class="sec dark-bg" style="border-top:3px solid #4BBFB0;" id="bondade">
   <div class="sec-top rv">
     <div><div class="sec-eye c6">● Bondade</div><div class="sec-title">Actos que<br><em>transformam</em></div></div>
     <div class="sec-desc">Flores oferecidas a estranhos, ajuda sem interesse, histórias que restauram a fé nas pessoas.</div>
@@ -998,7 +1005,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- ARTE & BELEZA -->
-<section class="sec" id="arte">
+<section class="sec" style="border-top:3px solid #7DC86A;" id="arte">
   <div class="sec-top rv">
     <div><div class="sec-eye" style="color:#D4AF64">✦ Arte, Beleza & Estilo</div><div class="sec-title">O feio nunca<br>inspirou <em>ninguém.</em></div></div>
     <div class="sec-desc">Os antigos sabiam-no. Construíam tudo belo. A beleza eleva o espírito — e a cultura é a ponte entre a sabedoria do passado e a promessa do futuro.</div>
@@ -1225,7 +1232,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- A RIR -->
-<section class="sec" id="arir">
+<section class="sec" style="border-top:3px solid #E06060;" id="arir">
   <div class="sec-top rv">
     <div><div class="sec-eye c7">● A Rir 😄</div><div class="sec-title">Porque <em>rir</em><br>também é saúde</div></div>
     <div class="sec-desc">Humor que não magoa ninguém. Só para gargalhar.</div>
@@ -1238,7 +1245,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
 </section>
 
 <!-- FAZ A DIFERENÇA -->
-<section class="sec dark-bg" id="fad">
+<section class="sec dark-bg" style="border-top:3px solid #4BBFB0;" id="fad">
   <div class="sec-top rv">
     <div><div class="sec-eye" style="color:var(--gold)">● Faz a Diferença</div><div class="sec-title">O teu acto<br>de <em>bondade hoje</em></div></div>
     <div class="sec-desc">Não precisas de salvar o mundo. Um gesto pequeno muda o dia de alguém — e o teu.</div>
