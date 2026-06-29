@@ -1515,6 +1515,10 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
           <div id="u-resumo" style="font-size:13px;color:var(--muted);line-height:1.6;"></div>
           <div id="u-score" style="font-size:11px;color:var(--gold);margin-top:8px;"></div>
         </div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">Sobre o quê? (opcional — ajuda a IA a perceber)</div>
+          <input id="u-ctx" type="text" placeholder="Ex: senhora a maquilhar-se de forma inspiradora" style="width:100%;background:var(--off);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;">
+        </div>
         <div style="display:flex;gap:10px;">
           <button onclick="analisarURL()" style="background:var(--border);color:var(--cream);font-weight:600;font-size:14px;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;">🔍 Analisar com IA</button>
           <button id="u-add-btn" onclick="adicionarURL()" style="background:var(--gold);color:#0d0b07;font-weight:700;font-size:14px;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;display:none;">✓ Adicionar à fila</button>
@@ -2114,7 +2118,11 @@ async function submeterManual(){
   showToast('A guardar...');
   try{
     const mp=new URLSearchParams({action:'adicionar',titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo});
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+mp.toString(),{mode:'no-cors'});
+    const fm=document.createElement('form');
+    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fm.target='_blank';
+    const mfields={titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo};
+    for(const k in mfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=mfields[k];fm.appendChild(i);}
+    document.body.appendChild(fm);fm.submit();document.body.removeChild(fm);
     document.getElementById('m-titulo').value='';
     document.getElementById('m-resumo').value='';
     document.getElementById('m-url').value='';
@@ -2166,7 +2174,11 @@ async function enviarSugestao(){
   showToast('A enviar sugestão...');
   try{
     const sp=new URLSearchParams({action:'adicionar',titulo_pt:texto||'Sugestão da comunidade: '+url,resumo_pt:texto||'Sugestão enviada por um leitor do Pulso.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')});
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+sp.toString(),{mode:'no-cors'});
+    const fs=document.createElement('form');
+    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fs.target='_blank';
+    const sfields={titulo_pt:texto||'Sugestão: '+url,resumo_pt:texto||'Sugestão enviada por leitor.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')};
+    for(const k in sfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=sfields[k];fs.appendChild(i);}
+    document.body.appendChild(fs);fs.submit();document.body.removeChild(fs);
     document.getElementById('sug-url').value='';
     document.getElementById('sug-texto').value='';
     document.getElementById('sug-nome').value='';
@@ -2181,8 +2193,9 @@ async function analisarURL(){
   if(!url){showToast('Cola um URL primeiro!');return;}
   showToast('A IA está a analisar...');
   try{
+    const ctx=document.getElementById('u-ctx')?document.getElementById('u-ctx').value.trim():'';
     const API='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';
-    const r=await fetch(API+'?action=analisar&url='+encodeURIComponent(url));
+    const r=await fetch(API+'?action=analisar&url='+encodeURIComponent(url)+(ctx?'&ctx='+encodeURIComponent(ctx):''));
     const urlAnalisadoRaw=await r.json();
     urlAnalisado=urlAnalisadoRaw;
     urlAnalisado.url=url;
@@ -2200,16 +2213,11 @@ async function analisarURL(){
 async function adicionarURL(){
   if(!urlAnalisado.titulo_pt){showToast('Analisa primeiro!');return;}
   try{
-    const params=new URLSearchParams({
-      action:'adicionar',
-      titulo_pt:urlAnalisado.titulo_pt,
-      resumo_pt:urlAnalisado.resumo_pt,
-      categoria:urlAnalisado.categoria,
-      score:urlAnalisado.score||80,
-      url:urlAnalisado.url,
-      origem:'manual_url'
-    });
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+params.toString(),{mode:'no-cors'});
+    const f=document.createElement('form');
+    f.method='POST';f.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';f.target='_blank';
+    const fields={titulo_pt:urlAnalisado.titulo_pt,resumo_pt:urlAnalisado.resumo_pt,categoria:urlAnalisado.categoria,score:urlAnalisado.score||80,url:urlAnalisado.url,origem:'manual_url'};
+    for(const k in fields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];f.appendChild(i);}
+    document.body.appendChild(f);f.submit();document.body.removeChild(f);
     document.getElementById('u-url').value='';
     document.getElementById('u-preview').style.display='none';
     document.getElementById('u-add-btn').style.display='none';
@@ -2236,7 +2244,7 @@ async function adicionarURL(){
     const ts=Math.random()*0.8+0.4;
     const dur=Math.random()*8+6;
     const color=colors[Math.floor(Math.random()*colors.length)];
-    orb.style.cssText=`width:${size}px;height:${size}px;left:${x}px;top:${y}px;background:${color};--tx:${tx};--ty:${ty};--ts:${ts};animation:floatOrb ${dur}s ease-in-out forwards;filter:blur(${size*0.4}px);`;
+    orb.style.cssText=`width:${size}px;height:${size}px;left:${x}px;top:${y}px;background:${color};--tx:${tx};--ty:${ty};--ts:${ts};animation:floatOrb ${dur}s ease-in-out forwards;filter:blur(${size*0.15}px);border:1px solid ${color};`;
     container.appendChild(orb);
     setTimeout(()=>orb.remove(),dur*1000);
   }
