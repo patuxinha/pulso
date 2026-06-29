@@ -26,8 +26,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,14,20,.97);backdrop-filter:blur(24px);border-bottom:1px solid rgba(96,200,208,.1);}
 nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E8A020 0%,#4BBFB0 20%,#D4845A 40%,#7DC86A 60%,#5BBFCF 80%,#E06060 100%);}
 .nav-logo{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;}
-.logo-mark{width:22px;height:22px;border-radius:0;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
-.logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:0;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
+.logo-mark{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
+.logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);}}
 .nav-tabs{display:flex;gap:0;list-style:none;overflow-x:auto;}
 .nav-tab{padding:0 .85rem;height:60px;display:flex;align-items:center;font-size:11px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s;text-decoration:none;}
@@ -491,6 +491,9 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
     .mobile-menu a:hover { color: var(--gold); }
     .mobile-menu a:last-child { border-bottom: none; }
   }
+
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:1;opacity:0;}
+@keyframes floatOrb{0%{transform:translate(0,0) scale(1);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(var(--ts));opacity:0;}}
 
 </style>
 </head>
@@ -2110,11 +2113,8 @@ async function submeterManual(){
   if(!titulo||!resumo||!url){showToast('Preenche todos os campos!');return;}
   showToast('A guardar...');
   try{
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo})
-    });
+    const mp=new URLSearchParams({action:'adicionar',titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo});
+    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+mp.toString(),{mode:'no-cors'});
     document.getElementById('m-titulo').value='';
     document.getElementById('m-resumo').value='';
     document.getElementById('m-url').value='';
@@ -2165,18 +2165,8 @@ async function enviarSugestao(){
   if(!url){showToast('Cola um URL primeiro!');return;}
   showToast('A enviar sugestão...');
   try{
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        titulo_pt: texto||'Sugestão da comunidade: '+url,
-        resumo_pt: texto||'Sugestão enviada por um leitor do Pulso.',
-        categoria: cat||'Actualidade',
-        score: 80,
-        url: url,
-        origem: 'sugestao_' + (nome||'anonimo')
-      })
-    });
+    const sp=new URLSearchParams({action:'adicionar',titulo_pt:texto||'Sugestão da comunidade: '+url,resumo_pt:texto||'Sugestão enviada por um leitor do Pulso.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')});
+    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+sp.toString(),{mode:'no-cors'});
     document.getElementById('sug-url').value='';
     document.getElementById('sug-texto').value='';
     document.getElementById('sug-nome').value='';
@@ -2210,18 +2200,16 @@ async function analisarURL(){
 async function adicionarURL(){
   if(!urlAnalisado.titulo_pt){showToast('Analisa primeiro!');return;}
   try{
-    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        titulo_pt:urlAnalisado.titulo_pt,
-        resumo_pt:urlAnalisado.resumo_pt,
-        categoria:urlAnalisado.categoria,
-        score:urlAnalisado.score,
-        url:urlAnalisado.url,
-        origem:'manual_url'
-      })
+    const params=new URLSearchParams({
+      action:'adicionar',
+      titulo_pt:urlAnalisado.titulo_pt,
+      resumo_pt:urlAnalisado.resumo_pt,
+      categoria:urlAnalisado.categoria,
+      score:urlAnalisado.score||80,
+      url:urlAnalisado.url,
+      origem:'manual_url'
     });
+    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?'+params.toString(),{mode:'no-cors'});
     document.getElementById('u-url').value='';
     document.getElementById('u-preview').style.display='none';
     document.getElementById('u-add-btn').style.display='none';
@@ -2230,6 +2218,31 @@ async function adicionarURL(){
     loadFromSheets();
   }catch(e){showToast('Erro ao adicionar.');}
 }
+</script>
+
+<div id="orbs-container"></div>
+<script>
+(function(){
+  const colors=['#60c8d0','#e87850','#78c858','#d8a030','#a870c0'];
+  const container=document.getElementById('orbs-container');
+  function createOrb(){
+    const orb=document.createElement('div');
+    orb.className='orb';
+    const size=Math.random()*60+20;
+    const x=Math.random()*window.innerWidth;
+    const y=Math.random()*window.innerHeight;
+    const tx=(Math.random()-0.5)*300+'px';
+    const ty=(Math.random()-0.5)*300+'px';
+    const ts=Math.random()*0.8+0.4;
+    const dur=Math.random()*8+6;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    orb.style.cssText=`width:${size}px;height:${size}px;left:${x}px;top:${y}px;background:${color};--tx:${tx};--ty:${ty};--ts:${ts};animation:floatOrb ${dur}s ease-in-out forwards;filter:blur(${size*0.4}px);`;
+    container.appendChild(orb);
+    setTimeout(()=>orb.remove(),dur*1000);
+  }
+  setInterval(createOrb,1200);
+  for(let i=0;i<6;i++) setTimeout(createOrb,i*400);
+})();
 </script>
 </body>
 </html>
