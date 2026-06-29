@@ -7,26 +7,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#0C0B09;--off:#131210;--dark:#1A1815;--card:#1C1A14;
-  --border:rgba(255,255,255,.07);--border-g:rgba(212,175,100,.28);
-  --gold:#D4AF64;--gold-l:#F0DFA8;--gold-d:rgba(212,175,100,.14);
-  --cream:#F4EFE6;--muted:rgba(244,239,230,.44);--faint:rgba(244,239,230,.16);
-  --c1:#5BBFCF;--c2:#7DC86A;--c3:#C07BAA;--c4:#E8A020;--c5:#D4845A;--c6:#4BBFB0;--c7:#E06060;
+  --black:#0a0e14;--off:#0c1018;--dark:#101620;--card:#0e1420;
+  --border:rgba(255,255,255,.06);--border-g:rgba(96,200,208,.25);
+  --gold:#60c8d0;--gold-l:#a0e0e8;--gold-d:rgba(96,200,208,.12);
+  --cream:#e8e0d0;--muted:rgba(232,224,208,.42);--faint:rgba(232,224,208,.14);
+  --c1:#60c8d0;--c2:#78c858;--c3:#a870c0;--c4:#d8a030;--c5:#e87850;--c6:#50b898;--c7:#e06060;
+  --grid-color:rgba(255,255,255,.04);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;cursor:none;}
+body{font-family:'Outfit',sans-serif;background:var(--black);color:var(--cream);overflow-x:hidden;cursor:none;background-image:linear-gradient(var(--grid-color) 1px,transparent 1px),linear-gradient(90deg,var(--grid-color) 1px,transparent 1px);background-size:40px 40px;}
 
 #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
 #cur-r{position:fixed;width:30px;height:30px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.35;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.025;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(12,11,9,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,14,20,.97);backdrop-filter:blur(24px);border-bottom:1px solid rgba(96,200,208,.1);}
 nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E8A020 0%,#4BBFB0 20%,#D4845A 40%,#7DC86A 60%,#5BBFCF 80%,#E06060 100%);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;}
-.logo-mark{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
-.logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
+.nav-logo{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:9px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;}
+.logo-mark{width:22px;height:22px;border-radius:0;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;}
+.logo-mark::after{content:'';position:absolute;width:7px;height:7px;border-radius:0;background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.5);}}
 .nav-tabs{display:flex;gap:0;list-style:none;overflow-x:auto;}
 .nav-tab{padding:0 .85rem;height:60px;display:flex;align-items:center;font-size:11px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s;text-decoration:none;}
@@ -39,9 +40,9 @@ nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;backgro
 .nav-tab[data-sec='art'].active{border-bottom-color:var(--c2);color:var(--c2);}
 .nav-tab[data-sec='rir'].active{border-bottom-color:var(--c7);color:var(--c7);}
 .nav-right{display:flex;gap:10px;align-items:center;flex-shrink:0;}
-.btn-g{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border-g);border-radius:3px;background:transparent;color:var(--gold);cursor:pointer;transition:background .2s;white-space:nowrap;}
+.btn-g{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;border:1px solid rgba(255,255,255,.12);border-radius:0;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;white-space:nowrap;}
 .btn-g:hover{background:var(--gold-d);}
-.btn-s{font-size:13px;padding:7px 18px;border:none;border-radius:3px;background:var(--gold);color:var(--black);cursor:pointer;font-weight:600;transition:background .2s;white-space:nowrap;}
+.btn-s{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:7px 18px;border:1.5px solid var(--gold);border-radius:0;background:transparent;color:var(--gold);cursor:pointer;font-weight:700;transition:all .2s;white-space:nowrap;}
 .btn-s:hover{background:var(--gold-l);}
 
 /* TOAST / MODAL */
@@ -90,9 +91,9 @@ nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;backgro
 
 /* SECTIONS */
 .sec{padding:5rem 2rem;border-top:1px solid var(--border);}
-.sec.dark-bg{background:var(--off);}
+.sec.dark-bg{background:var(--dark);}
 .sec-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap;}
-.sec-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;font-weight:600;}
+.sec-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.75rem;font-weight:700;display:flex;align-items:center;gap:8px;}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:300;line-height:1.05;letter-spacing:-.02em;color:var(--cream);}
 .sec-title em{font-style:italic;color:var(--gold);}
 .sec-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:300px;text-align:right;}
@@ -224,7 +225,7 @@ nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;backgro
 .nl-form{display:flex;flex-direction:column;gap:9px;}
 
 /* FOOTER */
-footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem 2rem;display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:start;}
+footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.5rem 2rem;display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:start;}
 .f-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--gold);}
 .f-links{display:flex;gap:1.5rem;justify-content:center;}
 .f-links a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
@@ -558,7 +559,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <p class="manifesto-text fu3">
       O mundo tem problemas — isso não é novidade, os jornais tratam disso.<br>
       Mas tem também <strong>cientistas a curar doenças</strong>, pessoas a plantar florestas sozinhas,
-      crianças a receber flores de estranhos, avós a correr maratonas.<br><br>
+       jovens com mais experiência a correr maratonas.<br><br>
       <strong>Isso também é real. E é aqui que mora.</strong>
     </p>
     <div class="manifesto-cta fu3">
@@ -1284,6 +1285,40 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
   </div>
 </section>
 
+
+<!-- ENVIAR SUGESTÃO -->
+<section class="sec" style="border-top:3px solid #4BBFB0;background:var(--black);">
+  <div class="sec-top rv">
+    <div><div class="sec-eye" style="color:#4BBFB0">● A tua voz</div><div class="sec-title">Encontraste algo<br><em>incrível?</em></div></div>
+    <div class="sec-desc">Partilha connosco. Boas notícias, vídeos inspiradores, actos de bondade — tudo o que achares que o Pulso devia contar.</div>
+  </div>
+  <div style="max-width:700px;margin:0 auto;display:grid;gap:1.2rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <div>
+        <div style="font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">O teu nome (opcional)</div>
+        <input id="sug-nome" type="text" placeholder="Como te chamas?" style="width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">Categoria</div>
+        <select id="sug-cat" style="width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;">
+          <option value="">A IA decide por mim ✨</option>
+          <option>Actualidade</option><option>Ciencia</option><option>Medicina</option>
+          <option>Vivacidade</option><option>Florescer</option><option>Bondade</option><option>A Rir</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">O que encontraste? (URL, vídeo, notícia...)</div>
+      <input id="sug-url" type="url" placeholder="https://..." style="width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;">
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">Conta-nos (opcional)</div>
+      <textarea id="sug-texto" placeholder="Porque é que isto é bom? O que te tocou?" style="width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;height:80px;resize:vertical;"></textarea>
+    </div>
+    <button onclick="enviarSugestao()" style="background:var(--gold);color:#0d0b07;font-weight:700;font-size:14px;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;width:fit-content;">✨ Enviar para o Pulso</button>
+  </div>
+</section>
+
 <!-- NEWSLETTER -->
 <div class="nl-wrap">
   <div class="nl-bg"></div>
@@ -1333,7 +1368,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
     <span class="page-eyebrow">✦ Quem somos</span>
     <h1 class="page-title">Sobre o <em>Pulso</em></h1>
     <div class="page-body">
-      <p><strong>O Pulso nasceu de uma convicção simples:</strong> o mundo tem muito mais coisas boas do que as que chegam às primeiras páginas dos jornais. Cientistas a curar doenças, pessoas a plantar florestas sozinhas, avós a correr maratonas, crianças a receber flores de estranhos — isto acontece todos os dias. Só não é notícia.</p>
+      <p><strong>O Pulso nasceu de uma convicção simples:</strong> o mundo tem muito mais coisas boas do que as que chegam às primeiras páginas dos jornais. Cientistas a curar doenças, pessoas a plantar florestas sozinhas, jovens com mais experiência a correr maratonas,  — isto acontece todos os dias. Só não é notícia.</p>
       <p>O Pulso é um site de curadoria de boas notícias, actualizado diariamente, que reúne o melhor do que acontece no mundo em sete secções temáticas: <strong>Actualidade, Ciência & Medicina, Vivacidade, Florescer, Bondade, Arte & Beleza</strong> e <strong>A Rir</strong>.</p>
       <hr class="page-divider">
       <h3>Como funciona</h3>
@@ -1422,6 +1457,7 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
       <div class="sb-i active" onclick="sAdm('queue',this)">📥 Fila de aprovação<span class="sb-badge" id="qb">8</span></div>
       <div class="sb-i" onclick="sAdm('pub',this)">✅ Publicadas</div>
       <div class="sb-i" onclick="sAdm('manual',this)">✏️ Adicionar manual</div>
+      <div class="sb-i" onclick="sAdm('url',this)">🔗 Partilhar URL</div>
       <div class="sb-i" onclick="sAdm('newsletter',this)">📨 Newsletter</div>
     </div>
     <div class="sb-sec">
@@ -1461,7 +1497,29 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:2.5rem
       <div class="adm-sub">O que está no Pulso agora.</div>
       <div id="p-list"></div>
     </div>
-    <div class="adm-panel" id="adm-manual">
+    <div class="adm-panel" id="adm-url">
+      <div class="adm-title">Partilhar URL</div>
+      <div class="adm-sub">Cola um link de qualquer rede social ou site — a IA categoriza e resume automaticamente.</div>
+      <div style="display:grid;gap:1rem;max-width:600px;">
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;">URL (X, Instagram, YouTube, TikTok, artigo...)</div>
+          <input id="u-url" type="url" placeholder="https://..." style="width:100%;background:var(--off);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;">
+        </div>
+        <div id="u-preview" style="display:none;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:1rem;">
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;">Pré-visualização da IA</div>
+          <div id="u-cat" style="font-size:11px;font-weight:700;margin-bottom:4px;"></div>
+          <div id="u-titulo" style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--cream);margin-bottom:6px;"></div>
+          <div id="u-resumo" style="font-size:13px;color:var(--muted);line-height:1.6;"></div>
+          <div id="u-score" style="font-size:11px;color:var(--gold);margin-top:8px;"></div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button onclick="analisarURL()" style="background:var(--border);color:var(--cream);font-weight:600;font-size:14px;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;">🔍 Analisar com IA</button>
+          <button id="u-add-btn" onclick="adicionarURL()" style="background:var(--gold);color:#0d0b07;font-weight:700;font-size:14px;padding:10px 20px;border-radius:6px;border:none;cursor:pointer;display:none;">✓ Adicionar à fila</button>
+        </div>
+      </div>
+    </div>
+
+        <div class="adm-panel" id="adm-manual">
       <div class="adm-title">Adicionar manualmente</div>
       <div class="adm-sub">Adiciona um artigo, vídeo ou publicação que encontraste.</div>
       <div style="display:grid;gap:1rem;max-width:600px;">
@@ -2096,6 +2154,81 @@ async function gerarNewsletter(){
 function copiarNewsletter(){
   const txt=document.getElementById('nl-content').textContent;
   navigator.clipboard.writeText(txt).then(()=>showToast('✓ HTML copiado!'));
+}
+
+/* ENVIAR SUGESTÃO DO PÚBLICO */
+async function enviarSugestao(){
+  const url=document.getElementById('sug-url').value.trim();
+  const nome=document.getElementById('sug-nome').value.trim();
+  const cat=document.getElementById('sug-cat').value;
+  const texto=document.getElementById('sug-texto').value.trim();
+  if(!url){showToast('Cola um URL primeiro!');return;}
+  showToast('A enviar sugestão...');
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        titulo_pt: texto||'Sugestão da comunidade: '+url,
+        resumo_pt: texto||'Sugestão enviada por um leitor do Pulso.',
+        categoria: cat||'Actualidade',
+        score: 80,
+        url: url,
+        origem: 'sugestao_' + (nome||'anonimo')
+      })
+    });
+    document.getElementById('sug-url').value='';
+    document.getElementById('sug-texto').value='';
+    document.getElementById('sug-nome').value='';
+    showToast('✨ Enviado! A equipa Pulso vai ver. Obrigada!');
+  }catch(e){showToast('Erro ao enviar. Tenta novamente.');}
+}
+
+/* ANALISAR URL COM IA NO ADMIN */
+let urlAnalisado={};
+async function analisarURL(){
+  const url=document.getElementById('u-url').value.trim();
+  if(!url){showToast('Cola um URL primeiro!');return;}
+  showToast('A IA está a analisar...');
+  try{
+    const API='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';
+    const r=await fetch(API+'?action=analisar&url='+encodeURIComponent(url));
+    const urlAnalisadoRaw=await r.json();
+    urlAnalisado=urlAnalisadoRaw;
+    urlAnalisado.url=url;
+    document.getElementById('u-cat').textContent=urlAnalisado.categoria;
+    document.getElementById('u-cat').style.color='var(--gold)';
+    document.getElementById('u-titulo').textContent=urlAnalisado.titulo_pt;
+    document.getElementById('u-resumo').textContent=urlAnalisado.resumo_pt;
+    document.getElementById('u-score').textContent='Score IA: '+urlAnalisado.score+'%';
+    document.getElementById('u-preview').style.display='block';
+    document.getElementById('u-add-btn').style.display='inline-block';
+    showToast('Análise concluída!');
+  }catch(e){showToast('Erro na análise. Tenta novamente.');}
+}
+
+async function adicionarURL(){
+  if(!urlAnalisado.titulo_pt){showToast('Analisa primeiro!');return;}
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        titulo_pt:urlAnalisado.titulo_pt,
+        resumo_pt:urlAnalisado.resumo_pt,
+        categoria:urlAnalisado.categoria,
+        score:urlAnalisado.score,
+        url:urlAnalisado.url,
+        origem:'manual_url'
+      })
+    });
+    document.getElementById('u-url').value='';
+    document.getElementById('u-preview').style.display='none';
+    document.getElementById('u-add-btn').style.display='none';
+    urlAnalisado={};
+    showToast('✓ Adicionado à fila!');
+    loadFromSheets();
+  }catch(e){showToast('Erro ao adicionar.');}
 }
 </script>
 </body>
