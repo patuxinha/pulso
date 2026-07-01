@@ -495,6 +495,15 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
 .orb{position:fixed;border-radius:50%;pointer-events:none;z-index:1;opacity:0;}
 @keyframes floatOrb{0%{transform:translate(0,0) scale(1);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(var(--ts));opacity:0;}}
 
+
+@keyframes alegratePulse{
+  0%,100%{color:#e87850;transform:scale(1) translateY(0px);text-shadow:0 0 15px rgba(232,120,80,0.4);}
+  25%{color:#d8a030;transform:scale(1.08) translateY(-3px);text-shadow:0 0 20px rgba(216,160,48,0.5);}
+  50%{color:#60c8d0;transform:scale(1.12) translateY(-5px);text-shadow:0 0 22px rgba(96,200,208,0.5);}
+  75%{color:#78c858;transform:scale(1.06) translateY(-2px);text-shadow:0 0 18px rgba(120,200,88,0.4);}
+}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:1;opacity:0;}
+@keyframes floatOrb{0%{transform:translate(0,0) scale(1);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translate(var(--tx),var(--ty)) scale(var(--ts));opacity:0;}}
 </style>
 </head>
 <body>
@@ -516,7 +525,7 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPublic()" id="nav-logo-pulso"><div class="logo-mark"></div>Pulso</div>
+  <div class="nav-logo" onclick="showPublic()" id="nav-logo-pulso"><div class="logo-mark"></div>Pulso<span id="alegrate-tag" style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#e87850;font-weight:700;font-style:italic;margin-left:8px;letter-spacing:.02em;display:inline-block;animation:alegratePulse 3.5s ease-in-out infinite;text-shadow:0 0 20px rgba(232,120,80,0.5);">alegrate!</span></div>
   <ul class="nav-tabs">
     <li><a class="nav-tab active" href="#topo" onclick="setA(this)">Início</a></li>
     <li><a class="nav-tab" href="#actualidade" onclick="setA(this)">Actualidade</a></li>
@@ -1348,7 +1357,7 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
 </div>
 
 <footer>
-  <div class="f-logo">Pulso</div>
+  <div class="f-logo">Pulso <span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#e87850;font-weight:600;font-style:italic;">alegrate!</span></div>
   <div class="f-links">
     <a href="#" onclick="document.getElementById('modal-sobre').classList.add('open');return false;">Sobre</a>
     <a href="#" onclick="document.getElementById('modal-priv').classList.add('open');return false;">Privacidade</a>
@@ -2250,6 +2259,30 @@ async function adicionarURL(){
   }
   setInterval(createOrb,1200);
   for(let i=0;i<6;i++) setTimeout(createOrb,i*400);
+})();
+</script>
+<div id="orbs-container"></div>
+<script>
+(function(){
+  const colors=['#60c8d0','#e87850','#78c858','#d8a030','#a870c0'];
+  const container=document.getElementById('orbs-container');
+  function createOrb(){
+    const orb=document.createElement('div');
+    orb.className='orb';
+    const size=Math.random()*50+15;
+    const x=Math.random()*window.innerWidth;
+    const y=Math.random()*window.innerHeight;
+    const tx=(Math.random()-0.5)*300+'px';
+    const ty=(Math.random()-0.5)*300+'px';
+    const ts=Math.random()*0.8+0.4;
+    const dur=Math.random()*8+6;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    orb.style.cssText=`width:${size}px;height:${size}px;left:${x}px;top:${y}px;background:${color};--tx:${tx};--ty:${ty};--ts:${ts};animation:floatOrb ${dur}s ease-in-out forwards;filter:blur(${size*0.1}px);border:1px solid ${color};`;
+    container.appendChild(orb);
+    setTimeout(()=>orb.remove(),dur*1000);
+  }
+  setInterval(createOrb,1200);
+  for(let i=0;i<8;i++) setTimeout(createOrb,i*300);
 })();
 </script>
 </body>
