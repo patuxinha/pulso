@@ -1977,7 +1977,7 @@ async function loadFromSheets(){
   const el=document.getElementById('q-list');
   if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⏳</div>A carregar notícias...</div>';
   try{
-    const res=await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec');
+    const res=await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec');
     const data=await res.json();
     const catCl2={'Actualidade':'c1','Ciencia':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
     queue=data.map((r,i)=>({
@@ -2020,14 +2020,14 @@ function appQ(id){
   const el=document.getElementById('qi-'+id);
   const a=queue.find(n=>n.id===id);
   el.style.transition='all .4s';el.style.opacity='0';el.style.transform='translateX(28px)';
-  if(a&&a.row){fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?action=aprovar&row='+a.row).catch(()=>{});}
+  if(a&&a.row){fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec?action=aprovar&row='+a.row).catch(()=>{});}
   setTimeout(()=>{pubList.unshift(a);queue=queue.filter(n=>n.id!==id);rQueue();rPub();showToast('✓ Aprovado! Publica no site em 7 dias.');},400);
 }
 function rejQ(id){
   const el=document.getElementById('qi-'+id);
   const a=queue.find(n=>n.id===id);
   el.style.transition='all .4s';el.style.opacity='0';el.style.transform='translateX(-28px)';
-  if(a&&a.row){fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?action=rejeitar&row='+a.row).catch(()=>{});}
+  if(a&&a.row){fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec?action=rejeitar&row='+a.row).catch(()=>{});}
   setTimeout(()=>{queue=queue.filter(n=>n.id!==id);rQueue();showToast('Notícia rejeitada.');},400);
 }
 function updB(){const n=queue.length;['qb','qn'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=n;});}
@@ -2128,7 +2128,7 @@ async function submeterManual(){
   try{
     const mp=new URLSearchParams({action:'adicionar',titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo});
     const fm=document.createElement('form');
-    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fm.target='_blank';
+    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';fm.target='_blank';
     const mfields={titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo};
     for(const k in mfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=mfields[k];fm.appendChild(i);}
     document.body.appendChild(fm);fm.submit();document.body.removeChild(fm);
@@ -2144,7 +2144,7 @@ async function submeterManual(){
 async function gerarNewsletter(){
   showToast('A gerar newsletter...');
   try{
-    const res=await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?action=publicados');
+    const res=await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec?action=publicados');
     const data=await res.json();
     if(!data.length){showToast('Sem notícias aprovadas ainda.');return;}
     const hoje=new Date().toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'});
@@ -2184,7 +2184,7 @@ async function enviarSugestao(){
   try{
     const sp=new URLSearchParams({action:'adicionar',titulo_pt:texto||'Sugestão da comunidade: '+url,resumo_pt:texto||'Sugestão enviada por um leitor do Pulso.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')});
     const fs=document.createElement('form');
-    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fs.target='_blank';
+    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';fs.target='_blank';
     const sfields={titulo_pt:texto||'Sugestão: '+url,resumo_pt:texto||'Sugestão enviada por leitor.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')};
     for(const k in sfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=sfields[k];fs.appendChild(i);}
     document.body.appendChild(fs);fs.submit();document.body.removeChild(fs);
@@ -2203,7 +2203,7 @@ async function analisarURL(){
   showToast('A IA está a analisar...');
   try{
     const ctx=document.getElementById('u-ctx')?document.getElementById('u-ctx').value.trim():'';
-    const API='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';
+    const API='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';
     const r=await fetch(API+'?action=analisar&url='+encodeURIComponent(url)+(ctx?'&ctx='+encodeURIComponent(ctx):''));
     const urlAnalisadoRaw=await r.json();
     urlAnalisado=urlAnalisadoRaw;
@@ -2223,7 +2223,7 @@ async function adicionarURL(){
   if(!urlAnalisado.titulo_pt){showToast('Analisa primeiro!');return;}
   try{
     const f=document.createElement('form');
-    f.method='POST';f.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';f.target='_blank';
+    f.method='POST';f.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';f.target='_blank';
     const fields={titulo_pt:urlAnalisado.titulo_pt,resumo_pt:urlAnalisado.resumo_pt,categoria:urlAnalisado.categoria,score:urlAnalisado.score||80,url:urlAnalisado.url,origem:'manual_url'};
     for(const k in fields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];f.appendChild(i);}
     document.body.appendChild(f);f.submit();document.body.removeChild(f);
