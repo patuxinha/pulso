@@ -1960,7 +1960,7 @@ async function carregarNoticiasSite(){
       todasActualidade=act;
       const ga=document.getElementById('g-act');
       if(ga){
-        const visiveis=act.slice(0,4);
+        const visiveis=act.slice(1,5);
         ga.innerHTML=visiveis.map((a,i)=>makeCard(a,i===0?'lg':'sm')).join('');
         if(ga.children[0])ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';
         if(act.length>4){const btn=document.getElementById('act-ver-mais');if(btn)btn.style.display='inline-block';}
