@@ -45,6 +45,10 @@ nav::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;backgro
 .btn-s{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:7px 18px;border:1.5px solid var(--gold);border-radius:0;background:transparent;color:var(--gold);cursor:pointer;font-weight:700;transition:all .2s;white-space:nowrap;}
 .btn-s:hover{background:var(--gold-l);}
 
+/* LOJA */
+.loja-card{background:var(--card);border:1px solid var(--border);transition:border-color .2s,transform .2s;}
+.loja-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+
 /* TOAST / MODAL */
 .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--dark);border:1px solid var(--border-g);padding:13px 18px;border-radius:6px;font-size:13px;color:var(--cream);display:flex;align-items:center;gap:9px;opacity:0;transform:translateY(14px);transition:all .3s;pointer-events:none;}
 .toast.show{opacity:1;transform:none;}
@@ -555,6 +559,7 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
   <a href="#arte" onclick="closeMenu()">Arte & Beleza</a>
   <a href="#arir" onclick="closeMenu()">A Rir 😄</a>
   <a href="#fad" onclick="closeMenu()">Faz a Diferença</a>
+  <a href="#loja" onclick="closeMenu()">Loja 🛍️</a>
   <a href="#" onclick="openModal();closeMenu()">Subscrever</a>
 </div>
 
@@ -595,17 +600,20 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
     <div><div class="sec-eye c1">● Actualidade</div><div class="sec-title">O que mudou para<br><em>melhor</em> hoje</div></div>
     <div class="sec-desc">As notícias positivas que os grandes meios não destacam. Progresso real, todos os dias.</div>
   </div>
-  <div class="rv">
+  <div class="rv" id="act-hero-wrap">
     <div class="sec-hero-img">
       <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80&fit=crop" alt="Actualidade" style="width:100%;height:100%;object-fit:cover;">
       <div class="sec-hero-img-overlay">
         <div class="shi-eyebrow c1">● Destaque do dia</div>
-        <div class="shi-title">Portugal 7.º país mais pacífico do mundo em 2025</div>
-        <div class="shi-text">O Global Peace Index confirma: Portugal subiu de 18.º em 2014 para 7.º em 2025. E é o país mais seguro do mundo para viver a reforma.</div>
+        <div class="shi-title" id="act-hero-title">Portugal 7.º país mais pacífico do mundo em 2025</div>
+        <div class="shi-text" id="act-hero-text">O Global Peace Index confirma: Portugal subiu de 18.º em 2014 para 7.º em 2025. E é o país mais seguro do mundo para viver a reforma.</div>
       </div>
     </div>
   </div>
   <div class="gmag rv" id="g-act"></div>
+  <div style="text-align:center;margin:1.5rem 0">
+    <a id="act-ver-mais" href="#" style="display:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);border:1px solid var(--c1);padding:8px 20px;text-decoration:none" onclick="verMaisActualidade(event)">Ver todas →</a>
+  </div>
 </section>
 
 <!-- CIÊNCIA & MEDICINA -->
@@ -1015,6 +1023,21 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
     <div style="font-size:13px;color:var(--muted);margin-bottom:1.5rem">Vídeos reais de flores oferecidas, ajuda espontânea e momentos que fazem chorar de bem.</div>
     <div class="vid-grid" id="bond-vids"></div>
   </div>
+
+  <!-- FORMULÁRIO ACTOS DE BONDADE -->
+  <div class="rv" style="margin-top:3rem">
+    <div style="background:var(--card);border:1px solid rgba(80,184,152,.25);border-top:3px solid var(--c6);padding:2.5rem;max-width:640px;margin:0 auto">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:.5rem">O teu acto de bondade</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:2rem;line-height:1.7">Fizeste algo de bem? Viste alguém fazê-lo? Partilha aqui — pode inspirar milhares de pessoas.</div>
+      <div style="display:flex;flex-direction:column;gap:1rem" id="bond-form">
+        <input id="bond-nome" type="text" placeholder="O teu nome (ou anónimo)" style="background:var(--dark);border:1px solid var(--border);padding:12px 16px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;width:100%;outline:none;">
+        <input id="bond-local" type="text" placeholder="Cidade / Local (ex: Lisboa, Mercado de Arroios)" style="background:var(--dark);border:1px solid var(--border);padding:12px 16px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;width:100%;outline:none;">
+        <textarea id="bond-historia" placeholder="Conta o que aconteceu... (mín. 30 caracteres)" rows="4" style="background:var(--dark);border:1px solid var(--border);padding:12px 16px;color:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;width:100%;outline:none;resize:vertical;"></textarea>
+        <button onclick="submeterBondade()" style="background:var(--c6);color:#0a0e14;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:13px 24px;border:none;cursor:pointer;font-weight:700;transition:opacity .2s" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Partilhar o meu acto →</button>
+        <div id="bond-msg" style="display:none;font-size:13px;color:var(--c6);padding:12px;border:1px solid rgba(80,184,152,.3);text-align:center"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ARTE & BELEZA -->
@@ -1328,6 +1351,62 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
       <textarea id="sug-texto" placeholder="Porque é que isto é bom? O que te tocou?" style="width:100%;background:var(--dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--cream);font-size:14px;height:80px;resize:vertical;"></textarea>
     </div>
     <button onclick="enviarSugestao()" style="background:var(--gold);color:#0d0b07;font-weight:700;font-size:14px;padding:12px 24px;border-radius:6px;border:none;cursor:pointer;width:fit-content;">✨ Enviar para o Pulso</button>
+  </div>
+</section>
+
+<!-- LOJA PULSO -->
+<section class="sec dark-bg" style="border-top:3px solid var(--gold);" id="loja">
+  <div class="sec-top rv">
+    <div><div class="sec-eye" style="color:var(--gold)">● Loja</div><div class="sec-title">Veste o teu<br><em>optimismo</em></div></div>
+    <div class="sec-desc">T-shirts, canecas e outros artigos com mensagens positivas. Produção on-demand, entrega em Portugal.</div>
+  </div>
+  <div class="rv" id="loja-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;margin-bottom:2rem">
+    <!-- Produtos Printify carregam aqui -->
+    <div class="loja-card">
+      <div class="loja-img" style="background:var(--dark);height:220px;display:flex;align-items:center;justify-content:center;font-size:48px">👕</div>
+      <div class="loja-body" style="padding:1rem">
+        <div style="font-size:11px;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Bestseller</div>
+        <div style="font-size:16px;color:var(--cream);font-weight:600;margin-bottom:4px">"Alegrate!" — T-shirt</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">100% algodão orgânico · Unisexo</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:18px;color:var(--gold);font-weight:700">24,90€</div>
+          <button onclick="abrirLoja('tshirt-alegrate')" style="background:var(--gold);color:#0a0e14;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border:none;cursor:pointer;font-weight:700">Comprar →</button>
+        </div>
+      </div>
+    </div>
+    <div class="loja-card">
+      <div class="loja-img" style="background:var(--dark);height:220px;display:flex;align-items:center;justify-content:center;font-size:48px">☕</div>
+      <div class="loja-body" style="padding:1rem">
+        <div style="font-size:11px;color:var(--c6);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Novo</div>
+        <div style="font-size:16px;color:var(--cream);font-weight:600;margin-bottom:4px">"Boas Notícias" — Caneca</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Cerâmica · 330ml · Dishwasher safe</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:18px;color:var(--gold);font-weight:700">14,90€</div>
+          <button onclick="abrirLoja('caneca-boas-noticias')" style="background:var(--gold);color:#0a0e14;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border:none;cursor:pointer;font-weight:700">Comprar →</button>
+        </div>
+      </div>
+    </div>
+    <div class="loja-card">
+      <div class="loja-img" style="background:var(--dark);height:220px;display:flex;align-items:center;justify-content:center;font-size:48px">🧢</div>
+      <div class="loja-body" style="padding:1rem">
+        <div style="font-size:11px;color:var(--c4);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Limited</div>
+        <div style="font-size:16px;color:var(--cream);font-weight:600;margin-bottom:4px">"Pulso" — Boné</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Bordado · Ajustável · Preto</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="font-size:18px;color:var(--gold);font-weight:700">19,90€</div>
+          <button onclick="abrirLoja('bone-pulso')" style="background:var(--gold);color:#0a0e14;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border:none;cursor:pointer;font-weight:700">Comprar →</button>
+        </div>
+      </div>
+    </div>
+    <div class="loja-card" style="border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;min-height:300px;cursor:pointer" onclick="showToast('Mais produtos em breve!')">
+      <div style="text-align:center;color:var(--muted)">
+        <div style="font-size:32px;margin-bottom:1rem">+</div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase">Mais em breve</div>
+      </div>
+    </div>
+  </div>
+  <div class="rv" style="text-align:center">
+    <div style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">Produção on-demand via Printify · Envio 5-10 dias úteis · Devoluções em 30 dias</div>
   </div>
 </section>
 
@@ -1870,9 +1949,23 @@ async function carregarNoticiasSite(){
         </div>
       </div>`;
     }
-    // Actualidade — SUBSTITUI as hardcoded
+    // Actualidade — SUBSTITUI as hardcoded, mostra 4, resto em "ver mais"
     const act=byCat['Actualidade']||[];
-    if(act.length){const ga=document.getElementById('g-act');if(ga){ga.innerHTML=act.map((a,i)=>makeCard(a,i===0?'lg':'sm')).join('');if(ga.children[0])ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';}}
+    if(act.length){
+      // Actualiza hero
+      const heroTitle=document.getElementById('act-hero-title');
+      const heroText=document.getElementById('act-hero-text');
+      if(heroTitle&&act[0])heroTitle.textContent=act[0].titulo_pt;
+      if(heroText&&act[0])heroText.textContent=act[0].resumo_pt;
+      todasActualidade=act;
+      const ga=document.getElementById('g-act');
+      if(ga){
+        const visiveis=act.slice(0,4);
+        ga.innerHTML=visiveis.map((a,i)=>makeCard(a,i===0?'lg':'sm')).join('');
+        if(ga.children[0])ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';
+        if(act.length>4){const btn=document.getElementById('act-ver-mais');if(btn)btn.style.display='inline-block';}
+      }
+    }
     // Ciencia + Medicina — ADICIONA às hardcoded
     const cim=(byCat['Ciencia']||[]).concat(byCat['Ciência']||[]).concat(byCat['Medicina']||[]);
     if(cim.length){const el=document.getElementById('g-cim');if(el)el.innerHTML+=cim.map(a=>makeCard(a,'md')).join('');}
@@ -1888,6 +1981,54 @@ async function carregarNoticiasSite(){
   }catch(e){console.log('A usar notícias de exemplo.');}
 }
 carregarNoticiasSite();
+
+/* FORMULÁRIO ACTOS DE BONDADE */
+async function submeterBondade(){
+  const nome=document.getElementById('bond-nome').value.trim()||'Anónimo';
+  const local=document.getElementById('bond-local').value.trim();
+  const historia=document.getElementById('bond-historia').value.trim();
+  const msg=document.getElementById('bond-msg');
+  if(historia.length<30){msg.style.display='block';msg.style.color='#e06060';msg.textContent='Conta um pouco mais — precisamos de pelo menos 30 caracteres.';return;}
+  const btn=document.querySelector('#bond-form button');
+  btn.textContent='A enviar...';btn.disabled=true;
+  try{
+    const titulo=`Acto de bondade${local?' em '+local:''}: ${nome}`;
+    const resumo=historia.slice(0,200)+(historia.length>200?'…':'');
+    const url='https://pulsoalegre.com/bondade#'+Date.now();
+    await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec',{
+      method:'POST',
+      body:JSON.stringify({titulo_pt:titulo,resumo_pt:resumo,categoria:'Bondade',score:90,url:url,origem:'formulario'})
+    });
+    msg.style.display='block';msg.style.color='var(--c6)';
+    msg.textContent='💚 Obrigada! O teu acto de bondade foi partilhado. Inspira o mundo!';
+    document.getElementById('bond-nome').value='';
+    document.getElementById('bond-local').value='';
+    document.getElementById('bond-historia').value='';
+    btn.textContent='Partilhar o meu acto →';btn.disabled=false;
+  }catch(e){
+    msg.style.display='block';msg.style.color='#e06060';msg.textContent='Erro ao enviar. Tenta de novo.';
+    btn.textContent='Partilhar o meu acto →';btn.disabled=false;
+  }
+}
+
+/* VER MAIS ACTUALIDADE */
+let todasActualidade=[];
+function verMaisActualidade(ev){
+  ev.preventDefault();
+  const ga=document.getElementById('g-act');
+  if(!ga||!todasActualidade.length)return;
+  ga.innerHTML=todasActualidade.map((a,i)=>makeCard(a,i===0?'lg':'sm')).join('');
+  if(ga.children[0])ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';
+  document.getElementById('act-ver-mais').style.display='none';
+}
+
+/* LOJA PRINTIFY */
+function abrirLoja(produto){
+  // Quando tiveres a loja Printify configurada, substitui estes URLs
+  const lojaUrl='https://pulsoalegre.com/loja';
+  showToast('A abrir loja... 🛍️');
+  setTimeout(()=>window.open(lojaUrl,'_blank'),500);
+}
 
 /* FAZ A DIFERENÇA */
 const fadActs=[
