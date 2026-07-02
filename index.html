@@ -572,10 +572,7 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
       O mundo tem problemas — isso não é novidade, os jornais tratam disso.<br>
       Mas tem também <strong>cientistas a curar doenças</strong>, pessoas a plantar florestas sozinhas,
        jovens com mais experiência a correr maratonas.<br><br>
-     Isso também é real. E é aqui que mora.
-
-Porque o bom e o belo merecem atenção. Inspira-te, cresce, e amanhã sê um pouco melhor do que hoje.
-      Porque o bom e o belo merecem atenção. Inspira-te, cresce, e amanhã sê um pouco melhor do que hoje.
+      <strong>Isso também é real. E é aqui que mora.</strong>
     </p>
     <div class="manifesto-cta fu3">
       <button class="btn-s" style="padding:13px 32px;font-size:15px" onclick="openModal()">Subscrever grátis</button>
@@ -1847,6 +1844,51 @@ buildVids(vids.flo,'flo-vids');
 buildVids(vids.bond,'bond-vids');
 buildVids(vids.rir,'rir-vids');
 
+/* CARREGAR NOTÍCIAS PUBLICADAS DO SHEET PARA O SITE PÚBLICO */
+const PULSO_API='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';
+const catMap={'Actualidade':'c1','Ciencia':'c2','Ciência':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
+const imgPool=['photo-1507413245164-6160d8298b31','photo-1532938911079-1b06ac7ceec7','photo-1521791136064-7986c2920216','photo-1493225457124-a3eb161ffa5f','photo-1556742049-0cfed4f6a45d','photo-1529156069898-49953e39b3ac','photo-1558618666-fcd25c85cd64','photo-1571019614242-c5c5dee9f50b','photo-1580489944761-15a19d654956','photo-1573496359142-b8d87734a5a2'];
+function getRandImg(){return imgPool[Math.floor(Math.random()*imgPool.length)];}
+
+async function carregarNoticiasSite(){
+  try{
+    const res=await fetch(PULSO_API+'?action=publicados');
+    const data=await res.json();
+    if(!data||!data.length) return;
+    const byCat={};
+    data.forEach(n=>{const c=n.categoria||'Actualidade';if(!byCat[c])byCat[c]=[];byCat[c].push(n);});
+    function makeCard(n,size){
+      const cl=catMap[n.categoria]||'c1';
+      const img=getRandImg();
+      return `<div class="ac ${cl} ${size==='lg'?'big':''}" onclick="window.open('${n.url||'#'}','_blank')" style="cursor:pointer">
+        <div class="ac-img-wrap"><img class="ac-img" src="https://images.unsplash.com/${img}?w=800&h=${size==='lg'?400:250}&q=80&fit=crop" alt="${n.titulo_pt}" loading="lazy"></div>
+        <div class="ac-body">
+          <div class="ac-cat ${cl}">${n.categoria}</div>
+          <div class="ac-title ${size}">${n.titulo_pt}</div>
+          <div class="ac-text${size==='lg'?' b':''}">${n.resumo_pt}</div>
+          <div class="ac-foot"><span class="ac-meta">Pulso · IA ${n.score}%</span><span class="ac-read">Ler → ↗</span></div>
+        </div>
+      </div>`;
+    }
+    // Actualidade — SUBSTITUI as hardcoded
+    const act=byCat['Actualidade']||[];
+    if(act.length){const ga=document.getElementById('g-act');if(ga){ga.innerHTML=act.map((a,i)=>makeCard(a,i===0?'lg':'sm')).join('');if(ga.children[0])ga.children[0].style.cssText='grid-column:span 2;grid-row:span 2;';}}
+    // Ciencia + Medicina — ADICIONA às hardcoded
+    const cim=(byCat['Ciencia']||[]).concat(byCat['Ciência']||[]).concat(byCat['Medicina']||[]);
+    if(cim.length){const el=document.getElementById('g-cim');if(el)el.innerHTML+=cim.map(a=>makeCard(a,'md')).join('');}
+    // Vivacidade — ADICIONA
+    const viv=byCat['Vivacidade']||[];
+    if(viv.length){const el=document.getElementById('g-viv');if(el)el.innerHTML+=viv.map(a=>makeCard(a,'md')).join('');}
+    // Florescer — ADICIONA
+    const flo=byCat['Florescer']||[];
+    if(flo.length){const el=document.getElementById('g-flo');if(el)el.innerHTML+=flo.map(a=>makeCard(a,'md')).join('');}
+    // Bondade — ADICIONA
+    const bond=byCat['Bondade']||[];
+    if(bond.length){const el=document.getElementById('g-bond');if(el)el.innerHTML+=bond.map(b=>`<div class="bond-card" onclick="window.open('${b.url||'#'}','_blank')" style="cursor:pointer"><div style="overflow:hidden"><img class="bond-card-img" src="https://images.unsplash.com/${getRandImg()}?w=600&h=300&q=80&fit=crop" alt="${b.titulo_pt}" loading="lazy"></div><div class="bond-card-body"><div class="ac-cat c6" style="margin-bottom:8px">Bondade</div><div class="bond-card-title">${b.titulo_pt}</div><div class="bond-card-text">${b.resumo_pt}</div><div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--faint);margin-top:.75rem">Pulso · IA ${b.score}%</div></div></div>`).join('');}
+  }catch(e){console.log('A usar notícias de exemplo.');}
+}
+carregarNoticiasSite();
+
 /* FAZ A DIFERENÇA */
 const fadActs=[
   {e:'🌸',name:'Oferecer flores',desc:'Leva um ramo a um lar de jovens com mais experiência perto de ti, ou a um vizinho sozinho.'},
@@ -1980,7 +2022,7 @@ async function loadFromSheets(){
   const el=document.getElementById('q-list');
   if(el) el.innerHTML='<div style="text-align:center;padding:3rem;color:var(--muted)"><div style="font-size:2rem;margin-bottom:.75rem">⏳</div>A carregar notícias...</div>';
   try{
-    const res=await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec');
+    const res=await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec');
     const data=await res.json();
     const catCl2={'Actualidade':'c1','Ciencia':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
     queue=data.map((r,i)=>({
@@ -2024,7 +2066,7 @@ function appQ(id){
   const a=queue.find(n=>n.id===id);
   el.style.transition='all .4s';el.style.opacity='0';el.style.transform='translateX(28px)';
   if(a&&a.row){fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec?action=aprovar&row='+a.row).catch(()=>{});}
-  setTimeout(()=>{pubList.unshift(a);queue=queue.filter(n=>n.id!==id);rQueue();rPub();showToast('✓ Aprovado! Publica no site em 7 dias.');},400);
+  setTimeout(()=>{pubList.unshift(a);queue=queue.filter(n=>n.id!==id);rQueue();rPub();showToast('✓ Aprovado! Já está no site.');},400);
 }
 function rejQ(id){
   const el=document.getElementById('qi-'+id);
@@ -2131,7 +2173,7 @@ async function submeterManual(){
   try{
     const mp=new URLSearchParams({action:'adicionar',titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo});
     const fm=document.createElement('form');
-    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';fm.target='_blank';
+    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fm.target='_blank';
     const mfields={titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo};
     for(const k in mfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=mfields[k];fm.appendChild(i);}
     document.body.appendChild(fm);fm.submit();document.body.removeChild(fm);
@@ -2147,7 +2189,7 @@ async function submeterManual(){
 async function gerarNewsletter(){
   showToast('A gerar newsletter...');
   try{
-    const res=await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec?action=publicados');
+    const res=await fetch('https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec?action=publicados');
     const data=await res.json();
     if(!data.length){showToast('Sem notícias aprovadas ainda.');return;}
     const hoje=new Date().toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'});
@@ -2187,7 +2229,7 @@ async function enviarSugestao(){
   try{
     const sp=new URLSearchParams({action:'adicionar',titulo_pt:texto||'Sugestão da comunidade: '+url,resumo_pt:texto||'Sugestão enviada por um leitor do Pulso.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')});
     const fs=document.createElement('form');
-    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';fs.target='_blank';
+    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fs.target='_blank';
     const sfields={titulo_pt:texto||'Sugestão: '+url,resumo_pt:texto||'Sugestão enviada por leitor.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')};
     for(const k in sfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=sfields[k];fs.appendChild(i);}
     document.body.appendChild(fs);fs.submit();document.body.removeChild(fs);
@@ -2206,7 +2248,7 @@ async function analisarURL(){
   showToast('A IA está a analisar...');
   try{
     const ctx=document.getElementById('u-ctx')?document.getElementById('u-ctx').value.trim():'';
-    const API='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';
+    const API='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';
     const r=await fetch(API+'?action=analisar&url='+encodeURIComponent(url)+(ctx?'&ctx='+encodeURIComponent(ctx):''));
     const urlAnalisadoRaw=await r.json();
     urlAnalisado=urlAnalisadoRaw;
@@ -2226,7 +2268,7 @@ async function adicionarURL(){
   if(!urlAnalisado.titulo_pt){showToast('Analisa primeiro!');return;}
   try{
     const f=document.createElement('form');
-    f.method='POST';f.action='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';f.target='_blank';
+    f.method='POST';f.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';f.target='_blank';
     const fields={titulo_pt:urlAnalisado.titulo_pt,resumo_pt:urlAnalisado.resumo_pt,categoria:urlAnalisado.categoria,score:urlAnalisado.score||80,url:urlAnalisado.url,origem:'manual_url'};
     for(const k in fields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=fields[k];f.appendChild(i);}
     document.body.appendChild(f);f.submit();document.body.removeChild(f);
