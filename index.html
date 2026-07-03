@@ -2053,27 +2053,24 @@ document.getElementById('fad-acts').innerHTML=fadActs.map((a,i)=>`
 function selFad(i){document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));document.getElementById('fa-'+i).classList.add('selected');selAct=fadActs[i];}
 
 /* FAZ A DIFERENÇA — Google Apps Script */
-const FAD_API='https://script.google.com/macros/s/AKfycbzieeV5Dvpfe2oLCxXA1C2Ve-kafw-XWNh80L6DlVveYwj6nNS0gCL0I-y2EJ2k4w31NQ/exec';
+const FAD_API='https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec';
 let fadCount=0;
 let mural=[];
 
 async function loadMural(){
   try{
-    const res=await fetch(FAD_API);
+    const res=await fetch(FAD_API+'?action=fad');
     const data=await res.json();
     mural=data.reverse();
-    fadCount=data.filter(r=>r.feito==='sim ✓').length;
     const total=data.length;
     const el=document.getElementById('fad-n');
     if(el) el.textContent=total;
     renderMural();
   }catch(e){
-    console.log('Mural offline — a usar dados locais');
     mural=[
-      {nick:'MariaL',acto:'☕',feito:'sim ✓'},
-      {nick:'Tiago87',acto:'🌸',feito:'sim ✓'},
-      {nick:'Cris_Porto',acto:'📞',feito:'não'},
-      {nick:'JoanaF',acto:'😊',feito:'sim ✓'}
+      {id:0,nickname:'MariaL',acto:'☕',descricao:'Pagar o café ao de trás',feito:'sim ✓',forcas:3,comentarios:[]},
+      {id:0,nickname:'Tiago87',acto:'🌸',descricao:'Oferecer flores',feito:'sim ✓',forcas:5,comentarios:[]},
+      {id:0,nickname:'Cris_Porto',acto:'📞',descricao:'Ligar a alguém sozinho',feito:'não',forcas:2,comentarios:[]}
     ];
     renderMural();
   }
@@ -2082,56 +2079,100 @@ async function loadMural(){
 function renderMural(){
   const el=document.getElementById('fad-mural');
   if(!el)return;
-  if(!mural.length){el.innerHTML='<div style="color:var(--muted);font-size:13px">Ainda não há actos esta semana — sê o primeiro!</div>';return;}
+  if(!mural.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:2rem;text-align:center">Ainda não há actos esta semana — sê o primeiro!</div>';return;}
   el.innerHTML=mural.slice(0,20).map(m=>`
-    <div class="fad-mural-item">
-      ${m.acto||'💛'}
-      <span class="fad-mural-nick">${m.nick||'Anónimo'}</span>
-      ${m.descricao||m.acto||''}
-      ${m.feito==='sim ✓'?'<span style="color:var(--c2);font-size:10px;margin-left:4px">✓ feito</span>':''}
+    <div class="fad-mural-item" style="display:block;padding:1.25rem;margin-bottom:1rem;background:var(--dark);border:1px solid var(--border);border-left:3px solid var(--c6);">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+            <span style="font-size:20px">${m.acto||'💛'}</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);font-weight:600">${m.nickname||'Anónimo'}</span>
+            ${m.feito==='sim ✓'?'<span style="background:rgba(120,200,88,.15);color:var(--c2);font-size:10px;padding:2px 8px;font-family:\'DM Mono\',monospace;letter-spacing:.05em">✓ FEITO</span>':'<span style="background:rgba(96,200,208,.1);color:var(--c1);font-size:10px;padding:2px 8px;font-family:\'DM Mono\',monospace;letter-spacing:.05em">EM CURSO</span>'}
+          </div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">${m.descricao||''}</div>
+          ${m.comentarios&&m.comentarios.length?`<div style="margin-top:.75rem;padding:.75rem;background:rgba(255,255,255,.03);border-left:2px solid var(--border-g)">${m.comentarios.map(c=>`<div style="font-size:12px;color:var(--muted);margin-bottom:.3rem"><span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:11px">${c.nick}</span> — ${c.texto}</div>`).join('')}</div>`:''}
+          <div style="margin-top:.75rem;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+            <button onclick="darForca(${m.id},this)" style="background:rgba(80,184,152,.15);border:1px solid rgba(80,184,152,.3);color:var(--c6);font-size:12px;padding:4px 12px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:.04em;transition:all .2s" onmouseover="this.style.background='rgba(80,184,152,.3)'" onmouseout="this.style.background='rgba(80,184,152,.15)'">💚 Dou força! <span class="forca-n">${m.forcas||0}</span></button>
+            <button onclick="mostrarComentario(${m.id})" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:4px 12px;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:.04em;transition:all .2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">💬 Comentar</button>
+          </div>
+          <div id="com-form-${m.id}" style="display:none;margin-top:.75rem;display:none">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <input id="com-nick-${m.id}" type="text" placeholder="O teu nickname" style="flex:1;min-width:120px;background:var(--dark);border:1px solid var(--border);padding:7px 12px;color:var(--cream);font-size:13px;font-family:'Outfit',sans-serif;outline:none">
+              <input id="com-texto-${m.id}" type="text" placeholder="Escreve algo encorajador..." style="flex:3;min-width:200px;background:var(--dark);border:1px solid var(--border);padding:7px 12px;color:var(--cream);font-size:13px;font-family:'Outfit',sans-serif;outline:none">
+              <button onclick="enviarComentario(${m.id})" style="background:var(--c6);color:#0a0e14;border:none;padding:7px 14px;cursor:pointer;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>`).join('');
 }
 
-async function commitAct(){
-  const nick=document.getElementById('fad-nick').value.trim();
-  if(!selAct){showToast('Escolhe primeiro o teu acto de bondade ↑');return;}
-  if(!nick){showToast('Coloca o teu nickname 😊');return;}
+function mostrarComentario(id){
+  const el=document.getElementById('com-form-'+id);
+  if(el) el.style.display=el.style.display==='none'?'block':'none';
+}
 
-  const btn=document.querySelector('.fad-btn');
-  if(btn){btn.textContent='A guardar...';btn.disabled=true;}
-
+async function darForca(id,btn){
+  if(!id)return;
   try{
-    await fetch(FAD_API,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({
-        action:'commit',
-        nickname:nick,
-        acto:selAct.e,
-        descricao:selAct.name
-      })
-    });
-    await loadMural();
-    showToast(`${nick}, és incrível! O teu compromisso está no mural. 🌟`);
-  }catch(e){
-    // Offline fallback
-    mural.unshift({nick,acto:selAct.e,descricao:selAct.name,feito:'não'});
-    const el=document.getElementById('fad-n');
-    if(el) el.textContent=parseInt(el.textContent||0)+1;
-    renderMural();
-    showToast(`${nick}, és incrível! 🌟`);
-  }
+    await fetch(FAD_API+'?action=fad_forca&row='+id);
+    const n=btn.querySelector('.forca-n');
+    if(n) n.textContent=parseInt(n.textContent||0)+1;
+    btn.style.background='rgba(80,184,152,.4)';
+    showToast('💚 Força enviada!');
+  }catch(e){showToast('💚 Força enviada!');}
+}
 
-  document.getElementById('fad-nick').value='';
-  selAct=null;
-  document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
-  if(btn){btn.textContent='Vou fazer isto! →';btn.disabled=false;}
+async function enviarComentario(id){
+  const nick=document.getElementById('com-nick-'+id)?.value.trim()||'Anónimo';
+  const texto=document.getElementById('com-texto-'+id)?.value.trim();
+  if(!texto||texto.length<3){showToast('Escreve algo encorajador! 💬');return;}
+  try{
+    const res=await fetch(FAD_API,{
+      method:'POST',
+      body:JSON.stringify({action:'comentar',row:id,nickname:nick,comentario:texto})
+    });
+    const data=await res.json();
+    if(data.ok){
+      showToast('💬 Comentário aprovado e publicado!');
+      document.getElementById('com-form-'+id).style.display='none';
+      setTimeout(loadMural,1000);
+    }else{
+      showToast('⚠️ Comentário não aprovado — tenta ser mais positivo!');
+    }
+  }catch(e){showToast('💬 Obrigado pelo comentário!');}
 }
 
 // Carregar mural ao iniciar
 loadMural();
 
-async function markDone(){
+async function commitAct(){
+  const nick=document.getElementById('fad-nick').value.trim();
+  if(!selAct){showToast('Escolhe primeiro o teu acto de bondade ↑');return;}
+  if(!nick){showToast('Coloca o teu nickname 😊');return;}
+  const btn=document.querySelector('.fad-btn');
+  if(btn){btn.textContent='A guardar...';btn.disabled=true;}
+  try{
+    const res=await fetch(FAD_API,{
+      method:'POST',
+      body:JSON.stringify({action:'commit',nickname:nick,acto:selAct.e,descricao:selAct.name})
+    });
+    const data=await res.json();
+    if(data.ok===false){showToast('⚠️ Conteúdo não aprovado. Tenta de novo.');btn.textContent='Vou fazer isto! →';btn.disabled=false;return;}
+    await loadMural();
+    showToast(`${nick}, és incrível! O teu compromisso está no mural. 🌟`);
+  }catch(e){
+    mural.unshift({id:0,nickname:nick,acto:selAct.e,descricao:selAct.name,feito:'não',forcas:0,comentarios:[]});
+    const el=document.getElementById('fad-n');
+    if(el) el.textContent=parseInt(el.textContent||0)+1;
+    renderMural();
+    showToast(`${nick}, és incrível! 🌟`);
+  }
+  document.getElementById('fad-nick').value='';
+  selAct=null;
+  document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
+  if(btn){btn.textContent='Vou fazer isto! →';btn.disabled=false;}
+}
   const nick=document.getElementById('fad-nick-done').value.trim();
   if(!nick){showToast('Coloca o teu nickname para confirmar 😊');return;}
   if(!selAct){showToast('Escolhe o acto que fizeste ↑');return;}
