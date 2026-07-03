@@ -2173,6 +2173,7 @@ async function commitAct(){
   document.querySelectorAll('.fad-act').forEach(el=>el.classList.remove('selected'));
   if(btn){btn.textContent='Vou fazer isto! →';btn.disabled=false;}
 }
+async function markDone(){
   const nick=document.getElementById('fad-nick-done').value.trim();
   if(!nick){showToast('Coloca o teu nickname para confirmar 😊');return;}
   if(!selAct){showToast('Escolhe o acto que fizeste ↑');return;}
@@ -2181,7 +2182,6 @@ async function commitAct(){
   try{
     await fetch(FAD_API,{
       method:'POST',
-      headers:{'Content-Type':'text/plain'},
       body:JSON.stringify({action:'done',nickname:nick,acto:selAct.e})
     });
     await loadMural();
