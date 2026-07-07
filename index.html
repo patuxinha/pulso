@@ -2403,12 +2403,12 @@ async function submeterManual(){
   if(!titulo||!resumo||!url){showToast('Preenche todos os campos!');return;}
   showToast('A guardar...');
   try{
-    const mp=new URLSearchParams({action:'adicionar',titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo});
-    const fm=document.createElement('form');
-    fm.method='POST';fm.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fm.target='_blank';
-    const mfields={titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo};
-    for(const k in mfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=mfields[k];fm.appendChild(i);}
-    document.body.appendChild(fm);fm.submit();document.body.removeChild(fm);
+    const res=await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec',{
+      method:'POST',
+      body:JSON.stringify({titulo_pt:titulo,resumo_pt:resumo,categoria:cat,score:90,url:url,origem:'manual_'+tipo})
+    });
+    const data=await res.json();
+    if(data.ok===false&&data.erro){showToast('⚠️ '+data.erro);return;}
     document.getElementById('m-titulo').value='';
     document.getElementById('m-resumo').value='';
     document.getElementById('m-url').value='';
@@ -2459,12 +2459,10 @@ async function enviarSugestao(){
   if(!url){showToast('Cola um URL primeiro!');return;}
   showToast('A enviar sugestão...');
   try{
-    const sp=new URLSearchParams({action:'adicionar',titulo_pt:texto||'Sugestão da comunidade: '+url,resumo_pt:texto||'Sugestão enviada por um leitor do Pulso.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')});
-    const fs=document.createElement('form');
-    fs.method='POST';fs.action='https://script.google.com/macros/s/AKfycbxUyAfQinrl4RlRlw5EL2-anjVgnLPjAhV2c7NOimlZELAlsJ3wEF6CETj4uO6ej7xLGg/exec';fs.target='_blank';
-    const sfields={titulo_pt:texto||'Sugestão: '+url,resumo_pt:texto||'Sugestão enviada por leitor.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')};
-    for(const k in sfields){const i=document.createElement('input');i.type='hidden';i.name=k;i.value=sfields[k];fs.appendChild(i);}
-    document.body.appendChild(fs);fs.submit();document.body.removeChild(fs);
+    await fetch('https://script.google.com/macros/s/AKfycbyhD1vBXd5Br5bNpYqoDwxWz0AiSz0sbsugCT-5Ij6MZdSn5oDdXSSlVnlyyM4jiz7AXQ/exec',{
+      method:'POST',
+      body:JSON.stringify({titulo_pt:texto||'Sugestão: '+url,resumo_pt:texto||'Sugestão enviada por leitor.',categoria:cat||'Actualidade',score:80,url:url,origem:'sugestao_'+(nome||'anonimo')})
+    });
     document.getElementById('sug-url').value='';
     document.getElementById('sug-texto').value='';
     document.getElementById('sug-nome').value='';
