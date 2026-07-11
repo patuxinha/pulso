@@ -599,7 +599,7 @@ footer{background:var(--off);border-top:1px solid rgba(96,200,208,.1);padding:2.
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo" onclick="showPublic()" id="nav-logo-pulso"><div class="logo-mark"></div>Pulso<span id="alegrate-tag" style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#e87850;font-weight:700;font-style:italic;margin-left:8px;letter-spacing:.02em;display:inline-block;animation:alegratePulse 3.5s ease-in-out infinite;text-shadow:0 0 20px rgba(232,120,80,0.5);">alegrate!</span></div>
+  <div class="nav-logo" id="nav-logo-pulso"><div class="logo-mark"></div>Pulso<span id="alegrate-tag" style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#e87850;font-weight:700;font-style:italic;margin-left:8px;letter-spacing:.02em;display:inline-block;animation:alegratePulse 3.5s ease-in-out infinite;text-shadow:0 0 20px rgba(232,120,80,0.5);">alegrate!</span></div>
   <ul class="nav-tabs">
     <li><a class="nav-tab active" href="#topo" onclick="setA(this)">Início</a></li>
     <li><a class="nav-tab" href="#actualidade" onclick="setA(this)">Actualidade</a></li>
@@ -1372,44 +1372,24 @@ function showTab(id, btn) {
   window.scrollTo({top: document.getElementById('noticias').offsetTop - 70, behavior: 'smooth'});
 }
 
-/* ── FOTOS POR KEYWORD DO TÍTULO ── */
-const UNSPLASH_KEYWORDS = {
-  'bactéria|plástico|oceano|microplástico': 'ocean plastic pollution',
-  'terapia hormonal|menopausa|THS': 'woman health wellness',
-  'testosterona|andropausa|homens': 'man fitness strength',
-  'longevidade|NMN|resveratrol|suplemento': 'healthy aging longevity',
-  'dança|reggaeton|música|concerto|techno|rave': 'people dancing music',
-  'amigos|sair|social|café|vermute': 'friends laughing together',
-  'aprender|língua|estudo|aprendizagem': 'person studying books',
-  'estilo|moda|guarda-roupa': 'fashion style clothing',
-  'comunicar|ouvir|conversa': 'people conversation talking',
-  'estoicismo|meditação|filosofia|Marco Aurélio': 'meditation mindfulness calm',
-  'bondade|ajuda|voluntário': 'people helping community',
-  'padeiro|criança|salvar': 'child protection care',
-  'médico|hospital|cirurgia': 'doctor hospital medical',
-  'árvore|floresta|plantar|natureza': 'forest trees nature green',
-  'portugal|lisboa|porto': 'portugal lisbon architecture',
-  'saúde|exercício|fitness|correr': 'woman running fitness outdoor',
-  'felicidade|alegria|sorriso': 'happy people smiling joy',
-  'viagem|viajar|destino': 'travel adventure landscape',
-  'ciência|descoberta|investigação': 'science research laboratory',
-  'humor|rir|engraçado': 'people laughing humor',
-  'pobreza|progresso|esperança': 'community progress hope',
+/* ── FOTOS POR CATEGORIA ── */
+const PHOTO_POOL = {
+  'Actualidade': ['1529156069898-49953e39b3ac','1488521787991-ed7bbaae773c','1526778548025-fa2f459cd5ce','1504711434969-e33886168f5c','1558618666-fcd25c85cd64'],
+  'Ciencia':     ['1507413245164-6160d8298b31','1532938911079-1b06ac7ceec7','1578496480157-697fc14d2e55','1576086213369-97a306d36557','1530026405186-ed1f139313f8'],
+  'Ciência':     ['1507413245164-6160d8298b31','1532938911079-1b06ac7ceec7','1578496480157-697fc14d2e55','1576086213369-97a306d36557','1530026405186-ed1f139313f8'],
+  'Medicina':    ['1584308666744-24d5c474f2ae','1571019613454-1cb2f99b2d8b','1559757175-0eb30cd8c063','1576091160550-2173dba999ef','1583947215259-38e31be8751f'],
+  'Vivacidade':  ['1545569341-9eb8b30979d9','1514525253161-7a46d19cd819','1529156069898-49953e39b3ac','1502005097973-6a7082348e28','1464207687429-7505649dae38'],
+  'Florescer':   ['1434030216411-0b793f4b6f72','1445205170230-053b83016050','1573497620053-ea5300f94f21','1552664730-d307ca884978','1522202176988-66273c2fd55f'],
+  'Bondade':     ['1509099836639-18ba1795216d','1576091160550-2173dba999ef','1441974231531-c6227db76b6e','1469571486292-0ba58a3f068b','1488521787991-ed7bbaae773c'],
+  'A Rir':       ['1531747056595-07f6cbbe10ad','1543269865-cbf427effbad','1502005097973-6a7082348e28'],
 };
-
-function getUnsplashQuery(titulo) {
-  const t = titulo.toLowerCase();
-  for (const [keys, query] of Object.entries(UNSPLASH_KEYWORDS)) {
-    if (keys.split('|').some(k => t.includes(k))) return query;
-  }
-  return 'positive news inspiration';
-}
-
-function getUnsplashUrl(titulo, w=800, h=500) {
-  const query = encodeURIComponent(getUnsplashQuery(titulo));
-  // Usar um seed baseado no título para consistência
-  const seed = titulo.length * 7 + titulo.charCodeAt(0);
-  return `https://source.unsplash.com/${w}x${h}/?${query}&sig=${seed}`;
+const photoCounters = {};
+function getPhotoForCat(cat) {
+  const pool = PHOTO_POOL[cat] || PHOTO_POOL['Actualidade'];
+  if (!photoCounters[cat]) photoCounters[cat] = 0;
+  const photo = pool[photoCounters[cat] % pool.length];
+  photoCounters[cat]++;
+  return `https://images.unsplash.com/photo-${photo}?w=800&h=500&q=80&fit=crop`;
 }
 
 /* ── CRIAR CARD ── */
@@ -1418,7 +1398,7 @@ function makeNewsCard(n) {
   const cat = n.categoria || 'Actualidade';
   const clMap = {'Actualidade':'c1','Ciencia':'c2','Ciência':'c2','Medicina':'c3','Vivacidade':'c4','Florescer':'c5','Bondade':'c6','A Rir':'c7'};
   const cl = clMap[cat] || 'c1';
-  const imgUrl = getUnsplashUrl(n.titulo_pt || n.title || '');
+  const imgUrl = getPhotoForCat(cat);
   const titulo = n.titulo_pt || n.title || '';
   const resumo = n.resumo_pt || n.text || '';
   const score = n.score || n.sc || '';
